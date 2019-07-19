@@ -1,0 +1,374 @@
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: white;
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.header {
+  height: 96vh;
+  background-image: url(iphonex.jpg);
+  background-position: top;
+  background-size: cover;
+  position: relative;
+}
+
+.logo {
+  background: rgba(245, 222, 179, 0.6);
+  width: 100%;
+  height: auto;
+  height: 10%;
+}
+
+.text-box {
+  position: absolute;
+  top: 28%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.heading-primary {
+  color: #fff;
+}
+
+.heading-primary-main {
+  display: block;
+  font-size: 60px;
+  font-weight: 400;
+  letter-spacing: 31px;
+  -webkit-animation: moveInLeft 2s;
+  animation: moveInLeft 2s;
+}
+
+.heading-primary-sub {
+  display: block;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 15px;
+  -webkit-animation: moveInRight 2s;
+  animation: moveInRight 2s;
+}
+
+.description {
+  display: inline-block;
+  position: relative;
+  top: 70px;
+  left: 23%;
+  -webkit-animation: moveInBottom 2s;
+  animation: moveInBottom 2s;
+}
+
+@-webkit-keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-100px);
+    transform: translateX(-100px);
+  }
+  80% {
+    -webkit-transform: translateX(2px);
+    transform: translateX(2px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-100px);
+    transform: translateX(-100px);
+  }
+  80% {
+    -webkit-transform: translateX(2px);
+    transform: translateX(2px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes moveInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(100px);
+    transform: translateX(100px);
+  }
+  80% {
+    -webkit-transform: translateX(-2px);
+    transform: translateX(-2px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(100px);
+    transform: translateX(100px);
+  }
+  80% {
+    -webkit-transform: translateX(-2px);
+    transform: translateX(-2px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(200px);
+    transform: translateY(200px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(200px);
+    transform: translateY(200px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes invisToVis {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes invisToVis {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.options-box {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-animation: invisToVis 2s ease-in;
+  animation: invisToVis 2s ease-in;
+}
+
+.btn {
+  background-color: sandybrown;
+  color: #fff;
+  width: 180px;
+  text-align: center;
+}
+
+.btn:link {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px 40px;
+  display: inline-block;
+  border-radius: 10px;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  -webkit-transform: translateY(-3px);
+  transform: translateY(-3px);
+}
+
+.btn:active {
+  -webkit-transform: translateY(1px);
+  transform: translateY(1px);
+}
+
+.btn-eval {
+  position: relative;
+  left: -160px;
+}
+
+.btn-book {
+  position: relative;
+  left: 160px;
+}
+
+.confirm {
+  background-color: lightseagreen;
+  width: 110px;
+  padding: 0;
+  position: relative;
+  margin-left: 65%;
+  margin-bottom: 10%;
+}
+
+.confirm:hover {
+  background-color: lightblue;
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+}
+
+footer {
+  color: white;
+}
+
+h5 {
+  margin-left: 10px;
+  margin-top: 20px;
+  position: relative;
+}
+
+.bg-modal-eval {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  justify-content: center;
+  align-content: center;
+  display: none;
+}
+
+.modal-eval {
+  top: 8%;
+  width: 78%;
+  height: 600px;
+  background-color: white;
+  border-radius: 4px;
+  position: relative;
+}
+
+.btngrp {
+  display: inline;
+  padding: 10px;
+}
+
+.btngrp>h5 {
+  margin-top: 20px;
+}
+
+.btnset {
+  border: 1px solid #3498db;
+  background: none;
+  padding: 10px;
+  font-size: 10px;
+  cursor: pointer;
+  margin: 10px; 
+  transition: 0.8s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btnset:hover {
+  color: #3498db;
+}
+
+.btnset::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #3498db;
+  z-index: -1;
+  transition: 0.6s;
+  top: 0;
+  border-radius: 0 0 50% 50%;
+  color: #3498db;
+}
+
+.bg-modal-stock {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  justify-content: center;
+  align-content: center;
+  display: none;
+}
+
+.modal-stock {
+  top: 15%;
+  width: 500px;
+  height: 300px;
+  background-color: white;
+  border-radius: 4px;
+  position: relative;
+}
+
+.bg-modal-booking {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  justify-content: center;
+  align-content: center;
+  display: none;
+}
+
+.modal-booking {
+  top: 15%;
+  width: 500px;
+  height: 300px;
+  background-color: white;
+  border-radius: 4px;
+  position: relative;
+}
+
+input {
+  width:50%;
+  display: block;
+  margin: 20px auto;
+}
+
+.close, .close2, .close3 {
+  position: absolute;
+  top: 0;
+  right: 14px;
+  font-size: 42px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.close:hover,
+.close2:hover,
+.close3:hover {
+  color: orangered;
+}
+
+/*# sourceMappingURL=main.css.map */

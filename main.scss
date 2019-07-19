@@ -1,0 +1,248 @@
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background: white;
+    font-family: "Lato", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.7;
+  }
+  
+  .header {
+    height: 96vh;
+    background-image: url(iphonex.jpg);
+    background-position: top;
+    background-size: cover;
+    position: relative;
+  }
+  
+  .logo {
+    background: rgba(245, 222, 179, 0.6);
+    width: 100%;
+    height: auto;
+    height: 10%;
+  }
+  
+  .text-box {
+    position: absolute;
+    top: 28%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  
+  .heading-primary {
+    color: #fff;
+  }
+  
+  .heading-primary-main {
+    display: block;
+    font-size: 60px;
+    font-weight: 400;
+    letter-spacing: 31px;
+    -webkit-animation: moveInLeft 2s;
+    animation: moveInLeft 2s;
+  }
+  
+  .heading-primary-sub {
+    display: block;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 15px;
+    -webkit-animation: moveInRight 2s;
+    animation: moveInRight 2s;
+  }
+  
+  .description {
+    display: inline-block;
+    position: relative;
+    top: 70px;
+    left: 23%;
+    -webkit-animation: moveInBottom 2s;
+    animation: moveInBottom 2s;
+  }
+  
+  @-webkit-keyframes moveInLeft {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateX(-100px);
+      transform: translateX(-100px);
+    }
+  
+    80% {
+      -webkit-transform: translateX(2px);
+      transform: translateX(2px);
+    }
+  
+    100% {
+      opacity: 1;
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
+  }
+  
+  
+  @keyframes moveInLeft {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateX(-100px);
+      transform: translateX(-100px);
+    }
+  
+    80% {
+      -webkit-transform: translateX(2px);
+      transform: translateX(2px);
+    }
+  
+    100% {
+      opacity: 1;
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
+  }
+  
+  
+  @-webkit-keyframes moveInRight {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateX(100px);
+      transform: translateX(100px);
+    }
+  
+    80% {
+      -webkit-transform: translateX(-2px);
+      transform: translateX(-2px);
+    }
+  
+    100% {
+      opacity: 1;
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
+  }
+  
+  
+  @keyframes moveInRight {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateX(100px);
+      transform: translateX(100px);
+    }
+  
+    80% {
+      -webkit-transform: translateX(-2px);
+      transform: translateX(-2px);
+    }
+  
+    100% {
+      opacity: 1;
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
+  }
+  
+  
+  @-webkit-keyframes moveInBottom {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateY(200px);
+      transform: translateY(200px);
+    }
+  
+    100% {
+      opacity: 1;
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+  }
+  
+  
+  @keyframes moveInBottom {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateY(200px);
+      transform: translateY(200px);
+    }
+  
+    100% {
+      opacity: 1;
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+  }
+  
+  
+  @-webkit-keyframes invisToVis {
+    0% {
+      opacity: 0;
+    }
+  
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  
+  @keyframes invisToVis {
+    0% {
+      opacity: 0;
+    }
+  
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  
+  .options-box {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -webkit-animation: invisToVis 2s ease-in;
+    animation: invisToVis 2s ease-in;
+  }
+  
+  .btn {
+    background-color: sandybrown;
+    color: #fff;
+    width: 180px;
+    text-align: center;
+    &:link, &:visited {
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 15px 40px;
+      display: inline-block;
+      border-radius: 10px;
+      -webkit-transition: all 0.2s;
+      transition: all 0.2s;
+    }
+    &:hover {
+      -webkit-transform: translateY(-3px);
+      transform: translateY(-3px);
+    }
+    &:active {
+      -webkit-transform: translateY(1px);
+      transform: translateY(1px);
+    }
+  }
+  
+  .btn-eval {
+    position: relative;
+    left: -160px;
+  }
+  
+  .btn-book {
+    position: relative;
+    left: 160px;
+  }
+  
+  footer {
+    color: white;
+  }
