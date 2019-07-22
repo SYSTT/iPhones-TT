@@ -1,0 +1,28 @@
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.App-header {
+  height: 96px;
+  background-color: #D0BC9790;
+}
+
+.App-content {
+  flex: 1;
+  background: url(./iphonex.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.App-form {
+  margin: 4em auto;
+  max-width: 900px;
+  background-color: white;
+}
+
+header {
+  color: white;
+  padding: 1em 2em;
+}

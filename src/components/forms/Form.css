@@ -1,0 +1,13 @@
+.Form-field > label {
+    display: block;
+}
+
+select {
+    padding: 0.5em;
+    background: none;
+    border-radius: 4px;
+    outline: none;
+}
+select:focus {
+    background-color: aliceblue;
+}
