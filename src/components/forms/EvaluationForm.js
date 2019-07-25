@@ -7,8 +7,8 @@ class EvaluationForm extends Component {
     super(props);
   
     this.state = {
-      model: null,
-      memory: null,
+      model: 'iphone6',
+      memory: '16gb',
       goodScreenCondition: null,
       goodBatteryCondition: null,
       goodBodyCondition: null,
@@ -17,6 +17,10 @@ class EvaluationForm extends Component {
 
   handleModelChange = (e) => {
     this.setState({ model: e.target.value });
+  }
+
+  handleMemoryChange = (e) => {
+    this.setState({ memory: e.target.value });
   }
   
   render() {
@@ -28,7 +32,12 @@ class EvaluationForm extends Component {
         <form>
           <div className="Form-field">
             <label className="Form-label" htmlFor="model"><p>Model:</p></label>
-            <select name="model" id="model" onChange={this.handleModelChange}>
+            <select
+              name="model"
+              id="model"
+              onChange={this.handleModelChange}
+              value={this.state.model}
+            >
               <option value="iphone6">iPhone 6</option>
               <option value="iphone6plus">iPhone 6 Plus</option>
               <option value="iphone6s">iPhone 6s</option>
@@ -44,7 +53,12 @@ class EvaluationForm extends Component {
           </div>
           <div className="Form-field">
             <label className="Form-label" htmlFor="memory"><p>Memory:</p></label>
-            <select name="memory" id="memory" onChange={this.handleModelChange}>
+            <select
+              name="memory"
+              id="memory"
+              onChange={this.handleMemoryChange}
+              value={this.state.memory}
+            >
               <option value="16gb">16GB</option>
               <option value="32gb">32GB</option>
               <option value="64gb">64GB</option>
