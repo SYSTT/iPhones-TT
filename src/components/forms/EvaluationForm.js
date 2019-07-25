@@ -9,9 +9,9 @@ class EvaluationForm extends Component {
     this.state = {
       model: 'iphone6',
       memory: '16gb',
-      goodScreenCondition: null,
-      goodBatteryCondition: null,
-      goodBodyCondition: null,
+      goodScreenCondition: false,
+      goodBatteryCondition: false,
+      goodBodyCondition: false,
     };
   }
 
@@ -21,6 +21,18 @@ class EvaluationForm extends Component {
 
   handleMemoryChange = (e) => {
     this.setState({ memory: e.target.value });
+  }
+
+  toggleGoodScreenCondition = (e) => {
+    this.setState({ goodScreenCondition: e.target.checked });
+  }
+
+  toggleGoodBatteryCondition = (e) => {
+    this.setState({ goodBatteryCondition: e.target.checked });
+  }
+
+  toggleGoodBodyCondition = (e) => {
+    this.setState({ goodBodyCondition: e.target.checked });
   }
   
   render() {
@@ -65,6 +77,39 @@ class EvaluationForm extends Component {
               <option value="128gb">128GB</option>
               <option value="256gb">256GB</option>
             </select>
+          </div>
+          <div className="Form-field-inline">
+            <input
+              type="checkbox"
+              name="screencondition"
+              id="screencondition"
+              value={this.state.goodScreenCondition}
+              onChange={this.toggleGoodScreenCondition}
+            />
+            <label className="Form-label" htmlFor="screencondition"><p>Screen in good condition</p></label>
+          </div>
+          <div className="Form-field-inline">
+            <input
+              type="checkbox"
+              name="batterycondition"
+              id="batterycondition"
+              value={this.state.goodBatteryCondition}
+              onChange={this.toggleGoodBatteryCondition}
+            />
+            <label className="Form-label" htmlFor="batterycondition"><p>Battery in good condition</p></label>
+          </div>
+          <div className="Form-field-inline">
+            <input
+              type="checkbox"
+              name="bodycondition"
+              id="bodycondition"
+              value={this.state.goodBodyCondition}
+              onChange={this.toggleGoodBodyCondition}
+            />
+            <label className="Form-label" htmlFor="bodycondition"><p>Body in good condition</p></label>
+          </div>
+          <div className="Form-submit">
+            <button type="submit" onClick={this.props.handleSubmit}>Submit</button>
           </div>
         </form>
       </div>

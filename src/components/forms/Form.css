@@ -11,3 +11,13 @@ select {
 select:focus {
     background-color: aliceblue;
 }
+
+.Form-field-inline {
+    display: flex;
+    align-items: center;
+}
+
+.Form-submit {
+    display: flex;
+    justify-content: flex-end;
+}
