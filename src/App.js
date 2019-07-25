@@ -2,18 +2,25 @@ import React, { Component } from 'react';
 import './App.css';
 
 import EvaluationForm from './components/forms/EvaluationForm';
+import DeviceForm from './components/forms/DeviceForm';
 
 class App extends Component {
   constructor(props) {
     super(props);
   
     this.state = {
-      evaluationResults: null, 
+      evaluationResults: null,
+      deviceResults: null,
+      contactResults: null,
     };
   }
 
   handleEvaluationSubmit = (results) => {
     this.setState({ evaluationResults: results });
+  }
+
+  handleDeviceSubmit = (results) => {
+    this.setState({ deviceResults: results });
   }
   
   render() {
@@ -24,6 +31,10 @@ class App extends Component {
           <div className="App-form">
             { !this.state.evaluationResults &&
             <EvaluationForm handleSubmit={this.handleEvaluationSubmit} /> }
+            { this.state.evaluationResults && !this.state.deviceResults &&
+            <DeviceForm handleSubmit={this.handleDeviceSubmit} /> }
+            { this.state.evaluationResults && this.state.deviceResults &&
+            <DeviceForm handleSubmit={this.handleDeviceSubmit} /> }
           </div>
         </div>
       </div>
