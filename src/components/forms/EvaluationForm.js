@@ -34,6 +34,10 @@ class EvaluationForm extends Component {
   toggleGoodBodyCondition = (e) => {
     this.setState({ goodBodyCondition: e.target.checked });
   }
+
+  handleSubmit = () => {
+    this.props.handleSubmit(this.state);
+  }
   
   render() {
     return (
@@ -109,7 +113,7 @@ class EvaluationForm extends Component {
             <label className="Form-label" htmlFor="bodycondition"><p>Body in good condition</p></label>
           </div>
           <div className="Form-submit">
-            <button type="submit" onClick={this.props.handleSubmit}>Submit</button>
+            <button type="submit" onClick={this.handleSubmit}>Submit</button>
           </div>
         </form>
       </div>
