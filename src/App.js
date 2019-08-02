@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 
 import EvaluationForm from './components/forms/EvaluationForm';
-import DeviceForm from './components/forms/DeviceForm';
 
 class App extends Component {
   constructor(props) {
