@@ -7,11 +7,12 @@ class EvaluationForm extends Component {
     super(props);
   
     this.state = {
-      model: 'iphone6',
+      model: 'iphone6s',
       memory: '16gb',
       goodScreenCondition: false,
       goodBatteryCondition: false,
       goodBodyCondition: false,
+      submitted: false,
     };
   }
 
@@ -35,8 +36,35 @@ class EvaluationForm extends Component {
     this.setState({ goodBodyCondition: e.target.checked });
   }
 
-  handleSubmit = () => {
-    this.props.handleSubmit(this.state);
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const {
+      model,
+      memory,
+      goodScreenCondition,
+      goodBatteryCondition,
+      goodBodyCondition
+    } = this.state;
+
+    if (!goodScreenCondition) {
+      alert('We only accept iphones with screens in good condition right now.')
+      return;
+    }
+    if (!goodBatteryCondition) {
+      alert('We only accept iphones with batteries in good condition right now.')
+      return;
+    }
+    if (!goodBodyCondition) {
+      alert('We only accept iphones with bodies in good condition right now.')
+      return;
+    }
+
+    this.setState({
+      buyingPrice: this.props.priceTable[model][memory] || 'None',
+      submitted: true,
+    }, () => {
+      this.props.handleSubmit(this.state);
+    });
   }
   
   render() {
@@ -54,8 +82,6 @@ class EvaluationForm extends Component {
               onChange={this.handleModelChange}
               value={this.state.model}
             >
-              <option value="iphone6">iPhone 6</option>
-              <option value="iphone6plus">iPhone 6 Plus</option>
               <option value="iphone6s">iPhone 6s</option>
               <option value="iphone6splus">iPhone 6s Plus</option>
               <option value="iphone7">iPhone 7</option>
@@ -65,6 +91,7 @@ class EvaluationForm extends Component {
               <option value="iphonex">iPhone X</option>
               <option value="iphonexr">iPhone XR</option>
               <option value="iphonexs">iPhone XS</option>
+              <option value="iphonexsmax">iPhone XS Max</option>
             </select>
           </div>
           <div className="Form-field">
@@ -116,6 +143,8 @@ class EvaluationForm extends Component {
             <button type="submit" onClick={this.handleSubmit}>Submit</button>
           </div>
         </form>
+        { this.state.submitted &&
+        <h1>Buying Price: { this.state.buyingPrice }</h1> }
       </div>
     );
   }
