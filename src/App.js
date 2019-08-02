@@ -15,6 +15,12 @@ class App extends Component {
     };
   }
 
+  componentDidMount = async () => {
+    const res = await fetch('./pricelist.json');
+    const priceTable = await res.json();
+    this.setState({ priceTable });
+  }
+
   handleEvaluationSubmit = (results) => {
     this.setState({ evaluationResults: results });
   }
@@ -29,12 +35,10 @@ class App extends Component {
         <div className="App-content">
           <header><h1>iPhones TT</h1></header>
           <div className="App-form">
-            { !this.state.evaluationResults &&
-            <EvaluationForm handleSubmit={this.handleEvaluationSubmit} /> }
-            { this.state.evaluationResults && !this.state.deviceResults &&
-            <DeviceForm handleSubmit={this.handleDeviceSubmit} /> }
-            { this.state.evaluationResults && this.state.deviceResults &&
-            <DeviceForm handleSubmit={this.handleDeviceSubmit} /> }
+            <EvaluationForm
+              handleSubmit={this.handleEvaluationSubmit}
+              priceTable={this.state.priceTable}
+            />
           </div>
         </div>
       </div>
