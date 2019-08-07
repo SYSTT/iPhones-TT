@@ -3,8 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 
 import Header from './components/Header/Header';
-import EvaluationForm from './components/forms/EvaluationForm';
 import HomePage from './components/HomePage/HomePage';
+import EstimationPage from './components/EstimationPage/EstimationPage';
 
 class App extends Component {
   constructor(props) {
@@ -15,12 +15,6 @@ class App extends Component {
       deviceResults: null,
       contactResults: null,
     };
-  }
-
-  componentDidMount = async () => {
-    const res = await fetch('./pricelist.json');
-    const priceTable = await res.json();
-    this.setState({ priceTable });
   }
 
   handleEvaluationSubmit = (results) => {
@@ -39,12 +33,7 @@ class App extends Component {
           <Switch>
             <Route 
               path="/estimate"
-              render={() => 
-                <EvaluationForm
-                  handleSubmit={this.handleEvaluationSubmit}
-                  priceTable={this.state.priceTable}
-                />
-              }
+              component={EstimationPage}
             />
             <Route 
               path="/"
