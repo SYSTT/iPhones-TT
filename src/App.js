@@ -4,6 +4,7 @@ import './App.css';
 
 import Header from './components/Header/Header';
 import EvaluationForm from './components/forms/EvaluationForm';
+import HomePage from './components/HomePage/HomePage';
 
 class App extends Component {
   constructor(props) {
@@ -40,9 +41,14 @@ class App extends Component {
               path="/estimate"
               render={() => 
                 <EvaluationForm
-                handleSubmit={this.handleEvaluationSubmit}
-                priceTable={this.state.priceTable}
-              />}
+                  handleSubmit={this.handleEvaluationSubmit}
+                  priceTable={this.state.priceTable}
+                />
+              }
+            />
+            <Route 
+              path="/"
+              component={HomePage}
             />
           </Switch>
         </div>
