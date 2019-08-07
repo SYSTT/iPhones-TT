@@ -15,19 +15,19 @@ const MenuOptions = [{
     color: '#29687C',
 }];
 
-const MenuLinks = MenuOptions.map(option => (
-    <Link to={option.link} key={option.text}>
-        <h3
-            className="Menu-item"
-            style={{ color: option.color }}
-        >
-            { option.text }
-        </h3>
-    </Link>
-));
-
 function Menu() {
-    const [menuOpen, setMenuOpen] = useState(false)
+    const [menuOpen, setMenuOpen] = useState(false);
+    
+    const MenuLinks = MenuOptions.map(option => (
+        <Link to={option.link} key={option.text} onClick={() => setMenuOpen(false)}>
+            <h3
+                className="Menu-item"
+                style={{ color: option.color }}
+            >
+                { option.text }
+            </h3>
+        </Link>
+    ));
 
     return (
         <div className="Menu">
