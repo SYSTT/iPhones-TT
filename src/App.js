@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import Header from './components/Header/Header';
 import EvaluationForm from './components/forms/EvaluationForm';
 
 class App extends Component {
@@ -32,7 +33,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-content">
-          <header><h1>iPhones TT</h1></header>
+          <Header />
           <div className="App-form">
             <EvaluationForm
               handleSubmit={this.handleEvaluationSubmit}

@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Righteous&display=swap');
+
+.Header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Logo {
+    color: black;
+    font-family: 'Righteous', cursive;
+    margin-top: 0;
+    margin-bottom: 0.25em;
+}

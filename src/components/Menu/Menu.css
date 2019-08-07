@@ -1,0 +1,36 @@
+.Menu-button {
+    border-radius: 50%;
+    z-index: 10;
+    position: relative;
+}
+@media only screen and (min-width: 768px) {
+    .Menu-button {
+        display: none;
+    }
+}
+
+.Menu-mobile {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding-top: 4em;
+    background-color: whitesmoke;
+}
+
+.Menu-mobile-item {
+    color: black;
+    text-align: center;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.Menu-desktop {
+    display: none;
+}
+@media only screen and (min-width: 768px) {
+    .Menu-desktop {
+        display: flex;
+    }
+}
