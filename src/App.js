@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
 
 import Header from './components/Header/Header';
@@ -34,12 +35,16 @@ class App extends Component {
       <div className="App">
         <div className="App-content">
           <Header />
-          <div className="App-form">
-            <EvaluationForm
-              handleSubmit={this.handleEvaluationSubmit}
-              priceTable={this.state.priceTable}
+          <Switch>
+            <Route 
+              path="/estimate"
+              render={() => 
+                <EvaluationForm
+                handleSubmit={this.handleEvaluationSubmit}
+                priceTable={this.state.priceTable}
+              />}
             />
-          </div>
+          </Switch>
         </div>
       </div>
     );

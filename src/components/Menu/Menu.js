@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Menu.css';
 
 import MenuButton from './MenuButton.svg';
@@ -14,23 +15,24 @@ const MenuOptions = [{
     color: '#29687C',
 }];
 
+const MenuLinks = MenuOptions.map(option => (
+    <Link to={option.link} key={option.text}>
+        <h3
+            className="Menu-item"
+            style={{ color: option.color }}
+        >
+            { option.text }
+        </h3>
+    </Link>
+));
+
 function Menu() {
     const [menuOpen, setMenuOpen] = useState(false)
 
     return (
         <div className="Menu">
             { menuOpen &&
-            <div className="Menu-mobile">
-                { MenuOptions.map(option => (
-                <h3
-                    className="Menu-mobile-item"
-                    key={option.text}
-                    style={{ color: option.color }}
-                >
-                    { option.text }
-                </h3>
-                ))}
-            </div>
+            <div className="Menu-mobile">{ MenuLinks }</div>
             }
             <img
                 className="Menu-button"
@@ -38,17 +40,7 @@ function Menu() {
                 src={!menuOpen ? MenuButton : CloseMenuButton}
                 alt="Menu"
             />
-            <div className="Menu-desktop">
-                { MenuOptions.map(option => (
-                <h3
-                    className="Menu-mobile-item"
-                    key={option.text}
-                    style={{ color: option.color }}
-                >
-                    { option.text }
-                </h3>
-                ))}
-            </div>
+            <div className="Menu-desktop">{ MenuLinks }</div>
         </div>
     );
 }
