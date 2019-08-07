@@ -1,0 +1,28 @@
+.IPhoneCard {
+    color: white;
+    margin: 1.5em;
+    padding: 0.5em 1.5em 0 1.5em;
+}
+
+.IPhoneCard-title {
+    text-align: center;
+}
+
+.IPhoneCard-split {
+    display: flex;
+}
+
+.IPhoneCard-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 1em;
+    min-height: 125px;
+}
+
+.IPhoneCard-button {
+    color: white;
+    text-align: center;
+    margin-right: 1em;
+    padding: 0.5em 1em;
+}
