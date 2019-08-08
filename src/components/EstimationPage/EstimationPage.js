@@ -15,7 +15,7 @@ function EstimationPage() {
             setPriceTable(priceTable);
         }
         fetchPriceTable();
-    });
+    }, []);
 
     function handleEvaluationSubmit(results) {
         setResults(results);
