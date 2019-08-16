@@ -9,7 +9,8 @@ class EvaluationForm extends Component {
     this.state = {
       model: 'iphone6s',
       memory: '16gb',
-      goodScreenCondition: false,
+      colour: 'spacegrey',
+      iCloudUnlocked: false,
       goodBatteryCondition: false,
       goodBodyCondition: false,
       submitted: false,
@@ -24,8 +25,8 @@ class EvaluationForm extends Component {
     this.setState({ memory: e.target.value });
   }
 
-  toggleGoodScreenCondition = (e) => {
-    this.setState({ goodScreenCondition: e.target.checked });
+  handleColourChange = (e) => {
+    this.setState({ colour: e.target.value });
   }
 
   toggleGoodBatteryCondition = (e) => {
@@ -36,31 +37,35 @@ class EvaluationForm extends Component {
     this.setState({ goodBodyCondition: e.target.checked });
   }
 
+  toggleICloudUnlocked = (e) => {
+    this.setState({ iCloudUnlocked: e.target.checked });
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     const {
       model,
       memory,
-      goodScreenCondition,
+      iCloudUnlocked,
       goodBatteryCondition,
       goodBodyCondition
     } = this.state;
 
-    if (!goodScreenCondition) {
-      alert('We only accept iphones with screens in good condition right now.')
+    if (!iCloudUnlocked) {
+      alert('We cannot provide an estimate for iPhones with locked iCloud.')
       return;
     }
     if (!goodBatteryCondition) {
-      alert('We only accept iphones with batteries in good condition right now.')
+      alert('We can only provide estimates for iPhones battery health over 85% right now.')
       return;
     }
     if (!goodBodyCondition) {
-      alert('We only accept iphones with bodies in good condition right now.')
+      alert('We can only provide estimates for iPhones in grade A condition right now.')
       return;
     }
 
     this.setState({
-      buyingPrice: this.props.priceTable[model][memory] || 'None',
+      buyingPrice: this.props.priceTable[model][memory],
       submitted: true,
     }, () => {
       this.props.handleSubmit(this.state);
@@ -109,27 +114,39 @@ class EvaluationForm extends Component {
               <option value="256gb">256GB</option>
             </select>
           </div>
-          <div className="Form-field-inline">
+          <div className="Form-field">
+            <label className="Form-label" htmlFor="colour"><p>Colour:</p></label>
+            <select
+              name="colour"
+              id="colour"
+              onChange={this.handleColourChange}
+              value={this.state.colour}
+            >
+              <option value="spacegrey">Space Grey</option>
+              <option value="silver">Silver</option>
+              <option value="gold">Gold</option>
+              <option value="rosegold">Rose Gold</option>
+              <option value="jetblack">Jet Black</option>
+              <option value="black">Black</option>
+              <option value="productred">Product Red</option>
+              <option value="red">Red</option>
+              <option value="yellow">Yellow</option>
+              <option value="blue">Blue</option>
+              <option value="coral">Coral</option>
+              <option value="white">White</option>
+            </select>
+          </div>
+          <div className="Form-field-inline checkbox">
             <input
               type="checkbox"
-              name="screencondition"
-              id="screencondition"
-              value={this.state.goodScreenCondition}
-              onChange={this.toggleGoodScreenCondition}
+              name="icloud"
+              id="icloud"
+              value={this.state.iCloudUnlocked}
+              onChange={this.toggleICloudUnlocked}
             />
-            <label className="Form-label" htmlFor="screencondition"><p>Screen in good condition</p></label>
+            <label className="Form-label" htmlFor="icloud">iCloud is not locked</label>
           </div>
-          <div className="Form-field-inline">
-            <input
-              type="checkbox"
-              name="batterycondition"
-              id="batterycondition"
-              value={this.state.goodBatteryCondition}
-              onChange={this.toggleGoodBatteryCondition}
-            />
-            <label className="Form-label" htmlFor="batterycondition"><p>Battery in good condition</p></label>
-          </div>
-          <div className="Form-field-inline">
+          <div className="Form-field-inline checkbox">
             <input
               type="checkbox"
               name="bodycondition"
@@ -137,14 +154,22 @@ class EvaluationForm extends Component {
               value={this.state.goodBodyCondition}
               onChange={this.toggleGoodBodyCondition}
             />
-            <label className="Form-label" htmlFor="bodycondition"><p>Body in good condition</p></label>
+            <label className="Form-label" htmlFor="bodycondition">No issues (hardware or software), dents, marks, scuffs or scratches on your iPhone</label>
+          </div>
+          <div className="Form-field-inline checkbox">
+            <input
+              type="checkbox"
+              name="batterycondition"
+              id="batterycondition"
+              value={this.state.goodBatteryCondition}
+              onChange={this.toggleGoodBatteryCondition}
+            />
+            <label className="Form-label" htmlFor="batterycondition">Battery health is above 85%</label>
           </div>
           <div className="Form-submit">
             <button type="submit" onClick={this.handleSubmit}>Submit</button>
           </div>
         </form>
-        { this.state.submitted &&
-        <h1>Buying Price: { this.state.buyingPrice }</h1> }
       </div>
     );
   }
