@@ -1,0 +1,48 @@
+.BuyPage {
+    padding: 1em 2em;
+}
+
+.BuyPage-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.BuyPage-item {
+    margin: 4em auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.BuyPage-item:hover {
+    background-color: #e7e7e7;
+}
+.BuyPage-item:hover .BuyPage-item-memory {
+    background-color: #bdbdbd;
+}
+
+.BuyPage-item-title {
+    width: 300px;
+    margin-left: 0.5em;
+}
+
+.BuyPage-item-options {
+    display: flex;
+}
+
+.BuyPage-item-memory {
+    padding: 0.5em;
+    background-color: #e7e7e7;
+}
+
+.BuyPage-item-price {
+    padding: 1em 0.5em 0.5em 0.5em;
+    background-color: white;
+}
+
+.BuyPage-item-option {
+    text-align: center;
+    margin: 0.5em;
+    width: 80px;
+    border: 1px solid grey;
+}

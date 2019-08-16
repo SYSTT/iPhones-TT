@@ -5,6 +5,7 @@ import './App.css';
 import Header from './components/Header/Header';
 import HomePage from './components/HomePage/HomePage';
 import EstimationPage from './components/EstimationPage/EstimationPage';
+import BuyPage from './components/BuyPage/BuyPage';
 
 class App extends Component {
   constructor(props) {
@@ -31,6 +32,10 @@ class App extends Component {
         <div className="App-content">
           <Header />
           <Switch>
+            <Route 
+              path="/buy"
+              component={BuyPage}
+            />
             <Route 
               path="/estimate"
               component={EstimationPage}
