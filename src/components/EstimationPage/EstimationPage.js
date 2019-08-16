@@ -21,19 +21,27 @@ function EstimationPage() {
         setResults(results);
     }
 
+    const description = results && results.buyingPrice ?
+            `$${results.buyingPrice}`
+        :   results && results.submitted ?
+            'Unfortunately we don\'t have an estimate for this model and memory configuration yet!'
+        :   '$---------';
+
     return (
         <div className="EstimationPage">
             <div className="EstimationPage-form">
                 <EvaluationForm
                   handleSubmit={handleEvaluationSubmit}
-                  priceTable={  priceTable}
+                  priceTable={priceTable}
                 />
             </div>
-            <IPhoneCard 
-                title="Your iPhone's Value:"
-                description={results ? `$${results.buyingPrice}` : '$---'}
-                color="#29687C"
-            />
+            <div className="EstimationPage-results">
+                <IPhoneCard 
+                    title="Your iPhone's Value:"
+                    description={description}
+                    color="#29687C"
+                />
+            </div>
         </div>
     );
 }

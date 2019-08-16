@@ -1,4 +1,9 @@
 .EstimationPage {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+}
+
+.EstimationPage-results {
+    flex: 1;
 }
