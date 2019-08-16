@@ -65,7 +65,7 @@ class EvaluationForm extends Component {
     }
 
     this.setState({
-      buyingPrice: this.props.priceTable[model][memory],
+      buyingPrice: this.props.priceTable[model].prices[memory],
       submitted: true,
     }, () => {
       this.props.handleSubmit(this.state);
