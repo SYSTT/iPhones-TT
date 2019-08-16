@@ -75,8 +75,8 @@ class EvaluationForm extends Component {
   render() {
     return (
       <div className="EvaluationForm">
-        <h1>Evaluation</h1>
-        <p>Submit some information on the iPhone model that you want to trade in.</p>
+        <h1>Estimation Tool</h1>
+        <p>Submit some information on the iPhone model that you want to estimate the value of.</p>
         <br/>
         <form>
           <div className="Form-field">
