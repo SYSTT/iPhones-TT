@@ -1,6 +1,6 @@
 .Menu-button {
     border-radius: 50%;
-    z-index: 10;
+    z-index: 12;
     position: relative;
 }
 @media only screen and (min-width: 768px) {
@@ -17,6 +17,7 @@
     left: 0;
     padding-top: 4em;
     background-color: whitesmoke;
+    z-index: 10;
 }
 
 .Menu-item {
