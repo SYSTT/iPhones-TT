@@ -20,10 +20,16 @@
 .BuyPage-item:hover .BuyPage-item-memory {
     background-color: #bdbdbd;
 }
+.BuyPage-item-selected {
+    margin: 0 auto;
+}
 
 .BuyPage-item-title {
     width: 300px;
     margin-left: 0.5em;
+}
+.BuyPage-item-title-selected {
+    width: unset;
 }
 
 .BuyPage-item-options {
@@ -41,6 +47,7 @@
 }
 
 .BuyPage-item-option {
+    color: black;
     text-align: center;
     margin: 0.5em;
     width: 80px;
