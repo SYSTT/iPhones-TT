@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "firebase-tools": "^7.2.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
@@ -12,7 +13,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "firebase deploy",
+    "pregh-deploy": "npm run build",
+    "gh-deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -34,5 +37,5 @@
   "devDependencies": {
     "gh-pages": "^2.0.1"
   },
-  "homepage": "http://jtaaa.github.io/iPhones-TT"
+  "homepage": "https://iphones-tt-176b7.firebaseapp.com"
 }
