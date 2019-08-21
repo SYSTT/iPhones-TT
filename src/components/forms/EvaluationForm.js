@@ -10,6 +10,7 @@ class EvaluationForm extends Component {
       model: 'iphone6s',
       memory: '16gb',
       colour: 'spacegrey',
+      carrier: 'unlocked',
       iCloudUnlocked: false,
       goodBatteryCondition: false,
       goodBodyCondition: false,
@@ -27,6 +28,10 @@ class EvaluationForm extends Component {
 
   handleColourChange = (e) => {
     this.setState({ colour: e.target.value });
+  }
+
+  handleCarrierChange = (e) => {
+    this.setState({ carrier: e.target.value });
   }
 
   toggleGoodBatteryCondition = (e) => {
@@ -134,6 +139,19 @@ class EvaluationForm extends Component {
               <option value="blue">Blue</option>
               <option value="coral">Coral</option>
               <option value="white">White</option>
+            </select>
+          </div>
+          <div className="Form-field">
+            <label className="Form-label" htmlFor="carrier"><p>Carrier:</p></label>
+            <select
+              name="carrier"
+              id="carrier"
+              onChange={this.handleCarrierChange}
+              value={this.state.carrier}
+            >
+              <option value="unlocked">Unlocked</option>
+              <option value="bmobile">Bmobile</option>
+              <option value="digicel">Digicel</option>
             </select>
           </div>
           <div className="Form-field-inline checkbox">
