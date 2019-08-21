@@ -24,12 +24,6 @@
     min-height: 125px;
 }
 
-@media only screen and (min-width: 768px) {
-    .IPhoneCard-description {
-        font-size: 2em;
-    }
-}
-
 .IPhoneCard-button {
     color: white;
     text-align: center;
