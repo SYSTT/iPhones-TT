@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './BuyPage.css';
 
+import ContactForm from './../forms/ContactForm';
+
 function BuyPage({ location }) {
     const [priceTable, setPriceTable] = useState(null);
     const [selected, setSelected] = useState(null);
@@ -73,7 +75,7 @@ function BuyPage({ location }) {
     : null;
 
     const preselection = (
-        <>
+        <div className="BuyPage-content">
             <h1>Purchase iPhones</h1>
             <p>Find the list of iPhones available and prices below.</p>
             <div className="BuyPage-list">
@@ -85,12 +87,15 @@ function BuyPage({ location }) {
                     <button type="submit">Contact</button>
                 </a>
             </div>
-        </>
+        </div>
     );
 
     const postSelection = selected ? (
         <>
-            { item(selected.model, selected.memory) }
+            <div className="BuyPage-content">
+                { item(selected.model, selected.memory) }
+            </div>
+            <ContactForm />
         </>
     ) : null;
     
