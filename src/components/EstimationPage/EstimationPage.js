@@ -25,7 +25,7 @@ function EstimationPage() {
             `$${results.buyingPrice}`
         :   results && results.submitted ?
             'Unfortunately we don\'t have an estimate for this model and memory configuration yet!'
-        :   '$---------';
+        :   '---------';
 
     return (
         <div className="EstimationPage">
@@ -39,6 +39,10 @@ function EstimationPage() {
                 <IPhoneCard 
                     title="Your iPhone's Value:"
                     description={description}
+                    descriptionStyle={{
+                        fontSize: '2em',
+                        textAlign: 'center',
+                    }}
                     color="#29687C"
                 />
             </div>
