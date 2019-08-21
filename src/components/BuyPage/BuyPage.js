@@ -14,11 +14,11 @@ function BuyPage() {
     }, []);
 
     const items = priceTable ? Object.keys(priceTable).map(model => (
-        <div className="BuyPage-item">
+        <div className="BuyPage-item" key={model}>
             <h3 className="BuyPage-item-title">{ priceTable[model].name }</h3>
             <div className="BuyPage-item-options">
                 { Object.keys(priceTable[model].prices).map(memory => (
-                <div className="BuyPage-item-option">
+                <div className="BuyPage-item-option" key={memory}>
                     <div className="BuyPage-item-memory">{ memory.toUpperCase() }</div>
                     <div className="BuyPage-item-price">${ priceTable[model].prices[memory] }</div>
                 </div>
