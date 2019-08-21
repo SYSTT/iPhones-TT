@@ -15,12 +15,19 @@
 }
 
 .IPhoneCard-content {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     padding-bottom: 1em;
     padding-right: 0.25em;
     min-height: 125px;
+}
+
+@media only screen and (min-width: 768px) {
+    .IPhoneCard-description {
+        font-size: 2em;
+    }
 }
 
 .IPhoneCard-button {

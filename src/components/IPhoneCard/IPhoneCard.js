@@ -4,13 +4,13 @@ import './IPhoneCard.css';
 
 import IPhone from './IPhone.svg';
 
-function IPhoneCard({ title, description, color, buttonText, buttonColor, link }) {
+function IPhoneCard({ title, description, color, buttonText, buttonColor, link, descriptionStyle }) {
     return (
         <div className="IPhoneCard" style={{ backgroundColor: color }}>
             <h3 className="IPhoneCard-title">{ title }</h3>
             <div className="IPhoneCard-split">
                 <div className="IPhoneCard-content">
-                    <div className="IPhoneCard-description">{ description }</div>
+                    <div className="IPhoneCard-description" style={descriptionStyle}>{ description }</div>
                     { link &&
                     <Link to={link} className="IPhoneCard-button" style={{ backgroundColor: buttonColor }}>{ buttonText }</Link>
                     }
