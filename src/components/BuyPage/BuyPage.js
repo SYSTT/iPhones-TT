@@ -76,10 +76,6 @@ function BuyPage({ location, history }) {
                 {items}
             </div>
             <div className="BuyPage-contact">
-                <p>Send us an email to purchase!</p>
-                <a href="mailto:iphonestnt@gmail.com" target="_blank" rel="noopener noreferrer">
-                    <button type="submit">Contact</button>
-                </a>
             </div>
         </div>
     );
