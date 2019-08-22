@@ -10,7 +10,7 @@ function EstimationPage() {
 
     useEffect(() => {
         async function fetchPriceTable() {
-            const res = await fetch('./pricelist.json');
+            const res = await fetch('./buypricelist.json');
             const priceTable = await res.json();
             setPriceTable(priceTable);
         }
