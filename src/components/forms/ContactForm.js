@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import './ContactForm.css';
 
-function ContactForm() {
+function ContactForm({ onSubmit }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [tel, setTel] = useState('');
     const [address, setAddress] = useState('');
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      onSubmit({ name, email, tel, address });
+    };
 
     return (
         <div className="ContactForm">
@@ -58,7 +63,7 @@ function ContactForm() {
             </div>
           </div>
           <div className="Form-submit">
-            <button type="submit" onClick={() => {}}>Submit</button>
+            <button type="submit" onClick={handleSubmit}>Submit</button>
           </div>
         </form>
       </div>

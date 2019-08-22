@@ -4,10 +4,10 @@ import './BuyPage.css';
 
 import ContactForm from './../forms/ContactForm';
 
-function BuyPage({ location }) {
+function BuyPage({ location, history }) {
     const [priceTable, setPriceTable] = useState(null);
     const [selected, setSelected] = useState(null);
-    const [selectedIndex, setSelectedIndex] = useState(null);
+    const [contactInfo, setContactInfo] = useState(null);
 
     useEffect(() => {
         async function fetchPriceTable() {
@@ -30,13 +30,7 @@ function BuyPage({ location }) {
         } else {
             setSelected(null);
         }
-    }, [location.search])
-
-    const makeSelection = (index, model, memory) => {
-        setSelected({ model, memory });
-        setSelectedIndex(index);
-
-    }
+    }, [location.search]);
 
     const modelOption = (model, memory) => (priceTable ?
         <Link
@@ -90,18 +84,41 @@ function BuyPage({ location }) {
         </div>
     );
 
+    const onSubmit = (contactInfo) => {
+        setContactInfo(contactInfo);
+        history.push(`${location.pathname}${location.search}&complete=true`);
+    };
+
     const postSelection = selected ? (
         <>
             <div className="BuyPage-content">
                 { item(selected.model, selected.memory) }
             </div>
-            <ContactForm />
+            <ContactForm onSubmit={onSubmit} />
         </>
     ) : null;
+
+    const postOrder = selected ? (
+        <div className="BuyPage-content">
+            <h1>Your order has been submitted</h1>
+            <p>We'll call you within the hour to confirm your order.</p>
+            <h2>Your order:</h2>
+            { item(selected.model, selected.memory) }
+            { contactInfo &&
+            <>
+            <h2>Your info:</h2>
+            <p>{ contactInfo.name }</p>
+            <p>{ contactInfo.email }</p>
+            <p>{ contactInfo.tel }</p>
+            <p>{ contactInfo.address }</p>
+            </>
+            }
+        </div>
+    ): null;
     
     return (
         <div className="BuyPage">
-            { !selected ? preselection : postSelection }
+            { !selected ? preselection : !selected.complete ? postSelection : postOrder }
         </div>
     );
 }
