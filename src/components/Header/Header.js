@@ -4,10 +4,14 @@ import './Header.css';
 
 import Menu from './../Menu/Menu';
 
+import icon from './TnTMobileDeliveryfinal.png';
+
 function Header() {
     return (
         <header className="Header">
-            <Link to="/"><h3 className="Logo">iPhones TT</h3></Link>
+            <Link to="/">
+                <img className="Logo" src={icon} alt="TnT Mobile Delivery" />
+            </Link>
             <Menu />
         </header>
     );
