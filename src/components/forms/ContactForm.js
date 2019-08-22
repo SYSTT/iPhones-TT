@@ -9,8 +9,8 @@ function ContactForm() {
 
     return (
         <div className="ContactForm">
-        <h1>Contact Form</h1>
-        <p>Submit some information for us to get in touch with you.</p>
+        <h1>Place Your Order Here</h1>
+        <p>Fill your information in below and we’ll call you within the hour to confirm your order.</p>
         <br/>
         <form>
           <div className="Form-fieldset">

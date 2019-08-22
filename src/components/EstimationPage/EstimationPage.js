@@ -39,10 +39,10 @@ function EstimationPage() {
                 <IPhoneCard 
                     title="Your iPhone's Value:"
                     description={description}
-                    descriptionStyle={{
-                        fontSize: '2em',
+                    descriptionStyle={!results || !results.submitted || results.buyingPrice ? {
+                        fontSize:  '2em',
                         textAlign: 'center',
-                    }}
+                    } : null}
                     color="#29687C"
                 />
             </div>

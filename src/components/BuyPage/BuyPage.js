@@ -76,8 +76,8 @@ function BuyPage({ location }) {
 
     const preselection = (
         <div className="BuyPage-content">
-            <h1>Purchase iPhones</h1>
-            <p>Find the list of iPhones available and prices below.</p>
+            <h1>Buy Your iPhone Here</h1>
+            <p>View our available iPhones and prices below.</p>
             <div className="BuyPage-list">
                 {items}
             </div>

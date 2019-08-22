@@ -5,14 +5,14 @@ import IPhoneCard from '../IPhoneCard/IPhoneCard';
 
 const Cards = [{
     title: 'Buy iPhones',
-    description: 'View our stock of iPhones and prices.',
+    description: 'View our iPhones and prices.',
     buttonText: 'Shop iPhones',
     color: '#7C2929',
     buttonColor: '#301717',
     link: '/buy',
 }, {
-    title: 'Estimate your iPhone’s Value',
-    description: 'Use our estimation tool to find the value of your old iPhone.',
+    title: 'Get your iPhone’s Value',
+    description: 'Find out how much your iPhone is worth in seconds.',
     buttonText: 'Get Started',
     color: '#29687C',
     buttonColor: '#172A30',
@@ -22,7 +22,7 @@ const Cards = [{
 function HomePage() {
     return (
         <div className="HomePage">
-            <h4 className="HomePage-welcome">Welcome to iPhones TT</h4>
+            <h4 className="HomePage-welcome">Welcome to T&T Mobile Delivery</h4>
             <div className="HomePage-links">
                 { Cards.map(card => (
                     <IPhoneCard key={card.title} {...card} />
