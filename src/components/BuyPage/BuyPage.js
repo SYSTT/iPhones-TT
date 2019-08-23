@@ -80,9 +80,21 @@ function BuyPage({ location, history }) {
         </div>
     );
 
-    const onSubmit = (contactInfo) => {
+    const sendEmailUrl = (contactInfo, selected) =>
+        'https://us-central1-iphones-tt-176b7.cloudfunctions.net/sendMail?' +
+        `name=${encodeURIComponent(contactInfo.name)}&` +
+        `email=${encodeURIComponent(contactInfo.email)}&` +
+        `contact=${encodeURIComponent(contactInfo.tel)}&` +
+        `address=${encodeURIComponent(contactInfo.address)}&` +
+        `model=${encodeURIComponent(priceTable[selected.model].name)}&` +
+        `memory=${encodeURIComponent(selected.memory.toUpperCase())}&` +
+        `price=${encodeURIComponent(priceTable ? priceTable[selected.model].prices[selected.memory] : '')}`;
+    const onSubmit = async (contactInfo) => {
         setContactInfo(contactInfo);
-        history.push(`${location.pathname}${location.search}&complete=true`);
+        const res = await fetch(sendEmailUrl(contactInfo, selected));
+        if (res.ok) {
+            history.push(`${location.pathname}${location.search}&complete=true`);
+        }
     };
 
     const postSelection = selected ? (
