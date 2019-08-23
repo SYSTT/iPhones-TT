@@ -71,7 +71,7 @@ function BuyPage({ location, history }) {
     const preselection = (
         <div className="BuyPage-content">
             <h1>Buy Your iPhone Here</h1>
-            <p>View our available iPhones and prices below. Prices are for A-Grade iPhones, configurations with * are for brand new devices.</p>
+            <p>View our available iPhones and prices below. We’ve marked New iPhones with an “*” and left A-Grade iPhones unmarked.</p>
             <div className="BuyPage-list">
                 {items}
             </div>
