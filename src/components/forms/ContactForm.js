@@ -9,7 +9,11 @@ function ContactForm({ onSubmit }) {
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      onSubmit({ name, email, tel, address });
+      if (name && email && tel && address) {
+        onSubmit({ name, email, tel, address });
+      } else {
+        alert('Please fill in all the contact fields above.')
+      }
     };
 
     return (
