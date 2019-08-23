@@ -30,7 +30,7 @@ exports.sendMail = functions.https.onRequest((req, res) => {
             text: `
                 ${name} has made a booking! \n
                 Contact info: ${contact}, ${email} \n
-                Order details: ${model} ${memory}, ${price} \n
+                Order details: ${model} ${memory}, $${price} \n
                 Address: ${address}
             `,
         };
