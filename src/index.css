@@ -15,3 +15,12 @@ code {
 a {
   text-decoration: none;
 }
+
+h1 {
+  font-size: 18pt;
+  line-height: 28px;
+}
+
+p {
+  font-size: 11pt;
+}
