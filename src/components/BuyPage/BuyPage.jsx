@@ -11,7 +11,7 @@ function BuyPage({ location, history }) {
 
     useEffect(() => {
         async function fetchPriceTable() {
-            const res = await fetch('./sellpricelist.json');
+            const res = await fetch('./assets/sellpricelist.json');
             const priceTable = await res.json();
             setPriceTable(priceTable);
         }

@@ -6,6 +6,10 @@
     align-items: center;
 }
 
+.Header > a {
+    display: block;
+}
+
 .Logo {
     color: black;
     font-family: 'Righteous', cursive;
