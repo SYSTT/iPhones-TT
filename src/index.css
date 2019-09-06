@@ -21,6 +21,13 @@ h1 {
   line-height: 28px;
 }
 
+h3 {
+  font-size: 14pt;
+  line-height: 21px;
+  font-weight: normal;
+  margin: 5px 0;
+}
+
 p {
   font-size: 11pt;
 }

@@ -6,7 +6,7 @@ function SwitchOption({ option, selected, onSwitch }) {
     if (option === selected) { className += " SwitchOption-selected" }
     return (
         <div className={className} onClick={() => onSwitch(option)}>
-            { option }
+            <h3>{ option }</h3>
         </div>
     );
 }
