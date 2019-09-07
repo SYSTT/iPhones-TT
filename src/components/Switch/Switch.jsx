@@ -3,11 +3,11 @@ import './Switch.css';
 
 function SwitchOption({ option, selected, onSwitch }) {
     let className = "SwitchOption";
-    if (option === selected) { className += " SwitchOption-selected" }
+    if (option === selected) { className += " SwitchOption-selected"; }
     return (
-        <div className={className} onClick={() => onSwitch(option)}>
+        <button type="button" className={className} onClick={() => onSwitch(option)}>
             <h3>{ option }</h3>
-        </div>
+        </button>
     );
 }
 
