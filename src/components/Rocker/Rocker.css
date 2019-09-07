@@ -1,0 +1,15 @@
+.Rocker {
+    text-align: center;
+}
+
+.Rocker-controls {
+    display: flex;
+}
+
+.Rocker-controls input[type="number"] {
+    text-align: center;
+}
+
+.Rocker-control:disabled {
+    opacity: 0.25;
+}
