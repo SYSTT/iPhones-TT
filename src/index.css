@@ -32,8 +32,13 @@ p {
   font-size: 11pt;
 }
 
+input[type="button"] {
+  cursor: pointer;
+}
+
 button {
+  cursor: pointer;
+  font: unset;
   background: none;
   border: none;
-  font: unset;
 }
