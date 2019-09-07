@@ -31,3 +31,7 @@ h3 {
 p {
   font-size: 11pt;
 }
+
+button {
+  background: none;
+}
