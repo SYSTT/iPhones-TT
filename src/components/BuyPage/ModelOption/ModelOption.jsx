@@ -64,9 +64,24 @@ function ModelOption({ model, modelSlug, memoryOptions, history }) {
     }
 
     // Add to cart
-    const addToCart = (order) => {
+    const addToCart = (newOrderItem) => {
         const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-        localStorage.setItem('cart', JSON.stringify([ ...cart, order ]));
+        let newCart = [];
+        let existing = false;
+        for (const orderItem of cart) {
+            if (orderItem.item.model === newOrderItem.item.model &&
+                orderItem.item.memory === newOrderItem.item.memory) {
+                newCart.push({
+                    ...orderItem,
+                    quantity: orderItem.quantity + newOrderItem.quantity,
+                });
+                existing = true;
+            } else {
+                newCart.push(orderItem);
+            }
+        }
+        if (!existing) { newCart.push(newOrderItem); }
+        localStorage.setItem('cart', JSON.stringify(newCart));
     }
     
     // Flow control
