@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import './CartPage.css';
+
 import Heading from '../Heading/Heading';
 import Rocker from '../Rocker/Rocker';
+import Button from '../Button/Button';
 
 import { price } from './../../utils/templateLiteralTags';
 
@@ -55,7 +58,7 @@ function CartList({ cart, updateCart }) {
     );
 }
 
-function CartPage({}) {
+function CartPage() {
     const [cart, setCart] = useStateWithLocalStorage('cart');
 
     const grandTotal = cart.reduce(
@@ -79,11 +82,16 @@ function CartPage({}) {
         <div className="CartPage">
             <Heading title="Your Cart" text="View the items in your cart and checkout out below." />
             <div className="CartPage-content">
-                { cart.length === 0 &&
-                <h3 className="CartPage-empty">Your cart is empty!</h3>
-                }
-                <CartList cart={cart} updateCart={updateCart} />
-                <h3 className="CartPage-total">Total: { price`${grandTotal}` } TTD</h3>
+                <div className="CartPage-cart">
+                    { cart.length === 0 &&
+                    <h3 className="CartPage-empty">Your cart is empty!</h3>
+                    }
+                    <CartList cart={cart} updateCart={updateCart} />
+                </div>
+                <div className="CartPage-checkout">
+                    <h3 className="CartPage-total">Total: { price`${grandTotal}` } TTD</h3>
+                    <Link to="/checkout"><Button text="Checkout" /></Link>
+                </div>
             </div>
         </div>
     );
