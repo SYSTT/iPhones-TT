@@ -7,7 +7,7 @@ function Heading({ title, text }) {
     return (
         <div className="Heading">
             <Title>{ title }</Title>
-            <p>{ text }</p>
+            { text && <p>{ text }</p> }
         </div>
     );
 }
