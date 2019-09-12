@@ -7,16 +7,7 @@ import Rocker from '../Rocker/Rocker';
 import Button from '../Button/Button';
 
 import { price } from './../../utils/templateLiteralTags';
-
-const useStateWithLocalStorage = localStorageKey => {
-    const [value, setValue] = React.useState(
-        JSON.parse(localStorage.getItem(localStorageKey) || '[]')
-    );
-    React.useEffect(() => {
-        localStorage.setItem(localStorageKey, JSON.stringify(value));
-    }, [value]);
-    return [value, setValue];
-};
+import { useStateWithLocalStorage } from './../../utils/hooks';
 
 function OrderItem({ item, quantity, id, updateQuantity }) {
     return (
@@ -44,7 +35,7 @@ function OrderItem({ item, quantity, id, updateQuantity }) {
 function CartList({ cart, updateCart }) {
     const orderItems = cart.map(orderItem => (
         <OrderItem
-            key={orderItem.id}
+            key={orderItem.item.model}
             {...orderItem}
             updateQuantity={
                 quantity => updateCart(orderItem.item.model, orderItem.item.memory, quantity)
@@ -59,7 +50,7 @@ function CartList({ cart, updateCart }) {
 }
 
 function CartPage() {
-    const [cart, setCart] = useStateWithLocalStorage('cart');
+    const [cart, setCart] = useStateWithLocalStorage('cart', []);
 
     const grandTotal = cart.reduce(
         (acc, cur) => acc + cur.item.price * cur.quantity
