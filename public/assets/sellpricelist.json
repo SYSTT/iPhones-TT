@@ -1,74 +1,118 @@
 {
-    "iphone6s": {
-        "name": "iPhone 6s",
-        "prices": {
-            "64gb": 1800
-        }
-    },
-    "iphone6splus": {
-        "name": "iPhone 6s Plus",
-        "prices": {
-            "64gb": 2400
-        }
-    },
-    "iphone7": {
-        "name": "iPhone 7",
-        "prices": {
-            "32gb": 2200,
-            "128gb": 2800,
-            "256gb": 2400
-        }
-    },
-    "iphone7plus": {
-        "name": "iPhone 7 Plus",
-        "prices": {
-            "128gb": 3600
-        }
-    },
-    "iphone8": {
-        "name": "iPhone 8",
-        "prices": {
-            "64gb": 3600,
-            "64gb*": 5700,
-            "256gb*": 6800
-        }
-    },
-    "iphone8plus": {
-        "name": "iPhone 8 Plus",
-        "prices": {
-            "64gb": 4500,
-            "64gb*": 6400,
-            "256gb*": 7500
-        }
-    },
-    "iphonex": {
-        "name": "iPhone X",
-        "prices": {
-            "64gb": 5600
-        }
-    },
-    "iphonexr": {
-        "name": "iPhone XR",
-        "prices": {
-            "64gb*": 6800,
-            "128gb*": 7300,
-            "256gb*": 7800
-        }
-    },
-    "iphonexs": {
-        "name": "iPhone XS",
-        "prices": {
-            "64gb*": 8700,
-            "256gb*": 9800,
-            "512gb*": 11300
-        }
-    },
-    "iphonexsmax": {
-        "name": "iPhone XS Max",
-        "prices": {
-            "64gb*": 9400,
-            "256gb*": 10400,
-            "512gb*": 12000
-        }
-    }
+    "A-Grade": [{
+        "model": "iPhone 6s",
+        "modelSlug": "iphone6s",
+        "memoryOptions": [{
+            "memory": 64,
+            "price": 1800
+        }]
+    }, {
+        "model": "iPhone 6s Plus",
+        "modelSlug": "iphone6splus",
+        "memoryOptions": [{
+            "memory": 64,
+            "price": 2400
+        }]
+    }, {
+        "model": "iPhone 7",
+        "modelSlug": "iphone7",
+        "memoryOptions": [{
+            "memory": 32,
+            "price": 2200
+        }, {
+            "memory": 128,
+            "price": 2800
+        }, {
+            "memory": 256,
+            "price": 2400
+        }]
+    }, {
+        "model": "iPhone 7 Plus",
+        "modelSlug": "iphone7plus",
+        "memoryOptions": [{
+            "memory": 128,
+            "price": 3600
+        }]
+    }, {
+        "model": "iPhone 8",
+        "modelSlug": "iphone8",
+        "memoryOptions": [{
+            "memory": 64,
+            "price": 3600
+        }]
+    }, {
+        "model": "iPhone 8 Plus",
+        "modelSlug": "iphone8plus",
+        "memoryOptions": [{
+            "memory": 64,
+            "price": 4500
+        }]
+    }, {
+        "model": "iPhone X",
+        "modelSlug": "iphonex",
+        "memoryOptions": [{
+            "memory": 64,
+            "price": 5600
+        }]
+    }],
+    "New": [{
+        "model": "iPhone 8",
+        "modelSlug": "iphone8",
+        "memoryOptions": [{
+            "memory": 64,
+            "price": 5700
+        }, {
+            "memory": 256,
+            "price": 6800
+        }]
+    }, {
+        "model": "iPhone 8 Plus",
+        "modelSlug": "iphone8plus",
+        "memoryOptions": [{
+            "memory": 64,
+            "price": 6400
+        }, {
+            "memory": 256,
+            "price": 7500
+        }]
+    }, {
+        "model": "iPhone XR",
+        "modelSlug": "iphonexr",
+        "memoryOptions": [{
+            "memory": 64,
+            "price": 6800
+        }, {
+            "memory": 128,
+            "price": 7300
+        }, {
+            "memory": 256,
+            "price": 7800
+        }]
+    }, {
+        "model": "iPhone XS",
+        "modelSlug": "iphonexs",
+        "memoryOptions": [{
+            "memory": 64,
+            "price": 8700
+        }, {
+            "memory": 256,
+            "price": 9800
+        }, {
+            "memory": 512,
+            "price": 11300
+        }]
+    }, {
+        "model": "iPhone XS Max",
+        "modelSlug": "iphonexsmax",
+        "memoryOptions": [{
+            "memory": 64,
+            "price": 9400
+        }, {
+            "memory": 256,
+            "price": 10400
+        }, {
+            "memory": 512,
+            "price": 12000
+        }]
+    }]
 }
