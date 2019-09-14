@@ -81,7 +81,10 @@ function CartPage() {
                 </div>
                 <div className="CartPage-checkout">
                     <h3 className="CartPage-total">Total: { price`${grandTotal}` } TTD</h3>
-                    <Link to="/checkout"><Button text="Checkout" /></Link>
+                    { cart.length
+                    ?   <Link to="/checkout"><Button text="Checkout" /></Link>
+                    :   <Button text="Checkout" disabled={true} />
+                    }
                 </div>
             </div>
         </div>
