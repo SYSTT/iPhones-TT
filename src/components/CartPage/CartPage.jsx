@@ -35,7 +35,7 @@ function OrderItem({ item, quantity, id, updateQuantity }) {
 function CartList({ cart, updateCart }) {
     const orderItems = cart.map(orderItem => (
         <OrderItem
-            key={orderItem.item.model}
+            key={orderItem.item.model + orderItem.item.memory}
             {...orderItem}
             updateQuantity={
                 quantity => updateCart(orderItem.item.model, orderItem.item.memory, quantity)
