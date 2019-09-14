@@ -1,0 +1,27 @@
+.CheckoutPage-content {
+    padding: 1em 2em;
+}
+
+.CheckoutPage-placed {
+    text-align: center;
+    margin: 0 1em;
+    padding: 1em;
+    background-color: #f1f1f1;
+    border-radius: 6px;
+}
+
+.OrderSummary-order {
+    display: flex;
+    justify-content: space-between;
+}
+
+.OrderSummary-total {
+    text-align: end;
+    margin-top: 1em;
+    padding-top: 1em;
+    border-top: 1px solid black;
+}
+
+.OrderSummary-empty {
+    text-align: center;
+}
