@@ -1,0 +1,17 @@
+.Switch {
+    margin: 1em 0;
+    display: flex;
+    justify-content: space-around;
+    background-color: #f1f1f1;
+    border-radius: 6px;
+}
+
+.SwitchOption {
+    text-align: center;
+    flex: 1;
+}
+
+.SwitchOption.SwitchOption-selected {
+    background-color: #C8E4FF;
+    border-radius: 6px;
+}

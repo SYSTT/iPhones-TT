@@ -10,6 +10,10 @@ const MenuOptions = [{
     link: '/buy',
     color: '#7C2929',
 }, {
+    text: 'Your Cart',
+    link: '/cart',
+    color: 'black',
+}, {
     text: 'Estimate',
     link: '/estimate',
     color: '#29687C',

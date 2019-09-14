@@ -6,6 +6,8 @@ import Header from './components/Header/Header';
 import HomePage from './components/HomePage/HomePage';
 import EstimationPage from './components/EstimationPage/EstimationPage';
 import BuyPage from './components/BuyPage/BuyPage';
+import CartPage from './components/CartPage/CartPage';
+import CheckoutPage from './components/CheckoutPage/CheckoutPage';
 
 class App extends Component {
   constructor(props) {
@@ -35,6 +37,14 @@ class App extends Component {
             <Route 
               path="/buy"
               component={BuyPage}
+            />
+            <Route 
+              path="/cart"
+              component={CartPage}
+            />
+            <Route 
+              path="/checkout"
+              component={CheckoutPage}
             />
             <Route 
               path="/estimate"

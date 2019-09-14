@@ -1,0 +1,21 @@
+.Button {
+    color: white;
+    font: unset;
+    font-family: unset;
+    text-align: center;
+    width: 100%;
+    padding: 0.5em 1em;
+    display: block;
+    background-color: #2F90EA;
+    border: none;
+    border-radius: 6px;
+}
+
+.Button-fitted {
+    display: inline-block;
+    width: unset;
+}
+
+.Button:disabled {
+    opacity: 0.5;
+}

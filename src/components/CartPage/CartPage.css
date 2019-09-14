@@ -1,0 +1,44 @@
+.CartPage-content {
+    padding: 1em 2em;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.CartPage-cart {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.CartPage-checkout {
+    width: 300px;
+}
+
+.CartPage-total {
+}
+
+.CartPage-empty {
+    text-align: center;
+    margin-bottom: 4em;
+}
+
+.OrderItem {
+    margin: 1em 0;
+    padding: 1em;
+    max-width: 400px;
+    background-color: #f1f1f1;
+    border-radius: 6px;
+}
+
+.OrderItem-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.OrderItem-price {
+    color: #2F90EA;
+    text-align: end;
+    font-style: italic;
+    margin-bottom: 0;
+}

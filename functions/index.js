@@ -2,6 +2,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
 const cors = require('cors')({origin: true});
+const { dedent, price } = require('./utils');
 admin.initializeApp();
 
 let transporter = nodemailer.createTransport({
@@ -14,25 +15,38 @@ let transporter = nodemailer.createTransport({
 
 exports.sendMail = functions.https.onRequest((req, res) => {
     cors(req, res, () => {
-        
-        const email = req.query.email;
-        const contact = req.query.contact;
-        const name = req.query.name;
-        const address = req.query.address;
-        const model = req.query.model;
-        const memory = req.query.memory;
-        const price = req.query.price;
+        const {
+            order,
+            email,
+            tel,
+            name,
+            address,
+        } = req.body;
+
+        let text = `${name} has made a booking!\n`;
+        text += dedent`
+            Contact info: ${tel}, ${email}
+            Address: ${address}
+        `;
+        text += dedent`
+            Order Information:
+        `;
+        for (let orderItem of order) {
+            text += dedent`
+                ${orderItem.quantity}x ${orderItem.item.model} ${orderItem.item.memory}GB
+                ${orderItem.quantity}x ${price(orderItem.item.price)} = ${price(orderItem.quantity * orderItem.item.price)}
+            `;
+        }
+        const total = order.reduce((acc, cur) => acc + cur.quantity * cur.item.price, 0);
+        text += dedent`
+            Total: ${price(total)}
+        `;
 
         const mailOptions = {
             from: 'TT Mobile Delivery <ttmobideliveryTest@gmail.com>',
             to: 'tntmobiledelivery@gmail.com',
-            subject: `New Booking - ${name}`, // email subject
-            text: `
-                ${name} has made a booking! \n
-                Contact info: ${contact}, ${email} \n
-                Order details: ${model} ${memory}, $${price} \n
-                Address: ${address}
-            `,
+            subject: `New Order - ${name}`, // email subject
+            text,
         };
   
         // returning result
