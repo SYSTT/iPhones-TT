@@ -6,6 +6,6 @@ export const useStateWithLocalStorage = (localStorageKey, defaultVal) => {
     );
     React.useEffect(() => {
         localStorage.setItem(localStorageKey, JSON.stringify(value));
-    }, [value]);
+    }, [value, localStorageKey]);
     return [value, setValue];
 };
