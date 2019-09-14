@@ -5,6 +5,8 @@ import './ModelOption.css';
 import Button from '../../Button/Button';
 import Rocker from '../../Rocker/Rocker';
 
+import { price as toPrice } from './../../../utils/templateLiteralTags';
+
 function Memory({ memory }) {
     return (
         <div className="Memory">
@@ -14,22 +16,22 @@ function Memory({ memory }) {
     );
 }
 
-function MemoryOption({ memory, memorySlug, price, priceText, selected, onSelect }) {
+function MemoryOption({ memory, price, selected, onSelect }) {
     let className = "MemoryOption";
-    if (selected && selected.memorySlug === memorySlug) { className += " MemoryOption-selected"; }
+    if (selected && selected.memory === memory) { className += " MemoryOption-selected"; }
     return (
         <button
             type="button"
             className={className}
-            onClick={() => onSelect && onSelect({ memory, memorySlug, price, priceText })}
+            onClick={() => onSelect && onSelect({ memory, price })}
         >
             <Memory memory={memory} />
-            <p className="MemoryOption-price">{ priceText }</p>
+            <p className="MemoryOption-price">{ toPrice`${price}` }</p>
         </button>
     );
 }
 
-function ModelOption({ model, modelSlug, memoryOptions, history }) {
+function ModelOption({ model, memoryOptions, history }) {
     const [stage, setStage] = useState(0);
 
     // Selected model/memory configuration
@@ -37,7 +39,7 @@ function ModelOption({ model, modelSlug, memoryOptions, history }) {
 
     const allConfigs = memoryOptions.map(memoryOption => 
         <MemoryOption
-            key={memoryOption.memorySlug}
+            key={memoryOption.memory}
             {...memoryOption}
             selected={selected}
             onSelect={setSelected}
@@ -90,7 +92,7 @@ function ModelOption({ model, modelSlug, memoryOptions, history }) {
             setStage(1);
         } else if (stage === 1) {
             addToCart({
-                item: { ...selected, model, modelSlug },
+                item: { ...selected, model },
                 quantity,
             });
             setStage(2);
