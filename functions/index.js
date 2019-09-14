@@ -33,7 +33,7 @@ exports.sendMail = functions.https.onRequest((req, res) => {
         `;
         for (let orderItem of order) {
             text += dedent`
-                ${orderItem.quantity}x ${orderItem.item.model} ${orderItem.item.memory}
+                ${orderItem.quantity}x ${orderItem.item.model} ${orderItem.item.memory}GB
                 ${orderItem.quantity}x ${price(orderItem.item.price)} = ${price(orderItem.quantity * orderItem.item.price)}
             `;
         }
@@ -44,7 +44,7 @@ exports.sendMail = functions.https.onRequest((req, res) => {
 
         const mailOptions = {
             from: 'TT Mobile Delivery <ttmobideliveryTest@gmail.com>',
-            to: 'joshuatallum@gmail.com',
+            to: 'tntmobiledelivery@gmail.com',
             subject: `New Order - ${name}`, // email subject
             text,
         };
