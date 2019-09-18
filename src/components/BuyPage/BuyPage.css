@@ -1,7 +1,12 @@
 .BuyPage-content {
     padding: 1em 2em;
-    display: flex;
-    flex-direction: column;
+}
+
+@media only screen and (min-width: 768px) {
+    .BuyPage-options {
+        display: flex;
+        flex-wrap: wrap;
+    }
 }
 
 .BuyPage-contact {

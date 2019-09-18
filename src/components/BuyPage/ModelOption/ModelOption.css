@@ -1,9 +1,14 @@
 .ModelOption {
-    max-width: 400px;
     margin: 1em 0;
     padding: 1em;
     background-color: #f1f1f1;
     border-radius: 6px;
+}
+@media only screen and (min-width: 768px) {
+    .ModelOption {
+        min-width: 400px;
+        margin: 1em 1em 0 0;
+    }
 }
 
 .ModelOptions-configs {
