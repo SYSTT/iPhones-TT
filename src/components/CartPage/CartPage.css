@@ -14,20 +14,29 @@
     width: 300px;
 }
 
-.CartPage-total {
-}
-
 .CartPage-empty {
     text-align: center;
     margin-bottom: 4em;
 }
 
+@media only screen and (min-width: 768px) {
+    .CartList {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
 .OrderItem {
     margin: 1em 0;
     padding: 1em;
-    max-width: 400px;
     background-color: #f1f1f1;
     border-radius: 6px;
+}
+@media only screen and (min-width: 768px) {
+    .OrderItem {
+        min-width: 400px;
+        margin: 1em 1em 0 0;
+    }
 }
 
 .OrderItem-details {
