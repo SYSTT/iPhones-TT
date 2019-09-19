@@ -8,7 +8,7 @@ function Rocker({ title, name, value, onChange, min, max, inputRef }) {
     const handleChange = (e) => {
         e.preventDefault();
         const newVal = e.target.value;
-        if ((!min || newVal >= min) && (!max || newVal <= max)) {
+        if ((isNaN(min) || newVal >= min) && (isNaN(max) || newVal <= max)) {
             onChange(newVal);
         }
     }

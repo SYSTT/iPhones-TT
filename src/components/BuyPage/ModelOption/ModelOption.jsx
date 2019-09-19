@@ -116,7 +116,7 @@ function ModelOption({ model, memoryOptions, history }) {
                     title="Quantity"
                     name="quantity"
                     value={quantity}
-                    min={1}
+                    min={0}
                     max={100}
                     onChange={setQuantity}
                     inputRef={quantityRockerRef}
