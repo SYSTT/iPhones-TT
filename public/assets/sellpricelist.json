@@ -4,14 +4,14 @@
         "modelSlug": "iphone6s",
         "memoryOptions": [{
             "memory": 64,
-            "price": 1800
+            "price": 1900
         }]
     }, {
         "model": "iPhone 6s Plus",
         "modelSlug": "iphone6splus",
         "memoryOptions": [{
-            "memory": 64,
-            "price": 2400
+            "memory": 128,
+            "price": 2500
         }]
     }, {
         "model": "iPhone 7",
@@ -20,11 +20,8 @@
             "memory": 32,
             "price": 2200
         }, {
-            "memory": 128,
-            "price": 2800
-        }, {
             "memory": 256,
-            "price": 2400
+            "price": 2500
         }]
     }, {
         "model": "iPhone 7 Plus",
@@ -38,7 +35,7 @@
         "modelSlug": "iphone8",
         "memoryOptions": [{
             "memory": 64,
-            "price": 3600
+            "price": 3500
         }]
     }, {
         "model": "iPhone 8 Plus",
