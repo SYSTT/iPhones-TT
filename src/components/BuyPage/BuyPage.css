@@ -1,7 +1,22 @@
 .BuyPage-content {
-    padding: 1em 2em;
-    display: flex;
-    flex-direction: column;
+		padding: 3em 2em;
+		background: #1a5475;
+		background: linear-gradient(15deg, #1a5475 0%, #54afe1 100%);
+		-webkit-clip-path: polygon(0 30px, 100% 0, 100% 100%, 0 100%);
+  	clip-path: polygon(0 30px, 100% 0, 100% 100%, 0 100%);
+}
+@media only screen and (min-width: 768px) {
+    .BuyPage-content {
+			-webkit-clip-path: none;
+			clip-path: none;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .BuyPage-options {
+        display: flex;
+        flex-wrap: wrap;
+    }
 }
 
 .BuyPage-contact {

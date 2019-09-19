@@ -5,10 +5,19 @@
     background-color: #f1f1f1;
     border-radius: 6px;
 }
-
+@media only screen and (min-width: 768px) {
+    .Switch {
+        display: inline-flex;
+    }
+}
 .SwitchOption {
     text-align: center;
     flex: 1;
+}
+@media only screen and (min-width: 768px) {
+    .SwitchOption {
+        min-width: 215px;
+    }
 }
 
 .SwitchOption.SwitchOption-selected {

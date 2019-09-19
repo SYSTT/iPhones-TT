@@ -33,7 +33,7 @@ exports.sendMail = functions.https.onRequest((req, res) => {
         `;
         for (let orderItem of order) {
             text += dedent`
-                ${orderItem.quantity}x ${orderItem.item.model} ${orderItem.item.memory}GB
+                ${orderItem.quantity}x ${orderItem.item.model} ${orderItem.item.memory}GB ${orderItem.newOrUsed}
                 ${orderItem.quantity}x ${price(orderItem.item.price)} = ${price(orderItem.quantity * orderItem.item.price)}
             `;
         }

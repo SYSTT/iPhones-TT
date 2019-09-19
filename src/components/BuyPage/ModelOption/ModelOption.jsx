@@ -31,7 +31,7 @@ function MemoryOption({ memory, price, selected, onSelect }) {
     );
 }
 
-function ModelOption({ model, memoryOptions, history }) {
+function ModelOption({ model, memoryOptions, history, newOrUsed }) {
     const [stage, setStage] = useState(0);
 
     // Selected model/memory configuration
@@ -72,7 +72,8 @@ function ModelOption({ model, memoryOptions, history }) {
         let existing = false;
         for (const orderItem of cart) {
             if (orderItem.item.model === newOrderItem.item.model &&
-                orderItem.item.memory === newOrderItem.item.memory) {
+                orderItem.item.memory === newOrderItem.item.memory &&
+                orderItem.newOrUsed === newOrderItem.newOrUsed) {
                 newCart.push({
                     ...orderItem,
                     quantity: orderItem.quantity + newOrderItem.quantity,
@@ -94,6 +95,7 @@ function ModelOption({ model, memoryOptions, history }) {
             addToCart({
                 item: { ...selected, model },
                 quantity,
+                newOrUsed,
             });
             setStage(2);
         } else if (stage === 2) {
@@ -116,7 +118,7 @@ function ModelOption({ model, memoryOptions, history }) {
                     title="Quantity"
                     name="quantity"
                     value={quantity}
-                    min={1}
+                    min={0}
                     max={100}
                     onChange={setQuantity}
                     inputRef={quantityRockerRef}
