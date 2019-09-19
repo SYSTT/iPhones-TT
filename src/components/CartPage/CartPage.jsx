@@ -9,11 +9,12 @@ import Button from '../Button/Button';
 import { price } from './../../utils/templateLiteralTags';
 import { useStateWithLocalStorage } from './../../utils/hooks';
 
-function OrderItem({ item, quantity, id, updateQuantity }) {
+function OrderItem({ item, quantity, id, updateQuantity, newOrUsed }) {
     return (
         <div className="OrderItem">
             <div className="OrderItem-details">
                 <h3 className="OrderItem-name">{ item.model }</h3>
+                <p>{ newOrUsed }</p>
                 <p className="OrderItem-name">{ item.memory }GB</p>
             </div>
             <Rocker
@@ -35,7 +36,7 @@ function OrderItem({ item, quantity, id, updateQuantity }) {
 function CartList({ cart, updateCart }) {
     const orderItems = cart.map(orderItem => (
         <OrderItem
-            key={orderItem.item.model + orderItem.item.memory}
+            key={`${orderItem.item.model}-${orderItem.item.memory}-${orderItem.newOrUsed}`}
             {...orderItem}
             updateQuantity={
                 quantity => updateCart(orderItem.item.model, orderItem.item.memory, quantity)

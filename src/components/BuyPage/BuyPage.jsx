@@ -22,11 +22,11 @@ function BuyPage() {
     const [newOrUsed, setNewOrUsed] = useState(AGRADE);
 
     const AGrade = priceTable && priceTable['A-Grade'].map(item =>
-        <ModelOption key={item.model} {...item} />  
+        <ModelOption key={`${item.model}-${newOrUsed}`} newOrUsed={newOrUsed} {...item} />  
     );
 
     const New = priceTable && priceTable['New'].map(item =>
-        <ModelOption key={item.model} {...item} />  
+        <ModelOption key={`${item.model}-${newOrUsed}`} newOrUsed={newOrUsed} {...item} />  
     );
     
     return (
