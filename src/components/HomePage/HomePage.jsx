@@ -2,6 +2,7 @@ import React from 'react';
 import './HomePage.css';
 
 import IPhoneCard from '../IPhoneCard/IPhoneCard';
+import ReviewSection from '../ReviewSection/ReviewSection';
 
 const Cards = [{
     title: 'Buy iPhones',
@@ -28,6 +29,7 @@ function HomePage() {
                     <IPhoneCard key={card.title} {...card} />
                 ))}
             </div>
+            <ReviewSection />
         </div>
     );
 }
