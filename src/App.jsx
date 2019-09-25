@@ -21,28 +21,31 @@ class App extends Component {
     });
   }
 
-  
   render() {
     return (
       <div className="App">
         <div className="App-content">
           <Header />
           <Switch>
-            <Route 
+            <Route
               path="/buy"
               component={BuyPage}
             />
-            <Route 
+            <Route
               path="/cart"
               component={CartPage}
             />
-            <Route 
+            <Route
               path="/checkout"
               component={CheckoutPage}
             />
-            <Route 
+            <Route
               path="/estimate"
               component={EstimationPage}
+            />
+            <Route
+              path="/login"
+              component={LoginPage}
             />
             <Route
               path="/"
