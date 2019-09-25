@@ -8,25 +8,19 @@ import EstimationPage from './components/EstimationPage/EstimationPage';
 import BuyPage from './components/BuyPage/BuyPage';
 import CartPage from './components/CartPage/CartPage';
 import CheckoutPage from './components/CheckoutPage/CheckoutPage';
+import LoginPage from './components/LoginPage/LoginPage';
+
+import { withFirebase } from './components/Firebase/context';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  
-    this.state = {
-      evaluationResults: null,
-      deviceResults: null,
-      contactResults: null,
-    };
+  componentDidMount() {
+    this.props.firebase.auth.onAuthStateChanged(authUser => {
+      authUser
+        ? this.setState({ authUser })
+        : this.setState({ authUser: null });
+    });
   }
 
-  handleEvaluationSubmit = (results) => {
-    this.setState({ evaluationResults: results });
-  }
-
-  handleDeviceSubmit = (results) => {
-    this.setState({ deviceResults: results });
-  }
   
   render() {
     return (
@@ -50,7 +44,7 @@ class App extends Component {
               path="/estimate"
               component={EstimationPage}
             />
-            <Route 
+            <Route
               path="/"
               component={HomePage}
             />
@@ -61,4 +55,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withFirebase(App);
