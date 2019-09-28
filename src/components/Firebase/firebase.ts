@@ -1,5 +1,7 @@
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
+import 'firebase/database';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -10,13 +12,17 @@ const config = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 };
 
-class Firebase {
+export class Firebase {
   auth: firebase.auth.Auth;
+  db: firebase.firestore.Firestore;
+  database: firebase.database.Database;
 
   constructor() {
     firebase.initializeApp(config);
     
     this.auth = firebase.auth();
+    this.db = firebase.firestore();
+    this.database = firebase.database();
   }
 
   doCreateUserWithEmailAndPassword = (email: string, password: string) =>
@@ -36,4 +42,4 @@ class Firebase {
   }
 }
 
-export default Firebase;
+export default new Firebase();

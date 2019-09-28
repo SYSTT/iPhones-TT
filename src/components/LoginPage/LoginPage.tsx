@@ -5,7 +5,7 @@ import './LoginPage.css';
 import Heading from '../Heading/Heading';
 import LoginForm from './LoginForm/LoginForm';
 
-import Firebase, { withFirebase } from './../Firebase';
+import { withFirebase, Firebase } from './../Firebase';
 
 type Props = {
   firebase: Firebase;

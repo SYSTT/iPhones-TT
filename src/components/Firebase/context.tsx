@@ -1,11 +1,12 @@
 import * as React from 'react';
+import firebaseApp, { Firebase } from './firebase';
 
-const FirebaseContext = React.createContext(null);
+const FirebaseContext = React.createContext<Firebase>(firebaseApp);
 
-export function withFirebase<TProps>(Component: React.ComponentType<TProps>) {
+export function withFirebase<TProps>(Component: React.ComponentType<TProps & { firebase: Firebase }>) {
   return (props: TProps) => (
     <FirebaseContext.Consumer>
-      {firebase => <Component {...props} firebase={firebase} />}
+      {(firebase: Firebase) => <Component {...props} firebase={firebase} />}
     </FirebaseContext.Consumer>
   );
 };

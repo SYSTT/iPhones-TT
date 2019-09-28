@@ -6,11 +6,11 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 import App from './App';
-import Firebase, { FirebaseContext } from './components/Firebase';
+import firebaseApp, { FirebaseContext } from './components/Firebase';
 
 
 ReactDOM.render(
-  <FirebaseContext.Provider value={new Firebase()}>
+  <FirebaseContext.Provider value={firebaseApp}>
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <App />
     </BrowserRouter>

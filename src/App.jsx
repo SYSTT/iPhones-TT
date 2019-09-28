@@ -13,6 +13,12 @@ import LoginPage from './components/LoginPage/LoginPage';
 import { withFirebase } from './components/Firebase/context';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+  }
+
   componentDidMount() {
     this.props.firebase.auth.onAuthStateChanged(authUser => {
       authUser
