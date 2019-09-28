@@ -9,6 +9,7 @@ import BuyPage from './components/BuyPage/BuyPage';
 import CartPage from './components/CartPage/CartPage';
 import CheckoutPage from './components/CheckoutPage/CheckoutPage';
 import LoginPage from './components/LoginPage/LoginPage';
+import AdminPage from './components/AdminPage/AdminPage';
 
 import { withFirebase } from './components/Firebase/context';
 
@@ -52,6 +53,10 @@ class App extends Component {
             <Route
               path="/login"
               component={LoginPage}
+            />
+            <Route
+              path="/admin"
+              render={() => <AdminPage user={this.state.authUser} />}
             />
             <Route
               path="/"
