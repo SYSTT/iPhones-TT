@@ -17,6 +17,10 @@ const MenuOptions = [{
     text: 'Your Cart',
     link: '/cart',
     color: 'black',
+}, {
+    text: 'Login',
+    link: '/login',
+    color: 'black',
 }];
 
 function Menu() {
