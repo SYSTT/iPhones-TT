@@ -7,19 +7,22 @@ import ModelOption from './ModelOption/ModelOption';
 
 import { withFirebase, Firebase } from '../Firebase';
 
+const AGRADE = 'A-Grade';
+const NEW = 'New';
+
 type Props = {
   firebase: Firebase;
 };
 
-type MemoryOption = {
+type Configuration = {
   memory: number;
   price: number;
+  condition: typeof AGRADE | typeof NEW;
 };
 
 type Model = {
   model: string;
-  agrade?: MemoryOption[];
-  new?: MemoryOption[];
+  configurations: Configuration[];
 };
 
 function BuyPage({ firebase }: Props) {
@@ -36,25 +39,43 @@ function BuyPage({ firebase }: Props) {
     return () => unsubscribe();
   }, [firebase.db]);
 
-  const AGRADE = 'A-Grade';
-  const NEW = 'New';
   const [newOrUsed, setNewOrUsed] = useState(AGRADE);
 
-  const AGrade = models.filter(model => model.agrade).map(item =>
+  const agradeModels: Model[] = [];
+  const newModels: Model[] = [];
+  for (const model of models) {
+    const agradeConfigurations = [];
+    const newConfigurations = [];
+    for (const configuration of model.configurations) {
+      if (configuration.condition === 'A-Grade') {
+        agradeConfigurations.push(configuration);
+      } else {
+        newConfigurations.push(configuration);
+      }
+    }
+    if (agradeConfigurations.length) {
+      agradeModels.push({ ...model, configurations: agradeConfigurations });
+    }
+    if (newConfigurations.length) {
+      newModels.push({ ...model, configurations: newConfigurations });
+    }
+  }
+
+  const Agrade = agradeModels.map(item =>
     <ModelOption
-      key={`${item.model}-A-Grade`}
+      key={`${item.model}-${AGRADE}`}
       model={item.model}
-      newOrUsed="A-Grade"
-      memoryOptions={item.agrade}
+      newOrUsed={AGRADE}
+      memoryOptions={item.configurations}
     />
   );
 
-  const New = models.filter(model => model.new).map(item =>
+  const New = newModels.map(item =>
     <ModelOption
-      key={`${item.model}-New`}
+      key={`${item.model}-${NEW}`}
       model={item.model}
-      newOrUsed="New"
-      memoryOptions={item.new}
+      newOrUsed={NEW}
+      memoryOptions={item.configurations}
     />
   );
 
@@ -72,7 +93,7 @@ function BuyPage({ firebase }: Props) {
           onSwitch={(option: string) => setNewOrUsed(option)}
         />
         <div className="BuyPage-options">
-          {newOrUsed === AGRADE ? AGrade : New}
+          {newOrUsed === AGRADE ? Agrade : New}
         </div>
       </div>
     </div>
