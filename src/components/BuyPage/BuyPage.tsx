@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './BuyPage.css';
 
 import Heading from '../Heading/Heading';
@@ -6,44 +6,20 @@ import Switch from '../Switch/Switch';
 import ModelOption from './ModelOption/ModelOption';
 
 import { withFirebase, Firebase } from '../Firebase';
-
-const AGRADE = 'A-Grade';
-const NEW = 'New';
+import { useStock, Model, AGRADE, NEW } from './../../modules/stock';
 
 type Props = {
   firebase: Firebase;
 };
 
-type Configuration = {
-  memory: number;
-  price: number;
-  condition: typeof AGRADE | typeof NEW;
-};
-
-type Model = {
-  model: string;
-  configurations: Configuration[];
-};
-
 function BuyPage({ firebase }: Props) {
-  const [models, setModels] = useState<Model[]>([]);
-
-  useEffect(() => {
-    const unsubscribe = firebase.db.collection('stock').onSnapshot(querySnapshot => {
-      const models: Model[] = [];
-      querySnapshot.forEach(doc => {
-        models.push(doc.data() as Model);
-      });
-      setModels(models);
-    });
-    return () => unsubscribe();
-  }, [firebase.db]);
+  const { stock } = useStock(firebase.db);
 
   const [newOrUsed, setNewOrUsed] = useState(AGRADE);
 
   const agradeModels: Model[] = [];
   const newModels: Model[] = [];
-  for (const model of models) {
+  for (const model of stock) {
     const agradeConfigurations = [];
     const newConfigurations = [];
     for (const configuration of model.configurations) {
