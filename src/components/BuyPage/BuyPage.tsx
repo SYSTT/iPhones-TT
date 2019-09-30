@@ -5,15 +5,10 @@ import Heading from '../Heading/Heading';
 import Switch from '../Switch/Switch';
 import ModelOption from './ModelOption/ModelOption';
 
-import { withFirebase, Firebase } from '../Firebase';
 import { useStock, Model, AGRADE, NEW } from './../../modules/stock';
 
-type Props = {
-  firebase: Firebase;
-};
-
-function BuyPage({ firebase }: Props) {
-  const { stock } = useStock(firebase.db);
+function BuyPage() {
+  const { stock } = useStock();
 
   const [newOrUsed, setNewOrUsed] = useState(AGRADE);
 
@@ -76,4 +71,4 @@ function BuyPage({ firebase }: Props) {
   );
 }
 
-export default withFirebase(BuyPage);
+export default BuyPage;

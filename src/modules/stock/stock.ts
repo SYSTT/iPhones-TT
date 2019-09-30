@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
-import { firestore } from 'firebase';
+import { useState, useEffect, useContext } from 'react';
+
+import { FirebaseContext } from '../../components/Firebase';
 
 export const AGRADE = 'A-Grade';
 export const NEW = 'New';
@@ -8,6 +9,7 @@ type Configuration = {
   memory: number;
   price: number;
   condition: typeof AGRADE | typeof NEW;
+  stock: number;
 };
 
 type ModelData = {
@@ -19,7 +21,9 @@ export type Model = ModelData & {
   id: string;
 };
 
-export const useStock = (db: firestore.Firestore) => {
+export const useStock = () => {
+  const { db } = useContext(FirebaseContext);
+
   const [stock, setStock] = useState<Model[]>([]);
 
   useEffect(() => {
