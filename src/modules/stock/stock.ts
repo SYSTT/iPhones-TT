@@ -5,7 +5,7 @@ import { FirebaseContext } from '../../components/Firebase';
 export const AGRADE = 'A-Grade';
 export const NEW = 'New';
 
-type Configuration = {
+export type Configuration = {
   memory: number;
   price: number;
   condition: typeof AGRADE | typeof NEW;
