@@ -5,10 +5,12 @@ import { FirebaseContext } from '../../components/Firebase';
 export const AGRADE = 'A-Grade';
 export const NEW = 'New';
 
+export type Condition = typeof AGRADE | typeof NEW;
+
 export type Configuration = {
   memory: number;
   price: number;
-  condition: typeof AGRADE | typeof NEW;
+  condition: Condition;
   stock: number;
 };
 
