@@ -1,5 +1,5 @@
 import React, { useState, DetailedHTMLProps, HTMLAttributes } from 'react';
-import { Table, Input, Popconfirm, Form, Button, Select, InputNumber, Modal } from 'antd';
+import { Table, Input, Popconfirm, Form, Button, Select, Modal, message, Icon, Tooltip } from 'antd';
 import { FormComponentProps, WrappedFormUtils } from 'antd/lib/form/Form';
 
 import { Configuration, AGRADE, NEW, Condition, useStock } from '../../modules/stock';
@@ -124,13 +124,22 @@ type AddFormModalProps = {
 
 function AddFormModal({ handleClose, handleAdd, visible }: AddFormModalProps) {
   const [condition, setCondition] = useState<Condition>(AGRADE);
-  const [memory, setMemory] = useState(64);
-  const [price, setPrice] = useState(0);
-  const [stock, setStock] = useState(0);
+  const [memory, setMemory] = useState('64');
+  const [price, setPrice] = useState('');
+  const [stock, setStock] = useState('');
 
-  const onSubmit = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const onSubmit = (
+    e:
+      React.MouseEvent<HTMLElement, MouseEvent> |
+      React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
-    handleAdd({ condition, memory, price, stock });
+    handleAdd({
+      condition,
+      memory: +memory,
+      price: +price,
+      stock: +stock
+    });
     handleClose();
   };
 
@@ -143,7 +152,7 @@ function AddFormModal({ handleClose, handleAdd, visible }: AddFormModalProps) {
       onCancel={handleClose}
       onOk={onSubmit}
     >
-      <Form>
+      <Form onSubmit={onSubmit}>
         <Form.Item label="Condition">
           <Select
             value={condition}
@@ -154,25 +163,26 @@ function AddFormModal({ handleClose, handleAdd, visible }: AddFormModalProps) {
           </Select>
         </Form.Item>
         <Form.Item label="Memory">
-          <InputNumber
-            defaultValue={memory}
-            onChange={memory => setMemory(memory || 0)}
-            formatter={value => `${value} GB`}
-            parser={value => value ? value.slice(0, -3) : ''}
+          <Input
+            type="number"
+            value={memory}
+            onChange={e => setMemory(e.target.value)}
+            addonAfter=" GB"
           />
         </Form.Item>
         <Form.Item label="Price">
-          <InputNumber
-            defaultValue={price}
-            onChange={price => setPrice(price || 0)}
-            formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-            parser={value => value ? value.replace(/\$\s?|(,*)/g, '') : ''}
+          <Input
+            type="number"
+            value={price}
+            onChange={e => setPrice(e.target.value)}
+            addonBefore="$ "
           />
         </Form.Item>
         <Form.Item label="Stock">
-          <InputNumber
-            defaultValue={stock}
-            onChange={stock => setStock(stock || 0)}
+          <Input
+            type="number"
+            value={stock}
+            onChange={e => setStock(e.target.value)}
           />
         </Form.Item>
       </Form>
@@ -185,37 +195,45 @@ type KeyedConfiguration = Configuration & {
 };
 
 type Props = {
-  title?: (currentPageData: KeyedConfiguration[]) => React.ReactNode;
   model: string;
   id: string;
   datasource: KeyedConfiguration[];
 };
 
-function StockTable({ datasource: initialDataSource, title, model, id }: Props) {
+function StockTable({ datasource: initialDataSource, model, id }: Props) {
   const [dataSource, setDataSource] = useState(initialDataSource);
   const [showAddModal, setShowAddModal] = useState(false);
-  const { updateModelStock } = useStock();
+  const { updateModel, deleteModel } = useStock();
 
-  const handleDelete = (key: string) => {
-    /* TODO: Delete from firestore as well
-     */
-    setDataSource(dataSource.filter(item => item.key !== key));
+  const handleDelete = async (key: string) => {
+    const newData = dataSource.filter(item => item.key !== key)
+    setDataSource(newData);
+    await updateModel(id, { model, configurations: newData });
   };
 
   const handleAdd = async (newConfig: Configuration) => {
+    if (dataSource.find(
+      config =>
+        config.condition === newConfig.condition &&
+        config.memory === newConfig.memory
+    )) {
+      return message.error(
+        'Configuration with matching condition and memory already exists'
+      );
+    }
     const newData = {
       key: `${newConfig.condition}-${newConfig.memory}`,
       ...newConfig,
     };
     const newDataSource = [...dataSource, newData];
     setDataSource(newDataSource);
-    await updateModelStock(id, {
+    await updateModel(id, {
       model,
       configurations: newDataSource,
     });
   };
 
-  const handleSave = (row: KeyedConfiguration) => {
+  const handleSave = async (row: KeyedConfiguration) => {
     const newData = [...dataSource];
     const index = newData.findIndex(item => row.key === item.key);
     const item = newData[index];
@@ -224,6 +242,7 @@ function StockTable({ datasource: initialDataSource, title, model, id }: Props) 
       ...row,
     });
     setDataSource(newData);
+    await updateModel(id, { model, configurations: newData });
   };
 
   const components = {
@@ -285,11 +304,18 @@ function StockTable({ datasource: initialDataSource, title, model, id }: Props) 
   });
 
   return (
-    <div>
+    <div style={{ marginBottom: 16 }}>
       <Table
-        title={title}
+        title={() => (
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span>{model}</span>
+            <Tooltip title="Click to delete model" placement="left">
+              <Icon type="delete" onClick={async () => await deleteModel(id)} />
+            </Tooltip>
+          </div>
+        )}
         footer={() => (
-          <Button onClick={() => setShowAddModal(true)} type="primary" style={{ marginBottom: 16 }}>
+          <Button onClick={() => setShowAddModal(true)} type="primary">
             Add new configuration
           </Button>
         )}

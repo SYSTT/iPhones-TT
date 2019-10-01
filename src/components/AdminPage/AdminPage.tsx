@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { User } from 'firebase';
-import { Spin } from 'antd';
+import { Spin, Button, Modal, Form, Input } from 'antd';
 
 import AuthCheck from '../AuthCheck/AuthCheck';
 import Heading from '../Heading/Heading';
@@ -14,7 +14,18 @@ type Props = {
 
 
 function AdminPage({ user }: Props) {
-  const { stock } = useStock();
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [newModelName, setNewModelName] = useState('');
+  const { stock, addModel } = useStock();
+
+  const onSubmit = (
+    e:
+      React.MouseEvent<HTMLElement, MouseEvent> |
+      React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    addModel({ model: newModelName, configurations: [] });
+  };
 
   return (
     <AuthCheck user={user} fallback={<Spin />} requiredClaims={{ admin: true }}>
@@ -24,21 +35,43 @@ function AdminPage({ user }: Props) {
           margin: '0 2em'
         }}
       >
-      {stock.map(modelStock =>
-        <StockTable
-          key={modelStock.id}
-          title={() => modelStock.model}
-          id={modelStock.id}
-          model={modelStock.model}
-          datasource={modelStock.configurations.map(
-            config => ({
-              key: `${config.condition}-${config.memory}`,
-              ...config,
-            })
-          )}
-        />
-      )}
+        <Button
+          type="primary"
+          onClick={() => setShowAddModal(true)}
+          style={{ marginBottom: 16 }}
+        >
+          Add new model
+        </Button>
+        {stock.map(modelStock =>
+          <StockTable
+            key={modelStock.id}
+            id={modelStock.id}
+            model={modelStock.model}
+            datasource={modelStock.configurations.map(
+              config => ({
+                key: `${config.condition}-${config.memory}`,
+                ...config,
+              })
+            )}
+          />
+        )}
       </div>
+      <Modal
+        visible={showAddModal}
+        title="Create new model"
+        okText="Create"
+        onCancel={() => setShowAddModal(false)}
+        onOk={onSubmit}
+      >
+        <Form onSubmit={onSubmit}>
+          <Form.Item label="Model name">
+            <Input
+              value={newModelName}
+              onChange={e => setNewModelName(e.target.value)}
+            />
+          </Form.Item>
+        </Form>
+      </Modal>
     </AuthCheck>
   );
 }

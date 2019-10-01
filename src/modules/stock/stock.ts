@@ -39,10 +39,23 @@ export const useStock = () => {
     return () => unsubscribe();
   }, [db]);
 
-  const updateModelStock = async (id: string, model: ModelData) => {
+  const updateModel = async (id: string, model: ModelData) => {
     await db.collection('stock').doc(id).update(model);
   };
 
-  return { stock, updateModelStock };
+  const addModel = async ({ model, configurations }: ModelData) => {
+    await db.collection('stock').add({ model, configurations });
+  };
+
+  const deleteModel = async (id: string) => {
+    await db.collection('stock').doc(id).delete();
+  };
+
+  return {
+    stock,
+    updateModel,
+    addModel,
+    deleteModel,
+  };
 };
 
