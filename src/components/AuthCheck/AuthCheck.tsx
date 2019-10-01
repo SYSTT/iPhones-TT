@@ -29,7 +29,6 @@ function AuthCheck({
     }
   });
   if (!user) {
-    console.warn(new Error(`User not authenticated`));
     return <>{fallback}</>;
   }
   return <>{children}</>;
