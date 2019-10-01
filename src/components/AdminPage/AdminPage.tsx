@@ -27,7 +27,10 @@ function AdminPage({ user }: Props) {
       {stock.map(modelStock =>
         <StockTable
           key={modelStock.id}
-          configurationStock={modelStock.configurations.map(
+          title={() => modelStock.model}
+          id={modelStock.id}
+          model={modelStock.model}
+          datasource={modelStock.configurations.map(
             config => ({
               key: `${config.condition}-${config.memory}`,
               ...config,

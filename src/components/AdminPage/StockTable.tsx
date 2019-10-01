@@ -1,8 +1,8 @@
 import React, { useState, DetailedHTMLProps, HTMLAttributes } from 'react';
-import { Table, Input, Popconfirm, Form, Button } from 'antd';
+import { Table, Input, Popconfirm, Form, Button, Select, InputNumber, Modal } from 'antd';
 import { FormComponentProps, WrappedFormUtils } from 'antd/lib/form/Form';
 
-import { Configuration } from '../../modules/stock';
+import { Configuration, AGRADE, NEW, Condition, useStock } from '../../modules/stock';
 
 const EditableContext = React.createContext<WrappedFormUtils | null>(null);
 
@@ -116,16 +116,85 @@ class EditableCell extends React.Component<EditableTableProps> {
   }
 }
 
+type AddFormModalProps = {
+  handleClose: () => void;
+  handleAdd: (newConfiguration: Configuration) => void;
+  visible: boolean;
+};
+
+function AddFormModal({ handleClose, handleAdd, visible }: AddFormModalProps) {
+  const [condition, setCondition] = useState<Condition>(AGRADE);
+  const [memory, setMemory] = useState(64);
+  const [price, setPrice] = useState(0);
+  const [stock, setStock] = useState(0);
+
+  const onSubmit = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.preventDefault();
+    handleAdd({ condition, memory, price, stock });
+    handleClose();
+  };
+
+
+  return (
+    <Modal
+      visible={visible}
+      title="Create a new configuration"
+      okText="Create"
+      onCancel={handleClose}
+      onOk={onSubmit}
+    >
+      <Form>
+        <Form.Item label="Condition">
+          <Select
+            value={condition}
+            onChange={(newCondition: Condition) => setCondition(newCondition)}
+          >
+            <Select.Option value={AGRADE}>A-Grade</Select.Option>
+            <Select.Option value={NEW}>New</Select.Option>
+          </Select>
+        </Form.Item>
+        <Form.Item label="Memory">
+          <InputNumber
+            defaultValue={memory}
+            onChange={memory => setMemory(memory || 0)}
+            formatter={value => `${value} GB`}
+            parser={value => value ? value.slice(0, -3) : ''}
+          />
+        </Form.Item>
+        <Form.Item label="Price">
+          <InputNumber
+            defaultValue={price}
+            onChange={price => setPrice(price || 0)}
+            formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            parser={value => value ? value.replace(/\$\s?|(,*)/g, '') : ''}
+          />
+        </Form.Item>
+        <Form.Item label="Stock">
+          <InputNumber
+            defaultValue={stock}
+            onChange={stock => setStock(stock || 0)}
+          />
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+}
+
 type KeyedConfiguration = Configuration & {
   key: string;
 };
 
 type Props = {
-  configurationStock: KeyedConfiguration[];
+  title?: (currentPageData: KeyedConfiguration[]) => React.ReactNode;
+  model: string;
+  id: string;
+  datasource: KeyedConfiguration[];
 };
 
-function StockTable({ configurationStock }: Props) {
-  const [dataSource, setDataSource] = useState(configurationStock);
+function StockTable({ datasource: initialDataSource, title, model, id }: Props) {
+  const [dataSource, setDataSource] = useState(initialDataSource);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const { updateModelStock } = useStock();
 
   const handleDelete = (key: string) => {
     /* TODO: Delete from firestore as well
@@ -133,13 +202,18 @@ function StockTable({ configurationStock }: Props) {
     setDataSource(dataSource.filter(item => item.key !== key));
   };
 
-  // const handleAdd = (newConfig: Configuration) => {
-  //   const newData = {
-  //     key: `${newConfig.condition}-${newConfig.memory}`,
-  //     ...newConfig,
-  //   };
-  //   setDataSource([...dataSource, newData]);
-  // };
+  const handleAdd = async (newConfig: Configuration) => {
+    const newData = {
+      key: `${newConfig.condition}-${newConfig.memory}`,
+      ...newConfig,
+    };
+    const newDataSource = [...dataSource, newData];
+    setDataSource(newDataSource);
+    await updateModelStock(id, {
+      model,
+      configurations: newDataSource,
+    });
+  };
 
   const handleSave = (row: KeyedConfiguration) => {
     const newData = [...dataSource];
@@ -212,15 +286,23 @@ function StockTable({ configurationStock }: Props) {
 
   return (
     <div>
-      {/* <Button onClick={handleAdd} type="primary" style={{ marginBottom: 16 }}>
-        Add a row
-      </Button> */}
       <Table
+        title={title}
+        footer={() => (
+          <Button onClick={() => setShowAddModal(true)} type="primary" style={{ marginBottom: 16 }}>
+            Add new configuration
+          </Button>
+        )}
         components={components}
         rowClassName={() => 'editable-row'}
         bordered
         dataSource={dataSource}
         columns={columns}
+      />
+      <AddFormModal
+        handleClose={() => setShowAddModal(false)}
+        handleAdd={handleAdd}
+        visible={showAddModal}
       />
     </div>
   );
