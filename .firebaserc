@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "iphones-tt-176b7"
+  },
+  "targets": {
+    "iphones-tt-176b7": {
+      "hosting": {
+        "dev": [
+          "dev-tntmobiledelivery"
+        ],
+        "prod": [
+          "iphones-tt-176b7"
+        ]
+      }
+    }
   }
 }
