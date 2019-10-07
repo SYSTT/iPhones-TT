@@ -5,14 +5,17 @@ import { BrowserRouter } from "react-router-dom";
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
-import App from './App';
-import firebaseApp, { FirebaseContext } from './components/Firebase';
+import firebaseApp, { FirebaseContext } from './modules/firebase';
+import BaseLayout from './BaseLayout';
+import Routes from './Routes';
 
 
 ReactDOM.render(
   <FirebaseContext.Provider value={firebaseApp}>
     <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <App />
+      <BaseLayout>
+        <Routes />
+      </BaseLayout>
     </BrowserRouter>
   </FirebaseContext.Provider>
 , document.getElementById('root'));
