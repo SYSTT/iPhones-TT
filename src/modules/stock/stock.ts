@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 
-import { FirebaseContext } from '../../components/Firebase';
+import { FirebaseContext } from '../firebase';
 
 export const AGRADE = 'A-Grade';
 export const NEW = 'New';

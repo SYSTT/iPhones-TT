@@ -1,18 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { RouteChildrenProps } from 'react-router';
 import './LoginPage.css';
 
 import Heading from '../Heading/Heading';
 import LoginForm from './LoginForm/LoginForm';
 
-import { withFirebase, Firebase } from './../Firebase';
+import { FirebaseContext } from '../../modules/firebase';
 
-type Props = {
-  firebase: Firebase;
-  history: {};
-};
+function LoginPage({ history }: RouteChildrenProps) {
+  const firebase = useContext(FirebaseContext);
 
-function LoginPage({ firebase, history }: Props & RouteChildrenProps) {
   const login = async (email: string, password: string) => {
     await firebase.doSignInWithEmailAndPassword(email, password);
     history.push('/');
@@ -26,4 +23,4 @@ function LoginPage({ firebase, history }: Props & RouteChildrenProps) {
   );
 }
 
-export default withFirebase(LoginPage);
+export default LoginPage;
