@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 
-import Header from './components/Header/Header';
+import Header from './components/Topbar/Topbar';
 import HomePage from './components/HomePage/HomePage';
 import EstimationPage from './components/EstimationPage/EstimationPage';
 import BuyPage from './components/BuyPage/BuyPage';
