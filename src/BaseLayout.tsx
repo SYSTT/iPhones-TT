@@ -10,7 +10,7 @@ type BaseLayoutProps = {
 
 function BaseLayout({ children }: BaseLayoutProps) {
   return (
-    <Layout>
+    <Layout style={{ height: '100vh' }}>
       <Header style={{ backgroundColor: 'white' }}>
         <Topbar />
       </Header>
