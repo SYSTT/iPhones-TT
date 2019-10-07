@@ -9,7 +9,7 @@ import { useStock } from '../../modules/stock';
 import StockTable from './StockTable';
 
 type Props = {
-  user: User;
+  user: User | null;
 };
 
 

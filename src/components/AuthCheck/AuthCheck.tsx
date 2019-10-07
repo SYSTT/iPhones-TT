@@ -2,7 +2,7 @@ import React, { useLayoutEffect } from 'react';
 import { User } from 'firebase';
 
 type Props = {
-  user: User;
+  user: User | null;
   fallback: React.ReactNode;
   children: React.ReactNode;
   requiredClaims?: Object;
