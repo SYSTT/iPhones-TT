@@ -1,4 +1,4 @@
-const { override, fixBabelImports } = require('customize-cra');
+const { override, fixBabelImports, addLessLoader } = require('customize-cra');
 const rewireStyledComponents = require('react-app-rewire-styled-components');
 
 const styledComponents = obj => config => {
@@ -10,9 +10,17 @@ module.exports = override(
   fixBabelImports('import', {
     libraryName: 'antd',
     libraryDirectory: 'es',
-    style: 'css',
+    style: true,
+  }),
+  addLessLoader({
+    javascriptEnabled: true,
+    modifyVars: {
+      '@primary-color': '#CE1126',
+      '@link-color': '#CE1126',
+      '@error-color': '#ffbabe',
+    },
   }),
   styledComponents({
-    displayName: (process.env.NODE_ENV !== "production")
+    displayName: (process.env.NODE_ENV !== "production"),
   }),
 );
