@@ -4,6 +4,7 @@ import { Button } from 'antd';
 import {
   ProcessContainer,
 } from './elements';
+import { Heading } from '../../utils';
 
 type Props = {
   title: string;
@@ -18,7 +19,7 @@ function Process({
 }: Props) {
   return (
     <ProcessContainer>
-      <h1>{title}</h1>
+      <Heading>{title}</Heading>
       <ol>
         {steps.map(step => <li key={step}>{step}</li>)}
       </ol>
