@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 
 import { FirebaseContext } from '../firebase';
+import { toSlug } from '../../utils';
 
 export const AGRADE = 'A-Grade';
 export const NEW = 'New';
@@ -21,20 +22,25 @@ type ModelData = {
 
 export type Model = ModelData & {
   id: string;
+  slug: string;
 };
 
 export const useStock = () => {
   const { db } = useContext(FirebaseContext);
 
+  const [loading, setLoading] = useState(true);
   const [stock, setStock] = useState<Model[]>([]);
 
   useEffect(() => {
+    setLoading(true);
     const unsubscribe = db.collection('stock').onSnapshot(querySnapshot => {
       const models: Model[] = [];
       querySnapshot.forEach(doc => {
-        models.push({ ...doc.data() as ModelData, id: doc.id });
+        const model = doc.data() as ModelData;
+        models.push({ ...model, id: doc.id, slug: toSlug(model.model) });
       });
       setStock(models);
+      setLoading(false);
     });
     return () => unsubscribe();
   }, [db]);
@@ -51,11 +57,17 @@ export const useStock = () => {
     await db.collection('stock').doc(id).delete();
   };
 
+  const getModelBySlug = (slug: string) => {
+    return stock.find(si => si.slug === slug);
+  }
+
   return {
+    loading,
     stock,
     updateModel,
     addModel,
     deleteModel,
+    getModelBySlug,
   };
 };
 
