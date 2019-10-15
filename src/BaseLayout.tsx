@@ -14,7 +14,7 @@ function BaseLayout({ children }: BaseLayoutProps) {
       <Header style={{ backgroundColor: 'white' }}>
         <Topbar />
       </Header>
-      <Content>
+      <Content style={{ overflow: 'auto' }}>
         {children}
       </Content>
     </Layout>
