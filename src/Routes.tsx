@@ -6,6 +6,7 @@ import { useAuth } from './modules/auth/auth';
 import HomePage from './components/HomePage/HomePage';
 import AdminPage from './components/AdminPage';
 import BuyPage from './components/BuyPage';
+import CartPage from './components/CartPage';
 
 function Routes() {
   const { user } = useAuth();
@@ -20,6 +21,10 @@ function Routes() {
       <Route
         path="/buy"
         component={BuyPage}
+      />
+      <Route
+        path="/cart"
+        component={CartPage}
       />
       <Route
         path="/"
