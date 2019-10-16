@@ -54,7 +54,11 @@ class EditableCell extends React.Component<EditableTableProps> {
         return;
       }
       this.toggleEdit();
-      handleSave({ ...record, ...values });
+      handleSave({
+        ...record,
+        price: values.price ? +values.price : record.price,
+        stock: values.stock ? +values.stock : values.stock,
+      });
     });
   };
 
@@ -124,6 +128,7 @@ type AddFormModalProps = {
 
 function AddFormModal({ handleClose, handleAdd, visible }: AddFormModalProps) {
   const [condition, setCondition] = useState<Condition>(AGRADE);
+  const [color, setColor] = useState('');
   const [memory, setMemory] = useState('64');
   const [price, setPrice] = useState('');
   const [stock, setStock] = useState('');
@@ -136,9 +141,10 @@ function AddFormModal({ handleClose, handleAdd, visible }: AddFormModalProps) {
     e.preventDefault();
     handleAdd({
       condition,
+      color: color,
       memory: +memory,
       price: +price,
-      stock: +stock
+      stock: +stock,
     });
     handleClose();
   };
@@ -161,6 +167,13 @@ function AddFormModal({ handleClose, handleAdd, visible }: AddFormModalProps) {
             <Select.Option value={AGRADE}>A-Grade</Select.Option>
             <Select.Option value={NEW}>New</Select.Option>
           </Select>
+        </Form.Item>
+        <Form.Item label="Color">
+          <Input
+            type="text"
+            value={color}
+            onChange={e => setColor(e.target.value)}
+          />
         </Form.Item>
         <Form.Item label="Memory">
           <Input
@@ -212,19 +225,15 @@ function StockTable({ datasource: initialDataSource, model, id }: Props) {
   };
 
   const handleAdd = async (newConfig: Configuration) => {
-    if (dataSource.find(
-      config =>
-        config.condition === newConfig.condition &&
-        config.memory === newConfig.memory
-    )) {
+    const newData = {
+      key: `${newConfig.condition}-${newConfig.color}-${newConfig.memory}`,
+      ...newConfig,
+    };
+    if (dataSource.find(config => config.key === newData.key)) {
       return message.error(
         'Configuration with matching condition and memory already exists'
       );
     }
-    const newData = {
-      key: `${newConfig.condition}-${newConfig.memory}`,
-      ...newConfig,
-    };
     const newDataSource = [...dataSource, newData];
     setDataSource(newDataSource);
     await updateModel(id, {
@@ -257,6 +266,11 @@ function StockTable({ datasource: initialDataSource, model, id }: Props) {
       title: 'Condition',
       dataIndex: 'condition',
       key: 'condition',
+    },
+    {
+      title: 'Color',
+      dataIndex: 'color',
+      key: 'color',
     },
     {
       title: 'Memory',

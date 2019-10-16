@@ -6,10 +6,6 @@ export const Container = styled.div`
   overflow: auto;
 
   h1 {
-    font-size: 24px;
-    line-height: 36px;
-    font-weight: bold;
-    color: black;
     max-width: 380px;
   }
 
@@ -99,15 +95,6 @@ export const ProcessContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-
-  h1:after {
-    content: '';
-    width: 32px;
-    height: 8px;
-    margin-top: 8px;
-    display: block;
-    background-color: ${Colors.Red};
-  }
 
   ol {
     padding-top: 16px;

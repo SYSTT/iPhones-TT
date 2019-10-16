@@ -8,6 +8,7 @@ import * as serviceWorker from './serviceWorker';
 import firebaseApp, { FirebaseContext } from './modules/firebase';
 import BaseLayout from './BaseLayout';
 import Routes from './Routes';
+import GlobalStyle from './GlobalStyle';
 
 
 ReactDOM.render(
@@ -15,6 +16,7 @@ ReactDOM.render(
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <BaseLayout>
         <Routes />
+        <GlobalStyle />
       </BaseLayout>
     </BrowserRouter>
   </FirebaseContext.Provider>
