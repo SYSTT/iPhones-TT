@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { Button } from 'antd';
 
@@ -33,3 +34,8 @@ export const ButtonList = styled.div<{ center?: boolean }>`
     margin-right: 12px;
   }
 `;
+
+type PriceProps = { amt: number };
+export const Price = ({ amt }: PriceProps) => (
+  <span>${amt.toFixed(2)} TTD</span>
+);

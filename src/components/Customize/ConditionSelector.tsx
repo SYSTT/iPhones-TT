@@ -4,6 +4,7 @@ import { Icon } from 'antd';
 import { AGRADE, NEW, Condition, Configuration } from '../../modules/stock';
 
 import { OptionList, OptionButton } from './elements';
+import { Price } from '../../utils';
 
 type Props = {
   condition?: string;
@@ -31,8 +32,11 @@ function ConditionSelector({
           <h2>
             <Icon type="safety-certificate" /> A-Grade
           </h2>
-          {agradeConfigs.length ? `From $${agradeConfigs[0].price.toFixed(2)}`
-            : 'Out of stock'}
+          {agradeConfigs.length ? (
+            <span>From <Price amt={agradeConfigs[0].price} /></span>
+          ) : (
+            'Out of stock'
+          )}
         </OptionButton>
         <OptionButton
           selected={condition === NEW}
@@ -44,8 +48,11 @@ function ConditionSelector({
             <Icon type="tag" /> New
           </h2>
           <span>
-          {newConfigs.length ? `From $${newConfigs[0].price.toFixed(2)}`
-            : 'Out of stock'}
+          {newConfigs.length ? (
+            <span>From <Price amt={newConfigs[0].price} /></span>
+          ) : (
+            'Out of stock'
+          )}
           </span>
         </OptionButton>
       </OptionList>
