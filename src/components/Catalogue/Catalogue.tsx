@@ -1,0 +1,49 @@
+import React from 'react';
+import { Card } from 'antd';
+
+import iPhoneIMG from '../HomePage/cover.jpg';
+import { useStock, Model } from '../../modules/stock';
+import { Container, StockList } from './elements';
+import { Heading } from '../../utils';
+import { Link } from 'react-router-dom';
+
+const { Meta } = Card;
+
+function Catalogue() {
+  const { stock } = useStock();
+
+  const renderStockItem = (si: Model) => {
+    return (
+      <Link
+        key={si.slug}
+        to={{
+          pathname: `/buy/${si.slug}`,
+          state: { si },
+        }}
+      >
+        <Card
+          hoverable
+          cover={<img src={iPhoneIMG} alt={si.model} />}
+        >
+          <Meta
+            title={si.model}
+            description={`Starting from $${si.configurations[0].price.toFixed(2)}`}
+          />
+        </Card>
+      </Link>
+    );
+  }
+
+  return (
+    <Container>
+      <Heading>Choose a model</Heading>
+      <StockList>
+        {stock.filter(si => si.configurations.length).map(si => (
+          renderStockItem(si)
+        ))}
+      </StockList>
+    </Container>
+  );
+}
+
+export default Catalogue;

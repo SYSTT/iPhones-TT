@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
+import { Link } from 'react-router-dom';
 
 import {
   Container,
@@ -32,7 +33,7 @@ function HomePage() {
               Trade Now
             </Button>
             <Button type="primary">
-              Shop Now
+              <Link to="/buy">Shop Now</Link>
             </Button>
           </CoverLinks>
         </Banner>

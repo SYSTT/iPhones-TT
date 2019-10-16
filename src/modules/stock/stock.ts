@@ -8,10 +8,13 @@ export const NEW = 'New';
 
 export type Condition = typeof AGRADE | typeof NEW;
 
+export type Color = string;
+
 export type Configuration = {
   memory: number;
   price: number;
   condition: Condition;
+  color: Color;
   stock: number;
 };
 
