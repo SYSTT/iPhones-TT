@@ -55,12 +55,9 @@ class EditableCell extends React.Component<EditableTableProps> {
       }
       this.toggleEdit();
       handleSave({
-        key: record.key,
-        condition: values.condition || record.condition,
-        color: values.color || record.color,
-        memory: +values.memory || record.memory,
-        price: +values.price || record.price,
-        stock: +values.stock || record.stock,
+        ...record,
+        price: values.price ? +values.price : record.price,
+        stock: values.stock ? +values.stock : values.stock,
       });
     });
   };
