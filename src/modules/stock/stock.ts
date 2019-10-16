@@ -48,19 +48,19 @@ export const useStock = () => {
     return () => unsubscribe();
   }, [db]);
 
-  const updateModel = async (id: string, model: ModelData) => {
+  async function updateModel(id: string, model: ModelData) {
     await db.collection('stock').doc(id).update(model);
   };
 
-  const addModel = async ({ model, configurations }: ModelData) => {
+  async function addModel({ model, configurations }: ModelData) {
     await db.collection('stock').add({ model, configurations });
   };
 
-  const deleteModel = async (id: string) => {
+  async function deleteModel(id: string) {
     await db.collection('stock').doc(id).delete();
   };
 
-  const getModelBySlug = (slug: string) => {
+  function getModelBySlug(slug: string) {
     return stock.find(si => si.slug === slug);
   }
 

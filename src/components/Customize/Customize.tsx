@@ -32,7 +32,7 @@ function Customize({
         setConfigs(found.configurations);
       } 
     }
-  }, [match.params.itemSlug, stockLoading]);
+  }, [match.params.itemSlug, stockLoading, getModelBySlug]);
 
   if (!si) {
     if (!loading) {
