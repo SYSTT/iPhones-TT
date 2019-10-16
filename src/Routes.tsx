@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
 
-import { useAuth } from './modules/auth/auth';
+import { useAuth } from './modules/auth';
 
 import HomePage from './components/HomePage/HomePage';
 import AdminPage from './components/AdminPage';
