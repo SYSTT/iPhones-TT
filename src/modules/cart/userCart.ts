@@ -13,25 +13,6 @@ export function useUserCart() {
 
   const [added, setAdded] = useState(false);
 
-  async function addItemToCart(item: CartItem) {
-    const match = userCart.find(ci => ci.id === item.id);
-    let newCart = [];
-    if (match) {
-      newCart = [...userCart, { ...match, quantity: match.quantity + 1 }];
-      setUserCart(newCart);
-    } else {
-      newCart = [...userCart, item];
-      setUserCart(newCart);
-    }
-    if (user) {
-      await db.collection('users').doc(user.uid).set(
-        { cart: newCart },
-        { merge: true }
-      );
-      setAdded(true);
-    }
-  }
-
   useEffect(() => {
     if (user) {
       setUserCartLoading(true);
@@ -45,10 +26,56 @@ export function useUserCart() {
     }
   }, [db, user]);
 
+  async function addItemToCart(item: CartItem) {
+    if (user) {
+      const match = userCart.find(ci => ci.id === item.id);
+      let newCart: CartItem[];
+      if (match) {
+        newCart = [...userCart, { ...match, quantity: match.quantity + 1 }];
+      } else {
+        newCart = [...userCart, item];
+      }
+
+      await db.collection('users').doc(user.uid).set(
+        { cart: newCart },
+        { merge: true }
+      );
+      setAdded(true);
+    }
+  }
+
+  async function removeItemFromCart(itemId: string) {
+    if (user) {
+      const newCart = userCart.filter(ci => ci.id !== itemId);
+      await db.collection('users').doc(user.uid).set(
+        { cart: newCart },
+        { merge: true }
+      );
+    }
+  }
+
+  async function updateItemQuantity(itemId: string, quantity: number) {
+    if (user) {
+      const newCart = [...userCart];
+      newCart.forEach((ci, index, cart) => {
+        if (ci.id === itemId) {
+          cart[index] = { ...ci, quantity };
+        }
+      });
+
+      await db.collection('users').doc(user.uid).set(
+        { cart: newCart },
+        { merge: true }
+      );
+    }
+  }
+
   return {
     cart: userCart,
     addItemToCart,
     added,
     userCartLoading,
+    removeItemFromCart,
+    updateItemQuantity,
   };
 };
