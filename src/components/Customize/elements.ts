@@ -7,7 +7,6 @@ export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   color: ${Colors["Grey/VeryLight"]};
-  background-color: ${Colors.White};
 
   .ant-carousel {
     width: 100%;
