@@ -29,7 +29,7 @@ export const ItemDetails = styled.div`
   flex-wrap: wrap;
 
   > h2 {
-    flex: 2;
+    flex: 3;
   
     > a {
       color: ${Colors.Black};
@@ -51,6 +51,12 @@ export const ItemDetails = styled.div`
   }
   .ant-select-arrow {
     color: ${Colors.Primary};
+  }
+
+  @media (min-width: 768px) {
+    > div {
+      flex: 1;
+    }
   }
 `;
 
