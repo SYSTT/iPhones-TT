@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { RouteComponentProps, StaticContext, Redirect } from 'react-router';
+import { RouteComponentProps, StaticContext } from 'react-router';
+import { Redirect } from 'react-router-dom';
 import { Carousel } from 'antd';
 
 import { Model, useStock, Condition, Configuration, Color } from '../../modules/stock';
+import { useCart } from '../../modules/cart';
 
 import iPhoneIMG from '../HomePage/cover.jpg';
 
@@ -13,15 +15,17 @@ import ColorSelector from './ColorSelector';
 import MemorySelector from './MemorySelector';
 
 function Customize({
+  history,
   match,
 }: RouteComponentProps<{ itemSlug: string}, StaticContext, { si?: Model }>) {
   const [condition, setCondition] = useState<Condition>();
-  const [color, setColor] = useState();
+  const [color, setColor] = useState<string>();
   const [memory, setMemory] = useState<number>();
   const [si, setSI] = useState<Model>();
   const [configs, setConfigs] = useState<Configuration[]>([]);
   const [loading, setLoading] = useState(true);
   const { getModelBySlug, loading: stockLoading } = useStock();
+  const { addItemToCart, added } = useCart();
 
   useEffect(() => {
     if (!stockLoading) {
@@ -39,6 +43,28 @@ function Customize({
       return <Redirect to="/buy" />;
     }
     return null;
+  }
+
+  if (added) {
+    return <Redirect to="/cart" />;
+  }
+
+  const addToCart = () => {
+    const match = si.configurations.find(config => 
+      config.condition === condition &&
+      config.color === color &&
+      config.memory === memory
+    );
+    if (!match) {
+      return;
+    }
+    addItemToCart({
+      model: si.model,
+      id: `${si.model}-${match.condition}-${match.color}-${match.memory}`,
+      slug: si.slug,
+      quantity: 1,
+      ...match,
+    });
   }
 
   const handleConditionChange = (condition: Condition) => {
@@ -85,7 +111,7 @@ function Customize({
           disabled={!color}
         />
         <ButtonList center>
-          <RoundedButton disabled={!memory}>
+          <RoundedButton disabled={!memory} onClick={addToCart}>
             Add to Cart
           </RoundedButton>
           <RoundedButton type="primary" disabled={!memory}>

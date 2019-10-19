@@ -24,7 +24,6 @@ export const Cover = styled.div`
   align-items: center;
   width: 100%;
   padding: 24px 32px;
-  background-color: white;
 
   @media (min-width: 1024px) {
     flex-wrap: nowrap;
@@ -112,7 +111,6 @@ export const ProcessSection = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  background-color: ${Colors.White};
 `;
 
 export const QualityContainer = styled.div`
@@ -121,7 +119,6 @@ export const QualityContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-  background-color: white;
 
   >:first-child {
     margin: 24px;
