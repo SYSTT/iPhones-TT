@@ -7,6 +7,7 @@ import HomePage from './components/HomePage/HomePage';
 import AdminPage from './components/AdminPage';
 import BuyPage from './components/BuyPage';
 import CartPage from './components/CartPage';
+import TradePage from './components/TradePage';
 
 function Routes() {
   const { user } = useAuth();
@@ -17,6 +18,10 @@ function Routes() {
       <Route
         path="/admin"
         render={() => <AdminPage user={user} />}
+      />
+      <Route
+        path="/trade"
+        component={TradePage}
       />
       <Route
         path="/buy"
