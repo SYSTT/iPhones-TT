@@ -28,7 +28,7 @@ export type Model = ModelData & {
   slug: string;
 };
 
-export const useStock = () => {
+export function useStock() {
   const { db } = useContext(FirebaseContext);
 
   const [loading, setLoading] = useState(true);
