@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card } from 'antd';
 
-import iPhoneIMG from '../HomePage/cover.jpg';
 import { useStock, Model } from '../../modules/stock';
-import { Container, StockList } from './elements';
+
 import { Heading } from '../../utils';
-import { Link } from 'react-router-dom';
+import { Container, StockList } from './elements';
+import iPhoneIMG from '../HomePage/cover.jpg';
 
 const { Meta } = Card;
 
