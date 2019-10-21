@@ -65,6 +65,7 @@ function DeviceForm() {
           <OptionList cols={2}>
             {device.options.map(opt => (
               <OptionButton
+                key={opt.memory}
                 selected={option && option.memory === opt.memory}
                 type="ghost"
                 onClick={() => setOption(opt)}
