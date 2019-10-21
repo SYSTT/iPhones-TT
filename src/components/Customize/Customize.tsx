@@ -40,7 +40,7 @@ function Customize({
 
   if (!si) {
     if (!loading) {
-      return <Redirect to="/buy" />;
+      return <Redirect to=".." />;
     }
     return null;
   }

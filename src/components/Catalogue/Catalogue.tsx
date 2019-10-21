@@ -18,7 +18,7 @@ function Catalogue() {
       <Link
         key={si.slug}
         to={{
-          pathname: `/buy/${si.slug}`,
+          pathname: `${si.slug}`,
           state: { si },
         }}
       >

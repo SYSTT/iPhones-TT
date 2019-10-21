@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { useAuth } from './modules/auth';
 
@@ -15,6 +15,12 @@ function Routes() {
   return (
     <>
     <Switch>
+      <Route
+        exact
+        strict
+        path="/:url*"
+        render={props => <Redirect to={`${props.location.pathname}/`}/>}
+      />
       <Route
         path="/admin"
         render={() => <AdminPage user={user} />}
