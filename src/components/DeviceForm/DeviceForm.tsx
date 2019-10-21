@@ -1,11 +1,25 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
-import { Alert, Icon, Select, Button } from 'antd';
+import { Alert, Icon, Select, Button, Divider } from 'antd';
 
 import { useTradeDevices, Device, DeviceOption } from '../../modules/trade-devices';
 
 import { Heading, OptionList, OptionButton, Price, ButtonList, RoundedButton } from '../../utils';
 import { Container } from './elements';
+
+const AlertDescription = (
+  <div>
+    <p>
+      Currently we can only accept iPhones with A-Grade quality. This means
+    </p>
+    <ul>
+      <li>100% perfect working condition.</li>
+      <li>Near perfect to brand new physical condition.</li>
+      <li>Above 80% battery health (Find it in Settings > Battery > Battery Health).</li>
+    </ul>
+    <p>Additionally, we do not accept iPhones with locked iCloud.</p>
+  </div>
+);
 
 function DeviceForm() {
   const history = useHistory();
@@ -32,7 +46,7 @@ function DeviceForm() {
         type="warning"
         icon={<Icon type="safety-certificate" />}
         message="A-Grade Quality"
-        description="Currently we can only accept iPhones with A-Grade quality"
+        description={AlertDescription}
         showIcon
       />
       <h3 style={{ marginBottom: 12, marginTop: 24 }}>Choose your device's model.</h3>
@@ -63,6 +77,7 @@ function DeviceForm() {
       )}
       {option && (
         <>
+          <Divider />
           <h3 style={{ marginBottom: 12 }}>Your devices value.</h3>
           <Price amt={option.price} />
           <ButtonList style={{ marginTop: 24 }} center>
