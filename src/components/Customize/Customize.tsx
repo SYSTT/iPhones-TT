@@ -16,11 +16,12 @@ import MemorySelector from './MemorySelector';
 
 type Props = RouteComponentProps<{ itemSlug: string}, StaticContext, { si?: Model }> & {
   allowAddToCart?: boolean;
+  trade?: Boolean;
 };
 
 function Customize({
   match,
-  allowAddToCart = true,
+  trade = false,
 }: Props) {
   const [condition, setCondition] = useState<Condition>();
   const [color, setColor] = useState<string>();
@@ -90,7 +91,7 @@ function Customize({
         <img className="carousel-item" src={iPhoneIMG} alt={si.model} />
       </Carousel>
       <Content>
-        <Heading>Buy {si.model}</Heading>
+        <Heading>{trade ? 'Trade for' : 'Buy'} {si.model}.</Heading>
         <ConditionSelector
           condition={condition}
           setCondition={handleConditionChange}
@@ -115,7 +116,7 @@ function Customize({
           disabled={!color}
         />
         <ButtonList center>
-          {allowAddToCart && (
+          {!trade && (
             <RoundedButton disabled={!memory} onClick={addToCart}>
               Add to Cart
             </RoundedButton>

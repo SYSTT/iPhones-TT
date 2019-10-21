@@ -10,7 +10,11 @@ import iPhoneIMG from '../HomePage/cover.jpg';
 
 const { Meta } = Card;
 
-function Catalogue() {
+type Props = {
+  trade?: boolean;
+};
+
+function Catalogue({ trade = false }: Props) {
   const { stock } = useStock();
 
   const renderStockItem = (si: Model) => {
@@ -37,7 +41,7 @@ function Catalogue() {
 
   return (
     <Container>
-      <Heading>Choose a model</Heading>
+      <Heading>Choose a model{trade && ' to trade for'}.</Heading>
       <StockList>
         {stock.filter(si => si.configurations.length).map(si => (
           renderStockItem(si)

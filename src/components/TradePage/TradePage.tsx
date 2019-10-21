@@ -25,12 +25,12 @@ function TradePage({
         <Route
           path={`${match.path}/:tradeSlug/:itemSlug`}
           render={routeComponentProps => (
-            <Customize allowAddToCart={false} {...routeComponentProps} />
+            <Customize allowAddToCart={false} trade {...routeComponentProps} />
           )}
         />
         <Route
           path={`${match.path}/:tradeSlug`}
-          component={Catalogue}
+          render={() => <Catalogue trade />}
         />
         <Route
           path={`${match.path}`}
