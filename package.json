@@ -27,7 +27,7 @@
     "dev-deploy": "firebase deploy --only hosting:dev",
     "pregh-deploy": "PUBLIC_URL=/iPhones-TT npm run build",
     "gh-deploy": "gh-pages -d build",
-    "test": "react-app-rewired test",
+    "test": "react-app-rewired test --passWithNoTests",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
