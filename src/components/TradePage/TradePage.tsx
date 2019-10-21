@@ -5,6 +5,7 @@ import { Location } from 'history';
 
 import Catalogue from '../Catalogue';
 import Customize from '../Customize';
+import DeviceForm from '../DeviceForm';
 import { Container } from './elements';
 const { Step } = Steps;
 
@@ -22,16 +23,18 @@ function TradePage({
     <Container>
       <Switch>
         <Route
-          path={`${match.path}/catalogue/:itemSlug`}
-          component={Customize}
+          path={`${match.path}/:tradeSlug/:itemSlug`}
+          render={routeComponentProps => (
+            <Customize allowAddToCart={false} {...routeComponentProps} />
+          )}
         />
         <Route
-          path={`${match.path}/catalogue`}
+          path={`${match.path}/:tradeSlug`}
           component={Catalogue}
         />
         <Route
           path={`${match.path}`}
-          render={() => <h1>Device Form</h1>}
+          component={DeviceForm}
         />
       </Switch>
       <Steps
