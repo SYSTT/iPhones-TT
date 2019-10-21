@@ -35,7 +35,13 @@ export const ButtonList = styled.div<{ center?: boolean }>`
   }
 `;
 
-export const OptionList = styled.div`
+type OptionListProps = {
+  cols?: number;
+};
+export const OptionList = styled.div<OptionListProps>`
+  display: grid;
+  grid-template-columns: repeat(${props => props.cols || 1}, 1fr);
+  grid-column-gap: 16px;
   padding-bottom: 16px;
 
   h2 {
@@ -44,7 +50,10 @@ export const OptionList = styled.div`
   }
 `;
 
-export const OptionButton = styled(Button)<{ selected?: boolean }>`
+type OptionButtonProps = {
+  selected?: boolean;
+};
+export const OptionButton = styled(Button)<OptionButtonProps>`
   color: ${Colors.Black};
   text-align: start;
   margin-right: 16px;
