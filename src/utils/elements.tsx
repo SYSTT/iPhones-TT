@@ -35,6 +35,39 @@ export const ButtonList = styled.div<{ center?: boolean }>`
   }
 `;
 
+export const OptionList = styled.div`
+  padding-bottom: 16px;
+
+  h2 {
+    color: inherit;
+    margin: 0;
+  }
+`;
+
+export const OptionButton = styled(Button)<{ selected?: boolean }>`
+  color: ${Colors.Black};
+  text-align: start;
+  margin-right: 16px;
+  margin-bottom: 16px;
+  height: 56px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-color: ${props => props.selected ? Colors.Primary : Colors["Grey/VeryLight"]};
+  border-width: ${props => props.selected ? '2px' : '1px'};
+
+  &:focus, &:hover {
+    color: ${Colors.Black};
+    border-color: ${props => props.selected ? Colors.Primary : Colors.Grey};
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px ${Colors["Red/VeryLight"]};
+    border-color: ${Colors.Primary};
+  }
+`;
+
 type PriceProps = { amt: number };
 export const Price = ({ amt }: PriceProps) => (
   <span>${amt.toFixed(2)} TTD</span>
