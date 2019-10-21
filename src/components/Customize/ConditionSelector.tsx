@@ -3,8 +3,8 @@ import { Icon } from 'antd';
 
 import { AGRADE, NEW, Condition, Configuration } from '../../modules/stock';
 
-import { OptionList, OptionButton } from './elements';
-import { Price } from '../../utils';
+import { Price, OptionList, OptionButton } from '../../utils';
+import { SelectorContainer } from './elements';
 
 type Props = {
   condition?: string;
@@ -20,7 +20,7 @@ function ConditionSelector({
   const agradeConfigs =  configs.filter(config => config.condition === AGRADE);
   const newConfigs = configs.filter(config => config.condition === NEW);
   return (
-    <>
+    <SelectorContainer>
       <h4>Condition</h4>
       <OptionList>
         <OptionButton
@@ -56,7 +56,7 @@ function ConditionSelector({
           </span>
         </OptionButton>
       </OptionList>
-    </>
+    </SelectorContainer>
   );
 }
 

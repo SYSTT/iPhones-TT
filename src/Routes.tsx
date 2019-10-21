@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { useAuth } from './modules/auth';
 
@@ -7,6 +7,7 @@ import HomePage from './components/HomePage/HomePage';
 import AdminPage from './components/AdminPage';
 import BuyPage from './components/BuyPage';
 import CartPage from './components/CartPage';
+import TradePage from './components/TradePage';
 
 function Routes() {
   const { user } = useAuth();
@@ -15,8 +16,18 @@ function Routes() {
     <>
     <Switch>
       <Route
+        exact
+        strict
+        path="/:url*"
+        render={props => <Redirect to={`${props.location.pathname}/`}/>}
+      />
+      <Route
         path="/admin"
         render={() => <AdminPage user={user} />}
+      />
+      <Route
+        path="/trade"
+        component={TradePage}
       />
       <Route
         path="/buy"

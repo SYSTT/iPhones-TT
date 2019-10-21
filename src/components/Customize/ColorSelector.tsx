@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Configuration } from '../../modules/stock';
-import { Colors, dedup } from '../../utils';
 
-import { OptionList, OptionButton } from './elements';
+import { Colors, dedup, OptionList, OptionButton } from '../../utils';
+import { SelectorContainer } from './elements';
 
 type Props = {
   color?: string;
@@ -39,14 +39,14 @@ function ColorSelector({
   }
 
   return (
-    <>
+    <SelectorContainer>
       <h4 style={{ color: disabled ? Colors.Grey : 'initial'}}>Color</h4>
       <OptionList>
         {dedup(configs.map(config => config.color)).map(
           color => renderOption(color)
         )}
       </OptionList>
-    </>
+    </SelectorContainer>
   );
 }
 

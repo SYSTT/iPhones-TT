@@ -14,10 +14,15 @@ import ConditionSelector from './ConditionSelector';
 import ColorSelector from './ColorSelector';
 import MemorySelector from './MemorySelector';
 
+type Props = RouteComponentProps<{ itemSlug: string}, StaticContext, { si?: Model }> & {
+  allowAddToCart?: boolean;
+  trade?: Boolean;
+};
+
 function Customize({
-  history,
   match,
-}: RouteComponentProps<{ itemSlug: string}, StaticContext, { si?: Model }>) {
+  trade = false,
+}: Props) {
   const [condition, setCondition] = useState<Condition>();
   const [color, setColor] = useState<string>();
   const [memory, setMemory] = useState<number>();
@@ -40,7 +45,7 @@ function Customize({
 
   if (!si) {
     if (!loading) {
-      return <Redirect to="/buy" />;
+      return <Redirect to=".." />;
     }
     return null;
   }
@@ -86,7 +91,7 @@ function Customize({
         <img className="carousel-item" src={iPhoneIMG} alt={si.model} />
       </Carousel>
       <Content>
-        <Heading>Buy {si.model}</Heading>
+        <Heading>{trade ? 'Trade for' : 'Buy'} {si.model}.</Heading>
         <ConditionSelector
           condition={condition}
           setCondition={handleConditionChange}
@@ -111,9 +116,11 @@ function Customize({
           disabled={!color}
         />
         <ButtonList center>
-          <RoundedButton disabled={!memory} onClick={addToCart}>
-            Add to Cart
-          </RoundedButton>
+          {!trade && (
+            <RoundedButton disabled={!memory} onClick={addToCart}>
+              Add to Cart
+            </RoundedButton>
+          )}
           <RoundedButton type="primary" disabled={!memory}>
             Checkout
           </RoundedButton>

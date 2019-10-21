@@ -30,7 +30,7 @@ function HomePage() {
           </h3>
           <CoverLinks>
             <Button type="default">
-              Trade Now
+              <Link to="/trade">Trade Now</Link>
             </Button>
             <Button type="primary">
               <Link to="/buy">Shop Now</Link>

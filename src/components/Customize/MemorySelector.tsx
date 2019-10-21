@@ -3,7 +3,8 @@ import React from 'react';
 import { Configuration } from '../../modules/stock';
 import { Colors, dedup, Price } from '../../utils';
 
-import { OptionList, OptionButton } from './elements';
+import { OptionList, OptionButton } from '../../utils';
+import { SelectorContainer } from './elements';
 
 type Props = {
   memory?: number;
@@ -39,14 +40,14 @@ function MemorySelector({
   }
 
   return (
-    <>
+    <SelectorContainer>
       <h4 style={{ color: disabled ? Colors.Grey : 'initial'}}>Memory</h4>
       <OptionList>
         {dedup(configs, config => config.memory).map(
           config => renderOption(config.memory, config.price)
         )}
       </OptionList>
-    </>
+    </SelectorContainer>
   );
 }
 

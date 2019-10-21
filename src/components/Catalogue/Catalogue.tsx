@@ -1,15 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card } from 'antd';
 
-import iPhoneIMG from '../HomePage/cover.jpg';
 import { useStock, Model } from '../../modules/stock';
-import { Container, StockList } from './elements';
+
 import { Heading } from '../../utils';
-import { Link } from 'react-router-dom';
+import { Container, StockList } from './elements';
+import iPhoneIMG from '../HomePage/cover.jpg';
 
 const { Meta } = Card;
 
-function Catalogue() {
+type Props = {
+  trade?: boolean;
+};
+
+function Catalogue({ trade = false }: Props) {
   const { stock } = useStock();
 
   const renderStockItem = (si: Model) => {
@@ -17,7 +22,7 @@ function Catalogue() {
       <Link
         key={si.slug}
         to={{
-          pathname: `/buy/${si.slug}`,
+          pathname: `${si.slug}`,
           state: { si },
         }}
       >
@@ -36,7 +41,7 @@ function Catalogue() {
 
   return (
     <Container>
-      <Heading>Choose a model</Heading>
+      <Heading>Choose a model{trade && ' to trade for'}.</Heading>
       <StockList>
         {stock.filter(si => si.configurations.length).map(si => (
           renderStockItem(si)
