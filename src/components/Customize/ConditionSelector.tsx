@@ -3,7 +3,8 @@ import { Icon } from 'antd';
 
 import { AGRADE, NEW, Condition, Configuration } from '../../modules/stock';
 
-import { Price, OptionList, OptionButton } from '../../utils';
+import Price from '../Price';
+import { OptionList, OptionButton } from '../../utils';
 import { SelectorContainer } from './elements';
 
 type Props = {
