@@ -4,6 +4,7 @@ import { Card } from 'antd';
 
 import { useStock, Model } from '../../modules/stock';
 
+import Price from '../Price';
 import { Heading } from '../../utils';
 import { Container, StockList } from './elements';
 import iPhoneIMG from '../HomePage/cover.jpg';
@@ -32,7 +33,11 @@ function Catalogue({ trade = false }: Props) {
         >
           <Meta
             title={si.model}
-            description={`Starting from $${si.configurations[0].price.toFixed(2)}`}
+            description={
+              <div>
+                Starting from <Price amt={si.configurations[0].price} />
+              </div>
+            }
           />
         </Card>
       </Link>

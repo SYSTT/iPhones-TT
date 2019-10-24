@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Configuration } from '../../modules/stock';
-import { Colors, dedup, Price } from '../../utils';
 
-import { OptionList, OptionButton } from '../../utils';
+import Price from '../Price';
+import { OptionList, OptionButton, Colors, dedup } from '../../utils';
 import { SelectorContainer } from './elements';
 
 type Props = {

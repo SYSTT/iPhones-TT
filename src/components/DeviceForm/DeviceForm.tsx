@@ -4,7 +4,8 @@ import { Alert, Icon, Select, Button, Divider } from 'antd';
 
 import { useTradeDevices, Device, DeviceOption } from '../../modules/trade-devices';
 
-import { Heading, OptionList, OptionButton, Price, ButtonList, RoundedButton } from '../../utils';
+import Price from '../Price';
+import { Heading, OptionList, OptionButton, ButtonList, RoundedButton } from '../../utils';
 import { Container } from './elements';
 
 const AlertDescription = (

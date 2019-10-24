@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import { Button } from 'antd';
 
@@ -76,8 +75,3 @@ export const OptionButton = styled(Button)<OptionButtonProps>`
     border-color: ${Colors.Primary};
   }
 `;
-
-type PriceProps = { amt: number };
-export const Price = ({ amt }: PriceProps) => (
-  <span>${amt.toFixed(2)} TTD</span>
-);
