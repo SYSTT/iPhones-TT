@@ -5,25 +5,22 @@ type Props = {
   user: User | null;
   fallback: React.ReactNode;
   children: React.ReactNode;
-  requiredClaims?: Object;
+  requiredClaims?: Record<string, boolean>;
 };
 
-function AuthCheck({
-  user,
-  fallback,
-  children,
-  requiredClaims,
-}: Props) {
+function AuthCheck({ user, fallback, children, requiredClaims }: Props) {
   useLayoutEffect(() => {
     if (requiredClaims && user) {
       user.getIdTokenResult().then(token => {
+        console.log(requiredClaims, token.claims);
         const failedClaims = Object.entries(requiredClaims).filter(
-          ([claim, value]) => token.claims[claim] !== value
+          ([claim, value]) => token.claims[claim] !== value,
         );
         if (failedClaims.length > 0) {
           throw new Error(`
-            User does not have required claims: ${JSON.stringify(failedClaims)}`
-          );
+            User does not have required claims: ${JSON.stringify(
+              failedClaims,
+            )}`);
         }
       });
     }
@@ -32,6 +29,6 @@ function AuthCheck({
     return <>{fallback}</>;
   }
   return <>{children}</>;
-};
+}
 
 export default AuthCheck;

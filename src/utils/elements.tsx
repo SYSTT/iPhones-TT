@@ -4,8 +4,6 @@ import { Button } from 'antd';
 import { Colors } from './colors';
 
 export const Heading = styled.h1`
-  
-
   :after {
     content: '';
     width: 32px;
@@ -27,7 +25,7 @@ export const RoundedButton = styled(Button)`
 
 export const ButtonList = styled.div<{ center?: boolean }>`
   display: flex;
-  justify-content: ${props => props.center ? 'center' : 'initial'};
+  justify-content: ${props => (props.center ? 'center' : 'initial')};
 
   > button {
     margin-right: 12px;
@@ -62,16 +60,18 @@ export const OptionButton = styled(Button)<OptionButtonProps>`
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  border-color: ${props => props.selected ? Colors.Primary : Colors["Grey/VeryLight"]};
-  border-width: ${props => props.selected ? '2px' : '1px'};
+  border-color: ${props =>
+    props.selected ? Colors.Primary : Colors['Grey/VeryLight']};
+  border-width: ${props => (props.selected ? '2px' : '1px')};
 
-  &:focus, &:hover {
+  &:focus,
+  &:hover {
     color: ${Colors.Black};
-    border-color: ${props => props.selected ? Colors.Primary : Colors.Grey};
+    border-color: ${props => (props.selected ? Colors.Primary : Colors.Grey)};
   }
 
   &:focus {
-    box-shadow: 0 0 0 2px ${Colors["Red/VeryLight"]};
+    box-shadow: 0 0 0 2px ${Colors['Red/VeryLight']};
     border-color: ${Colors.Primary};
   }
 `;

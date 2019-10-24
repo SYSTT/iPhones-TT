@@ -1,9 +1,7 @@
 import React from 'react';
 import { Button } from 'antd';
 
-import {
-  ProcessContainer,
-} from './elements';
+import { ProcessContainer } from './elements';
 import { Heading } from '../../utils';
 
 type Props = {
@@ -12,18 +10,18 @@ type Props = {
   buttonText: string;
 };
 
-function Process({
-  title,
-  steps,
-  buttonText,
-}: Props) {
+function Process({ title, steps, buttonText }: Props) {
   return (
     <ProcessContainer>
       <Heading>{title}</Heading>
       <ol>
-        {steps.map(step => <li key={step}>{step}</li>)}
+        {steps.map(step => (
+          <li key={step}>{step}</li>
+        ))}
       </ol>
-      <Button type="primary" block>{buttonText}</Button>
+      <Button type="primary" block>
+        {buttonText}
+      </Button>
     </ProcessContainer>
   );
 }

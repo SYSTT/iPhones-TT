@@ -49,16 +49,22 @@ export function useStock() {
   }, [db]);
 
   async function updateModel(id: string, model: ModelData) {
-    await db.collection('stock').doc(id).update(model);
-  };
+    await db
+      .collection('stock')
+      .doc(id)
+      .update(model);
+  }
 
   async function addModel({ model, configurations }: ModelData) {
     await db.collection('stock').add({ model, configurations });
-  };
+  }
 
   async function deleteModel(id: string) {
-    await db.collection('stock').doc(id).delete();
-  };
+    await db
+      .collection('stock')
+      .doc(id)
+      .delete();
+  }
 
   function getModelBySlug(slug: string) {
     return stock.find(si => si.slug === slug);

@@ -30,7 +30,7 @@ export const ItemDetails = styled.div`
 
   > h2 {
     flex: 3;
-  
+
     > a {
       color: ${Colors.Black};
       line-height: 30px;
@@ -47,7 +47,7 @@ export const ItemDetails = styled.div`
   }
   .ant-select-selection--single .ant-select-selection__rendered {
     margin-right: 32px;
-    line-height: 
+    line-height: ;
   }
   .ant-select-arrow {
     color: ${Colors.Primary};

@@ -19,7 +19,7 @@ export class Firebase {
 
   constructor() {
     firebase.initializeApp(config);
-    
+
     this.auth = firebase.auth();
     this.db = firebase.firestore();
     this.database = firebase.database();
@@ -34,12 +34,12 @@ export class Firebase {
   doSignOut = () => this.auth.signOut();
 
   doPasswordReset = (email: string) => this.auth.sendPasswordResetEmail(email);
-  
+
   doPasswordUpdate = (password: string) => {
     if (this.auth.currentUser) {
       this.auth.currentUser.updatePassword(password);
     }
-  }
+  };
 }
 
 export default new Firebase();

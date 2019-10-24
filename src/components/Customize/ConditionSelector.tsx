@@ -10,15 +10,11 @@ import { SelectorContainer } from './elements';
 type Props = {
   condition?: string;
   setCondition: (condition: Condition) => void;
-  configs: Configuration[],
+  configs: Configuration[];
 };
 
-function ConditionSelector({
-  condition,
-  setCondition,
-  configs,
-}: Props) {
-  const agradeConfigs =  configs.filter(config => config.condition === AGRADE);
+function ConditionSelector({ condition, setCondition, configs }: Props) {
+  const agradeConfigs = configs.filter(config => config.condition === AGRADE);
   const newConfigs = configs.filter(config => config.condition === NEW);
   return (
     <SelectorContainer>
@@ -34,7 +30,9 @@ function ConditionSelector({
             <Icon type="safety-certificate" /> A-Grade
           </h2>
           {agradeConfigs.length ? (
-            <span>From <Price amt={agradeConfigs[0].price} /></span>
+            <span>
+              From <Price amt={agradeConfigs[0].price} />
+            </span>
           ) : (
             'Out of stock'
           )}
@@ -49,11 +47,13 @@ function ConditionSelector({
             <Icon type="tag" /> New
           </h2>
           <span>
-          {newConfigs.length ? (
-            <span>From <Price amt={newConfigs[0].price} /></span>
-          ) : (
-            'Out of stock'
-          )}
+            {newConfigs.length ? (
+              <span>
+                From <Price amt={newConfigs[0].price} />
+              </span>
+            ) : (
+              'Out of stock'
+            )}
           </span>
         </OptionButton>
       </OptionList>

@@ -22,11 +22,10 @@ function HomePage() {
       <Cover>
         <SpotlightImage src={CoverImage} alt="iPhones" />
         <Banner>
-          <h1>
-            Quality Devices. Best Prices. Great Service.
-          </h1>
+          <h1>Quality Devices. Best Prices. Great Service.</h1>
           <h3>
-            The best place to <strong>buy</strong> and <strong>trade</strong> iPhones in Trinidad and Tobago.
+            The best place to <strong>buy</strong> and <strong>trade</strong>{' '}
+            iPhones in Trinidad and Tobago.
           </h3>
           <CoverLinks>
             <Button type="default">

@@ -21,17 +21,17 @@ const QUANTITY_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 function CartPage() {
   const { cart, removeItemFromCart, updateItemQuantity } = useCart();
-  
+
   const total = cart.reduce(
     (total, item) => total + item.price * item.quantity,
-    0
+    0,
   );
 
   return (
     <Container>
-      <Heading>Here's what's in your cart.</Heading>
+      <Heading>Here&#39;s what&#39;s in your cart.</Heading>
       {cart.map(item => (
-        <ItemContainer>
+        <ItemContainer key={item.id}>
           <img src={iPhoneIMG} alt={item.model} />
           <ItemContent>
             <ItemDetails>
@@ -43,23 +43,22 @@ function CartPage() {
               <div>
                 <Select
                   defaultValue={item.quantity}
-                  onChange={
-                    (quantity: number) => updateItemQuantity(item.id, quantity)
+                  onChange={(quantity: number) =>
+                    updateItemQuantity(item.id, quantity)
                   }
                 >
-                  {QUANTITY_OPTIONS.map(quantityOpt =>
-                    <Select.Option value={quantityOpt}>
+                  {QUANTITY_OPTIONS.map(quantityOpt => (
+                    <Select.Option key={quantityOpt} value={quantityOpt}>
                       <h2>{quantityOpt}</h2>
                     </Select.Option>
-                  )}
+                  ))}
                 </Select>
               </div>
               <ItemPrice>
-                <h2><Price amt={item.price * item.quantity} /></h2>
-                <Button
-                  type="link"
-                  onClick={() => removeItemFromCart(item.id)}
-                >
+                <h2>
+                  <Price amt={item.price * item.quantity} />
+                </h2>
+                <Button type="link" onClick={() => removeItemFromCart(item.id)}>
                   Remove
                 </Button>
               </ItemPrice>
@@ -71,7 +70,9 @@ function CartPage() {
       <CartDetails>
         <div>
           <h2>Your total:</h2>
-          <h2><Price amt={total} /></h2>
+          <h2>
+            <Price amt={total} />
+          </h2>
         </div>
         <RoundedButton type="primary">Checkout</RoundedButton>
       </CartDetails>

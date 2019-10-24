@@ -1,17 +1,34 @@
 import React, { useState, DetailedHTMLProps, HTMLAttributes } from 'react';
-import { Table, Input, Popconfirm, Form, Button, Select, Modal, message, Icon, Tooltip } from 'antd';
+import {
+  Table,
+  Input,
+  Popconfirm,
+  Form,
+  Button,
+  Select,
+  Modal,
+  message,
+  Icon,
+  Tooltip,
+} from 'antd';
 import { FormComponentProps, WrappedFormUtils } from 'antd/lib/form/Form';
 
-import { Configuration, AGRADE, NEW, Condition, useStock } from '../../modules/stock';
+import {
+  Configuration,
+  AGRADE,
+  NEW,
+  Condition,
+  useStock,
+} from '../../modules/stock';
 
 const EditableContext = React.createContext<WrappedFormUtils | null>(null);
 
-type HtmlElementProps<T> = DetailedHTMLProps<
-  HTMLAttributes<T>,
-  T
->;
+type HtmlElementProps<T> = DetailedHTMLProps<HTMLAttributes<T>, T>;
 
-const EditableRow = ({ form, ...props }: FormComponentProps & HtmlElementProps<HTMLTableRowElement>) => (
+const EditableRow = ({
+  form,
+  ...props
+}: FormComponentProps & HtmlElementProps<HTMLTableRowElement>) => (
   <EditableContext.Provider value={form}>
     <tr {...props} />
   </EditableContext.Provider>
@@ -26,7 +43,7 @@ type EditableTableProps = HtmlElementProps<HTMLTableCellElement> & {
   record: KeyedConfiguration;
   index: number;
   handleSave: (record: KeyedConfiguration) => void;
-  children: React.ReactNode,
+  children: React.ReactNode;
 };
 
 class EditableCell extends React.Component<EditableTableProps> {
@@ -46,7 +63,9 @@ class EditableCell extends React.Component<EditableTableProps> {
 
   save = (
     form: WrappedFormUtils,
-    e: React.KeyboardEvent<HTMLInputElement> | React.FocusEvent<HTMLInputElement>
+    e:
+      | React.KeyboardEvent<HTMLInputElement>
+      | React.FocusEvent<HTMLInputElement>,
   ) => {
     const { record, handleSave } = this.props;
     form.validateFields((error, values) => {
@@ -83,7 +102,7 @@ class EditableCell extends React.Component<EditableTableProps> {
             ref={this.state.inputRef}
             onPressEnter={e => this.save(form, e)}
             onBlur={e => this.save(form, e)}
-          />
+          />,
         )}
       </Form.Item>
     ) : (
@@ -98,16 +117,7 @@ class EditableCell extends React.Component<EditableTableProps> {
   };
 
   render() {
-    const {
-      editable,
-      dataIndex,
-      title,
-      record,
-      index,
-      handleSave,
-      children,
-      ...restProps
-    } = this.props;
+    const { editable, children, ...restProps } = this.props;
     return (
       <td {...restProps}>
         {editable ? (
@@ -135,8 +145,8 @@ function AddFormModal({ handleClose, handleAdd, visible }: AddFormModalProps) {
 
   const onSubmit = (
     e:
-      React.MouseEvent<HTMLElement, MouseEvent> |
-      React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<HTMLElement, MouseEvent>
+      | React.FormEvent<HTMLFormElement>,
   ) => {
     e.preventDefault();
     handleAdd({
@@ -148,7 +158,6 @@ function AddFormModal({ handleClose, handleAdd, visible }: AddFormModalProps) {
     });
     handleClose();
   };
-
 
   return (
     <Modal
@@ -219,7 +228,7 @@ function StockTable({ datasource: initialDataSource, model, id }: Props) {
   const { updateModel, deleteModel } = useStock();
 
   const handleDelete = async (key: string) => {
-    const newData = dataSource.filter(item => item.key !== key)
+    const newData = dataSource.filter(item => item.key !== key);
     setDataSource(newData);
     await updateModel(id, { model, configurations: newData });
   };
@@ -231,7 +240,7 @@ function StockTable({ datasource: initialDataSource, model, id }: Props) {
     };
     if (dataSource.find(config => config.key === newData.key)) {
       return message.error(
-        'Configuration with matching condition and memory already exists'
+        'Configuration with matching condition and memory already exists',
       );
     }
     const newDataSource = [...dataSource, newData];
@@ -292,10 +301,16 @@ function StockTable({ datasource: initialDataSource, model, id }: Props) {
     {
       title: 'operation',
       dataIndex: 'operation',
-      render: (text: string, record: KeyedConfiguration) =>
+      // eslint-disable-next-line react/display-name
+      render: (_: string, record: KeyedConfiguration) =>
         dataSource.length >= 1 ? (
-          <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
-            <Button type="link" style={{ padding: 0 }}>Delete</Button>
+          <Popconfirm
+            title="Sure to delete?"
+            onConfirm={() => handleDelete(record.key)}
+          >
+            <Button type="link" style={{ padding: 0 }}>
+              Delete
+            </Button>
           </Popconfirm>
         ) : null,
     },
@@ -321,7 +336,13 @@ function StockTable({ datasource: initialDataSource, model, id }: Props) {
     <div style={{ marginBottom: 16 }}>
       <Table
         title={() => (
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <span>{model}</span>
             <Tooltip title="Click to delete model" placement="left">
               <Icon type="delete" onClick={async () => await deleteModel(id)} />

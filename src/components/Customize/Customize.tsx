@@ -3,7 +3,13 @@ import { RouteComponentProps, StaticContext } from 'react-router';
 import { Redirect } from 'react-router-dom';
 import { Carousel } from 'antd';
 
-import { Model, useStock, Condition, Configuration, Color } from '../../modules/stock';
+import {
+  Model,
+  useStock,
+  Condition,
+  Configuration,
+  Color,
+} from '../../modules/stock';
 import { useCart } from '../../modules/cart';
 
 import iPhoneIMG from '../HomePage/cover.jpg';
@@ -14,15 +20,16 @@ import ConditionSelector from './ConditionSelector';
 import ColorSelector from './ColorSelector';
 import MemorySelector from './MemorySelector';
 
-type Props = RouteComponentProps<{ itemSlug: string}, StaticContext, { si?: Model }> & {
+type Props = RouteComponentProps<
+  { itemSlug: string },
+  StaticContext,
+  { si?: Model }
+> & {
   allowAddToCart?: boolean;
-  trade?: Boolean;
+  trade?: boolean;
 };
 
-function Customize({
-  match,
-  trade = false,
-}: Props) {
+function Customize({ match, trade = false }: Props) {
   const [condition, setCondition] = useState<Condition>();
   const [color, setColor] = useState<string>();
   const [memory, setMemory] = useState<number>();
@@ -39,7 +46,7 @@ function Customize({
       setLoading(false);
       if (found) {
         setConfigs(found.configurations);
-      } 
+      }
     }
   }, [match.params.itemSlug, stockLoading, getModelBySlug]);
 
@@ -55,10 +62,11 @@ function Customize({
   }
 
   const addToCart = () => {
-    const match = si.configurations.find(config => 
-      config.condition === condition &&
-      config.color === color &&
-      config.memory === memory
+    const match = si.configurations.find(
+      config =>
+        config.condition === condition &&
+        config.color === color &&
+        config.memory === memory,
     );
     if (!match) {
       return;
@@ -70,7 +78,7 @@ function Customize({
       quantity: 1,
       ...match,
     });
-  }
+  };
 
   const handleConditionChange = (condition: Condition) => {
     setCondition(condition);
@@ -91,7 +99,9 @@ function Customize({
         <img className="carousel-item" src={iPhoneIMG} alt={si.model} />
       </Carousel>
       <Content>
-        <Heading>{trade ? 'Trade for' : 'Buy'} {si.model}.</Heading>
+        <Heading>
+          {trade ? 'Trade for' : 'Buy'} {si.model}.
+        </Heading>
         <ConditionSelector
           condition={condition}
           setCondition={handleConditionChange}
@@ -101,7 +111,7 @@ function Customize({
           color={color}
           setColor={handleColorChange}
           configs={configs.filter(
-            config => !condition || config.condition === condition
+            config => !condition || config.condition === condition,
           )}
           disabled={!condition}
         />
@@ -111,7 +121,7 @@ function Customize({
           configs={configs.filter(
             config =>
               (!condition || config.condition === condition) &&
-              (!color || config.color === color)
+              (!color || config.color === color),
           )}
           disabled={!color}
         />

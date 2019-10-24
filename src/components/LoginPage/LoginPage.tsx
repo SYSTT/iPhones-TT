@@ -13,12 +13,15 @@ function LoginPage({ history }: RouteChildrenProps) {
   const login = async (email: string, password: string) => {
     await firebase.doSignInWithEmailAndPassword(email, password);
     history.push('/');
-  }
+  };
 
   return (
     <div className="LoginPage">
-      <Heading title="Login" text="Enter your email address and password below to login." />
-      <LoginForm onSubmit={login}/>
+      <Heading
+        title="Login"
+        text="Enter your email address and password below to login."
+      />
+      <LoginForm onSubmit={login} />
     </div>
   );
 }

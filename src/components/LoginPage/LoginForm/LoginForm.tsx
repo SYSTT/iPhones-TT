@@ -5,7 +5,7 @@ import Button from './../../Button/Button';
 
 type Props = {
   onSubmit: (email: string, password: string) => void;
-}
+};
 
 function LoginForm({ onSubmit }: Props) {
   const [email, setEmail] = useState('');

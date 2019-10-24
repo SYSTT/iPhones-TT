@@ -54,7 +54,7 @@ export const CoverLinks = styled.div`
     width: 160px;
   }
 
-  >:first-child {
+  > :first-child {
     margin-right: 16px;
   }
 `;
@@ -67,7 +67,7 @@ export const HighlightsContainer = styled.div`
   background-color: ${Colors['Grey/VeryDark']};
   color: ${Colors.White};
 
-  >div {
+  > div {
     max-width: 360px;
     padding: 32px;
   }
@@ -120,11 +120,11 @@ export const QualityContainer = styled.div`
   align-items: center;
   flex-wrap: wrap;
 
-  >:first-child {
+  > :first-child {
     margin: 24px;
   }
 
-  >:nth-child(2) {
+  > :nth-child(2) {
     max-width: 525px;
   }
 
