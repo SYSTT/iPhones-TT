@@ -14,5 +14,5 @@ reportStatus: true
 blockingLabels:
 - blocked
 requiredLabels:
-- auto-merge
+- 'auto-merge'
 blockingTitleRegex: '\bwip\b'
