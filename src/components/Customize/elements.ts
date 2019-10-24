@@ -5,7 +5,7 @@ export const Container = styled.div`
   padding: 24px 0;
   display: flex;
   flex-wrap: wrap;
-  color: ${Colors["Grey/VeryLight"]};
+  color: ${Colors['Grey/VeryLight']};
 
   .ant-carousel {
     width: 100%;
@@ -31,7 +31,7 @@ export const Content = styled.div`
 
 export const SelectorContainer = styled.div`
   padding: 0 24px;
-  
+
   h4 {
     font-weight: bold;
     text-transform: uppercase;

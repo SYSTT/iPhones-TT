@@ -1,4 +1,4 @@
-import { Configuration } from "../stock";
+import { Configuration } from '../stock';
 
 export type CartItem = Configuration & {
   model: string;

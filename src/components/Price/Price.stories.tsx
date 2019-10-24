@@ -12,11 +12,13 @@ export const base = () => <Price amt={DEFAULT_AMT} />;
 
 export const withoutCommas = () => <Price amt={DEFAULT_AMT} commas={false} />;
 
-export const withCustomCurrency = () =>
-  <Price amt={DEFAULT_AMT} currency="USD" />;
+export const withCustomCurrency = () => (
+  <Price amt={DEFAULT_AMT} currency="USD" />
+);
 
-export const withReduction = () =>
-  <Price amt={DEFAULT_AMT} reduction={DEFAULT_REDUCTION} />;
+export const withReduction = () => (
+  <Price amt={DEFAULT_AMT} reduction={DEFAULT_REDUCTION} />
+);
 
 export const playground = () => {
   const amt = number('Amount', DEFAULT_AMT);

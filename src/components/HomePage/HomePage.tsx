@@ -16,17 +16,16 @@ import Highlights from './Highlights';
 import Process from './Process';
 import Quality from './Quality';
 
-function HomePage() {
+const HomePage: React.FC = () => {
   return (
     <Container>
       <Cover>
         <SpotlightImage src={CoverImage} alt="iPhones" />
         <Banner>
-          <h1>
-            Quality Devices. Best Prices. Great Service.
-          </h1>
+          <h1>Quality Devices. Best Prices. Great Service.</h1>
           <h3>
-            The best place to <strong>buy</strong> and <strong>trade</strong> iPhones in Trinidad and Tobago.
+            The best place to <strong>buy</strong> and <strong>trade</strong>{' '}
+            iPhones in Trinidad and Tobago.
           </h3>
           <CoverLinks>
             <Button type="default">
@@ -64,6 +63,6 @@ function HomePage() {
       <Quality />
     </Container>
   );
-}
+};
 
 export default HomePage;

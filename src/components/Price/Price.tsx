@@ -10,7 +10,9 @@ const Reduction = styled.span`
 const BasePrice = styled.span<{ reduced?: boolean }>`
   position: relative;
 
-  ${props => props.reduced && css`
+  ${props =>
+    props.reduced &&
+    css`
     &:before {
       position: absolute;
       content: '';
@@ -26,23 +28,19 @@ const BasePrice = styled.span<{ reduced?: boolean }>`
   }
 `;
 
-export function toPriceString(
-  price: number,
-  commas: boolean = true,
-  currency: string = 'TTD'
-) {
+export function toPriceString(price: number, commas = true, currency = 'TTD') {
   return `$${
     commas
-    ? price.toFixed(2).replace(/(\d)(?=(\d{3})+\.\d\d$)/g, '$1,')
-    : price.toFixed(2)
+      ? price.toFixed(2).replace(/(\d)(?=(\d{3})+\.\d\d$)/g, '$1,')
+      : price.toFixed(2)
   } ${currency}`;
 }
 
 type PriceProps = {
-  amt: number,
-  reduction?: number,
-  commas?: boolean,
-  currency?: string,
+  amt: number;
+  reduction?: number;
+  commas?: boolean;
+  currency?: string;
 };
 
 export default function Price({
@@ -55,7 +53,7 @@ export default function Price({
     <span>
       {!!reduction && (
         <Reduction>
-          {toPriceString((amt - reduction), commas, currency)}
+          {toPriceString(amt - reduction, commas, currency)}
         </Reduction>
       )}
       <BasePrice reduced={!!reduction}>

@@ -14,10 +14,7 @@ const locationToStep = (location: Location) => {
   return pathParts.length - 1;
 };
 
-function TradePage({
-  location,
-  match,
-}: RouteComponentProps) {
+const TradePage: React.FC<RouteComponentProps> = ({ location, match }) => {
   const currentStep = locationToStep(location);
   return (
     <Container>
@@ -32,31 +29,15 @@ function TradePage({
           path={`${match.path}/:tradeSlug`}
           render={() => <Catalogue trade />}
         />
-        <Route
-          path={`${match.path}`}
-          component={DeviceForm}
-        />
+        <Route path={`${match.path}`} component={DeviceForm} />
       </Switch>
-      <Steps
-        type="navigation"
-        size="small"
-        current={currentStep}
-      >
-        <Step
-          title="Details"
-          icon={<Icon type="build" />}
-        />
-        <Step
-          title="Choose"
-          icon={<Icon type="mobile" />}
-        />
-        <Step
-          title="Customize"
-          icon={<Icon type="sliders" />}
-        />
+      <Steps type="navigation" size="small" current={currentStep}>
+        <Step title="Details" icon={<Icon type="build" />} />
+        <Step title="Choose" icon={<Icon type="mobile" />} />
+        <Step title="Customize" icon={<Icon type="sliders" />} />
       </Steps>
     </Container>
   );
-}
+};
 
 export default TradePage;

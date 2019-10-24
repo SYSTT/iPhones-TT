@@ -16,12 +16,13 @@ export function useUserCart() {
   useEffect(() => {
     if (user) {
       setUserCartLoading(true);
-      const unsubscribe = db.collection('users').doc(user.uid).onSnapshot(
-        querySnapshot => {
+      const unsubscribe = db
+        .collection('users')
+        .doc(user.uid)
+        .onSnapshot(querySnapshot => {
           setUserCart(querySnapshot.get('cart') || []);
           setUserCartLoading(false);
-        }
-      );
+        });
       return () => unsubscribe();
     }
   }, [db, user]);
@@ -36,10 +37,10 @@ export function useUserCart() {
         newCart = [...userCart, item];
       }
 
-      await db.collection('users').doc(user.uid).set(
-        { cart: newCart },
-        { merge: true }
-      );
+      await db
+        .collection('users')
+        .doc(user.uid)
+        .set({ cart: newCart }, { merge: true });
       setAdded(true);
     }
   }
@@ -47,10 +48,10 @@ export function useUserCart() {
   async function removeItemFromCart(itemId: string) {
     if (user) {
       const newCart = userCart.filter(ci => ci.id !== itemId);
-      await db.collection('users').doc(user.uid).set(
-        { cart: newCart },
-        { merge: true }
-      );
+      await db
+        .collection('users')
+        .doc(user.uid)
+        .set({ cart: newCart }, { merge: true });
     }
   }
 
@@ -63,10 +64,10 @@ export function useUserCart() {
         }
       });
 
-      await db.collection('users').doc(user.uid).set(
-        { cart: newCart },
-        { merge: true }
-      );
+      await db
+        .collection('users')
+        .doc(user.uid)
+        .set({ cart: newCart }, { merge: true });
     }
   }
 
@@ -78,4 +79,4 @@ export function useUserCart() {
     removeItemFromCart,
     updateItemQuantity,
   };
-};
+}

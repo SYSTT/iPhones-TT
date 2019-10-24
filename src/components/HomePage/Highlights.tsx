@@ -1,11 +1,9 @@
 import React from 'react';
 import { Icon, Divider } from 'antd';
 
-import {
-  HighlightsContainer,
-} from './elements';
+import { HighlightsContainer } from './elements';
 
-function Highlights() {
+const Highlights: React.FC = () => {
   return (
     <HighlightsContainer>
       <div>
@@ -15,8 +13,8 @@ function Highlights() {
         <h2>Safety</h2>
         <Divider />
         <p>
-          With over 100 iPhones sold and the option to meet at a police
-          station, you can trust us for a safe experience.
+          With over 100 iPhones sold and the option to meet at a police station,
+          you can trust us for a safe experience.
         </p>
         {/* <p>See what other people are saying here.</p> */}
       </div>
@@ -27,8 +25,8 @@ function Highlights() {
         <h2>Speed</h2>
         <Divider />
         <p>
-          Place your order now and schedule a time to pick up your iPhone
-          as early as today or tomorrow.
+          Place your order now and schedule a time to pick up your iPhone as
+          early as today or tomorrow.
         </p>
       </div>
       <div>
@@ -45,6 +43,6 @@ function Highlights() {
       </div>
     </HighlightsContainer>
   );
-}
+};
 
 export default Highlights;

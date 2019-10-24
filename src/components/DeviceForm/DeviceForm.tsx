@@ -2,27 +2,38 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { Alert, Icon, Select, Button, Divider } from 'antd';
 
-import { useTradeDevices, Device, DeviceOption } from '../../modules/trade-devices';
+import {
+  useTradeDevices,
+  Device,
+  DeviceOption,
+} from '../../modules/trade-devices';
 
 import Price from '../Price';
-import { Heading, OptionList, OptionButton, ButtonList, RoundedButton } from '../../utils';
+import {
+  Heading,
+  OptionList,
+  OptionButton,
+  ButtonList,
+  RoundedButton,
+} from '../../utils';
 import { Container } from './elements';
 
 const AlertDescription = (
   <div>
-    <p>
-      Currently we can only accept iPhones with A-Grade quality. This means
-    </p>
+    <p>Currently we can only accept iPhones with A-Grade quality. This means</p>
     <ul>
       <li>100% perfect working condition.</li>
       <li>Near perfect to brand new physical condition.</li>
-      <li>Above 80% battery health (Find it in Settings > Battery > Battery Health).</li>
+      <li>
+        Above 80% battery health (Find it in Settings &gt; Battery &gt; Battery
+        Health).
+      </li>
     </ul>
     <p>Additionally, we do not accept iPhones with locked iCloud.</p>
   </div>
 );
 
-function DeviceForm() {
+const DeviceForm: React.FC = () => {
   const history = useHistory();
   const { tradeDevices, getTradeDeviceBySlug } = useTradeDevices();
   const [device, setDevice] = useState<Device>();
@@ -36,7 +47,7 @@ function DeviceForm() {
 
   function onSubmit() {
     if (device && option) {
-      history.push(`${device.slug}-${option.memory}gb`)
+      history.push(`${device.slug}-${option.memory}gb`);
     }
   }
 
@@ -50,19 +61,25 @@ function DeviceForm() {
         description={AlertDescription}
         showIcon
       />
-      <h3 style={{ marginBottom: 12, marginTop: 24 }}>Choose your device's model.</h3>
+      <h3 style={{ marginBottom: 12, marginTop: 24 }}>
+        Choose your device&#39;s model.
+      </h3>
       <Select defaultValue="unselected" onChange={onChangeDevice}>
         <Select.Option value="unselected">Select your model</Select.Option>
         {tradeDevices.map(td => (
-          <Select.Option key={td.id} value={td.slug}>{td.model}</Select.Option>
+          <Select.Option key={td.id} value={td.slug}>
+            {td.model}
+          </Select.Option>
         ))}
       </Select>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Button type="link">Don't see your device?</Button>
+        <Button type="link">Don&#39;t see your device?</Button>
       </div>
       {device && (
         <>
-          <h3 style={{ marginBottom: 12, marginTop: 24 }}>Choose your device's memory.</h3>
+          <h3 style={{ marginBottom: 12, marginTop: 24 }}>
+            Choose your device&#39;s memory.
+          </h3>
           <OptionList cols={2}>
             {device.options.map(opt => (
               <OptionButton
@@ -89,9 +106,8 @@ function DeviceForm() {
           </ButtonList>
         </>
       )}
-
     </Container>
   );
-}
+};
 
 export default DeviceForm;

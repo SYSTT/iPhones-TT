@@ -6,7 +6,7 @@ import Menu from '../Menu/Menu';
 
 import icon from './TnTMobileDeliveryfinal.png';
 
-function Topbar() {
+const Topbar: React.FC = () => {
   return (
     <header className="Header">
       <Link to="/">
@@ -15,6 +15,6 @@ function Topbar() {
       <Menu />
     </header>
   );
-}
+};
 
 export default Topbar;

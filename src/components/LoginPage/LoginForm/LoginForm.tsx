@@ -5,9 +5,9 @@ import Button from './../../Button/Button';
 
 type Props = {
   onSubmit: (email: string, password: string) => void;
-}
+};
 
-function LoginForm({ onSubmit }: Props) {
+const LoginForm: React.FC<Props> = ({ onSubmit }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -30,6 +30,6 @@ function LoginForm({ onSubmit }: Props) {
       <Button text="Login" onClick={() => onSubmit(email, password)} />
     </div>
   );
-}
+};
 
 export default LoginForm;

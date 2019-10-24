@@ -15,7 +15,7 @@ type Props = {
   trade?: boolean;
 };
 
-function Catalogue({ trade = false }: Props) {
+const Catalogue: React.FC<Props> = ({ trade = false }) => {
   const { stock } = useStock();
 
   const renderStockItem = (si: Model) => {
@@ -27,10 +27,7 @@ function Catalogue({ trade = false }: Props) {
           state: { si },
         }}
       >
-        <Card
-          hoverable
-          cover={<img src={iPhoneIMG} alt={si.model} />}
-        >
+        <Card hoverable cover={<img src={iPhoneIMG} alt={si.model} />}>
           <Meta
             title={si.model}
             description={
@@ -42,18 +39,18 @@ function Catalogue({ trade = false }: Props) {
         </Card>
       </Link>
     );
-  }
+  };
 
   return (
     <Container>
       <Heading>Choose a model{trade && ' to trade for'}.</Heading>
       <StockList>
-        {stock.filter(si => si.configurations.length).map(si => (
-          renderStockItem(si)
-        ))}
+        {stock
+          .filter(si => si.configurations.length)
+          .map(si => renderStockItem(si))}
       </StockList>
     </Container>
   );
-}
+};
 
 export default Catalogue;

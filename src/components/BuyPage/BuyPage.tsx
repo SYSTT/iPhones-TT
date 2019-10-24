@@ -13,39 +13,20 @@ const locationToStep = (location: Location) => {
   return pathParts.length - 1;
 };
 
-function BuyPage({
-  location,
-  match,
-}: RouteComponentProps) {
+const BuyPage: React.FC<RouteComponentProps> = ({ location, match }) => {
   const currentStep = locationToStep(location);
   return (
     <Container>
       <Switch>
-        <Route
-          path={`${match.path}/:itemSlug`}
-          component={Customize}
-        />
-        <Route
-          path={`${match.path}`}
-          component={Catalogue}
-        />
+        <Route path={`${match.path}/:itemSlug`} component={Customize} />
+        <Route path={`${match.path}`} component={Catalogue} />
       </Switch>
-      <Steps
-        type="navigation"
-        size="small"
-        current={currentStep}
-      >
-        <Step
-          title="Choose"
-          icon={<Icon type="mobile" />}
-        />
-        <Step
-          title="Customize"
-          icon={<Icon type="sliders" />}
-        />
+      <Steps type="navigation" size="small" current={currentStep}>
+        <Step title="Choose" icon={<Icon type="mobile" />} />
+        <Step title="Customize" icon={<Icon type="sliders" />} />
       </Steps>
     </Container>
   );
-}
+};
 
 export default BuyPage;

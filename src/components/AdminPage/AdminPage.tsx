@@ -13,16 +13,15 @@ type Props = {
   user: User | null;
 };
 
-
-function AdminPage({ user }: Props) {
+const AdminPage: React.FC<Props> = ({ user }) => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [newModelName, setNewModelName] = useState('');
   const { stock, addModel } = useStock();
 
   const onSubmit = (
     e:
-      React.MouseEvent<HTMLElement, MouseEvent> |
-      React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<HTMLElement, MouseEvent>
+      | React.FormEvent<HTMLFormElement>,
   ) => {
     e.preventDefault();
     addModel({ model: newModelName, configurations: [] });
@@ -35,7 +34,7 @@ function AdminPage({ user }: Props) {
         <p>Update stock</p>
         <div
           style={{
-            margin: '0 2em'
+            margin: '0 2em',
           }}
         >
           <Button
@@ -45,19 +44,17 @@ function AdminPage({ user }: Props) {
           >
             Add new model
           </Button>
-          {stock.map(modelStock =>
+          {stock.map(modelStock => (
             <StockTable
               key={modelStock.id}
               id={modelStock.id}
               model={modelStock.model}
-              datasource={modelStock.configurations.map(
-                config => ({
-                  ...config,
-                  key: `${config.condition}-${config.color}-${config.memory}`,
-                })
-              )}
+              datasource={modelStock.configurations.map(config => ({
+                ...config,
+                key: `${config.condition}-${config.color}-${config.memory}`,
+              }))}
             />
-          )}
+          ))}
         </div>
         <Modal
           visible={showAddModal}
@@ -78,6 +75,6 @@ function AdminPage({ user }: Props) {
       </Container>
     </AuthCheck>
   );
-}
+};
 
 export default AdminPage;
