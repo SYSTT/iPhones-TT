@@ -1,7 +1,6 @@
 # Configuration for probot-auto-merge - https://github.com/bobvanderlinden/probot-auto-merge
 
 minApprovals:
-  MEMBER: 0
   COLLABORATOR: 0
 maxRequestedChanges:
   COLLABORATOR: 0
@@ -14,5 +13,5 @@ reportStatus: true
 blockingLabels:
 - blocked
 requiredLabels:
-- auto-merge
+- automerge
 blockingTitleRegex: '\bwip\b'
