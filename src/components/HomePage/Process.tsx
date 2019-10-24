@@ -10,7 +10,7 @@ type Props = {
   buttonText: string;
 };
 
-function Process({ title, steps, buttonText }: Props) {
+const Process: React.FC<Props> = ({ title, steps, buttonText }) => {
   return (
     <ProcessContainer>
       <Heading>{title}</Heading>
@@ -24,6 +24,6 @@ function Process({ title, steps, buttonText }: Props) {
       </Button>
     </ProcessContainer>
   );
-}
+};
 
 export default Process;

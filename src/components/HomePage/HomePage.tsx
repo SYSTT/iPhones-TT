@@ -16,7 +16,7 @@ import Highlights from './Highlights';
 import Process from './Process';
 import Quality from './Quality';
 
-function HomePage() {
+const HomePage: React.FC = () => {
   return (
     <Container>
       <Cover>
@@ -63,6 +63,6 @@ function HomePage() {
       <Quality />
     </Container>
   );
-}
+};
 
 export default HomePage;

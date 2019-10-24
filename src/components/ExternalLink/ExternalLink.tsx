@@ -5,12 +5,12 @@ type Props = {
   children: React.ReactNode;
 };
 
-function ExternalLink({ link, children }: Props) {
+const ExternalLink: React.FC<Props> = ({ link, children }) => {
   return (
     <a href={link} target="_blank" rel="noopener noreferrer">
       {children}
     </a>
   );
-}
+};
 
 export default ExternalLink;

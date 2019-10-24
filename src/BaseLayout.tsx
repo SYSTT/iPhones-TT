@@ -9,7 +9,7 @@ type BaseLayoutProps = {
   children: React.ReactNode;
 };
 
-function BaseLayout({ children }: BaseLayoutProps) {
+const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
   return (
     <Layout style={{ height: '100vh' }}>
       <Header style={{ backgroundColor: Colors.White }}>
@@ -20,6 +20,6 @@ function BaseLayout({ children }: BaseLayoutProps) {
       </Content>
     </Layout>
   );
-}
+};
 
 export default BaseLayout;

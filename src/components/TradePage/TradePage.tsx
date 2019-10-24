@@ -14,7 +14,7 @@ const locationToStep = (location: Location) => {
   return pathParts.length - 1;
 };
 
-function TradePage({ location, match }: RouteComponentProps) {
+const TradePage: React.FC<RouteComponentProps> = ({ location, match }) => {
   const currentStep = locationToStep(location);
   return (
     <Container>
@@ -38,6 +38,6 @@ function TradePage({ location, match }: RouteComponentProps) {
       </Steps>
     </Container>
   );
-}
+};
 
 export default TradePage;

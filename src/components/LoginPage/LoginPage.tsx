@@ -7,7 +7,7 @@ import LoginForm from './LoginForm/LoginForm';
 
 import { FirebaseContext } from '../../modules/firebase';
 
-function LoginPage({ history }: RouteChildrenProps) {
+const LoginPage: React.FC<RouteChildrenProps> = ({ history }) => {
   const firebase = useContext(FirebaseContext);
 
   const login = async (email: string, password: string) => {
@@ -24,6 +24,6 @@ function LoginPage({ history }: RouteChildrenProps) {
       <LoginForm onSubmit={login} />
     </div>
   );
-}
+};
 
 export default LoginPage;

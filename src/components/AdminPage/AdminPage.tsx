@@ -13,7 +13,7 @@ type Props = {
   user: User | null;
 };
 
-function AdminPage({ user }: Props) {
+const AdminPage: React.FC<Props> = ({ user }) => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [newModelName, setNewModelName] = useState('');
   const { stock, addModel } = useStock();
@@ -75,6 +75,6 @@ function AdminPage({ user }: Props) {
       </Container>
     </AuthCheck>
   );
-}
+};
 
 export default AdminPage;

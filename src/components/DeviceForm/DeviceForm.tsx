@@ -33,7 +33,7 @@ const AlertDescription = (
   </div>
 );
 
-function DeviceForm() {
+const DeviceForm: React.FC = () => {
   const history = useHistory();
   const { tradeDevices, getTradeDeviceBySlug } = useTradeDevices();
   const [device, setDevice] = useState<Device>();
@@ -108,6 +108,6 @@ function DeviceForm() {
       )}
     </Container>
   );
-}
+};
 
 export default DeviceForm;

@@ -19,7 +19,7 @@ import iPhoneIMG from '../HomePage/cover.jpg';
 
 const QUANTITY_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-function CartPage() {
+const CartPage: React.FC = () => {
   const { cart, removeItemFromCart, updateItemQuantity } = useCart();
 
   const total = cart.reduce(
@@ -78,6 +78,6 @@ function CartPage() {
       </CartDetails>
     </Container>
   );
-}
+};
 
 export default CartPage;

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import EL from '../ExternalLink/ExternalLink';
 import { QualityContainer } from './elements';
 
-function Quality() {
+const Quality: React.FC = () => {
   return (
     <QualityContainer>
       <div>
@@ -34,6 +34,6 @@ function Quality() {
       </div>
     </QualityContainer>
   );
-}
+};
 
 export default Quality;

@@ -13,7 +13,7 @@ const locationToStep = (location: Location) => {
   return pathParts.length - 1;
 };
 
-function BuyPage({ location, match }: RouteComponentProps) {
+const BuyPage: React.FC<RouteComponentProps> = ({ location, match }) => {
   const currentStep = locationToStep(location);
   return (
     <Container>
@@ -27,6 +27,6 @@ function BuyPage({ location, match }: RouteComponentProps) {
       </Steps>
     </Container>
   );
-}
+};
 
 export default BuyPage;

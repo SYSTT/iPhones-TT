@@ -13,7 +13,12 @@ type Props = {
   disabled?: boolean;
 };
 
-function MemorySelector({ memory, setMemory, configs, disabled }: Props) {
+const MemorySelector: React.FC<Props> = ({
+  memory,
+  setMemory,
+  configs,
+  disabled,
+}) => {
   const renderOption = (optionMemory: number, optionPrice: number) => {
     const outOfStock = !configs.find(
       ({ memory, stock }) => memory === optionMemory && stock > 0,
@@ -45,6 +50,6 @@ function MemorySelector({ memory, setMemory, configs, disabled }: Props) {
       </OptionList>
     </SelectorContainer>
   );
-}
+};
 
 export default MemorySelector;

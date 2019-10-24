@@ -136,7 +136,11 @@ type AddFormModalProps = {
   visible: boolean;
 };
 
-function AddFormModal({ handleClose, handleAdd, visible }: AddFormModalProps) {
+const AddFormModal: React.FC<AddFormModalProps> = ({
+  handleClose,
+  handleAdd,
+  visible,
+}) => {
   const [condition, setCondition] = useState<Condition>(AGRADE);
   const [color, setColor] = useState('');
   const [memory, setMemory] = useState('64');
@@ -210,7 +214,7 @@ function AddFormModal({ handleClose, handleAdd, visible }: AddFormModalProps) {
       </Form>
     </Modal>
   );
-}
+};
 
 type KeyedConfiguration = Configuration & {
   key: string;
@@ -222,7 +226,11 @@ type Props = {
   datasource: KeyedConfiguration[];
 };
 
-function StockTable({ datasource: initialDataSource, model, id }: Props) {
+const StockTable: React.FC<Props> = ({
+  datasource: initialDataSource,
+  model,
+  id,
+}) => {
   const [dataSource, setDataSource] = useState(initialDataSource);
   const [showAddModal, setShowAddModal] = useState(false);
   const { updateModel, deleteModel } = useStock();
@@ -367,6 +375,6 @@ function StockTable({ datasource: initialDataSource, model, id }: Props) {
       />
     </div>
   );
-}
+};
 
 export default StockTable;

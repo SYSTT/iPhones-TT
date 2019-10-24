@@ -9,7 +9,7 @@ import BuyPage from './components/BuyPage';
 import CartPage from './components/CartPage';
 import TradePage from './components/TradePage';
 
-function Routes() {
+const Routes: React.FC = () => {
   const { user } = useAuth();
 
   return (
@@ -29,6 +29,6 @@ function Routes() {
       </Switch>
     </>
   );
-}
+};
 
 export default Routes;

@@ -29,7 +29,7 @@ type Props = RouteComponentProps<
   trade?: boolean;
 };
 
-function Customize({ match, trade = false }: Props) {
+const Customize: React.FC<Props> = ({ match, trade = false }) => {
   const [condition, setCondition] = useState<Condition>();
   const [color, setColor] = useState<string>();
   const [memory, setMemory] = useState<number>();
@@ -138,6 +138,6 @@ function Customize({ match, trade = false }: Props) {
       </Content>
     </Container>
   );
-}
+};
 
 export default Customize;

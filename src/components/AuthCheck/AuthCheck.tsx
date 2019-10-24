@@ -8,7 +8,12 @@ type Props = {
   requiredClaims?: Record<string, boolean>;
 };
 
-function AuthCheck({ user, fallback, children, requiredClaims }: Props) {
+const AuthCheck: React.FC<Props> = ({
+  user,
+  fallback,
+  children,
+  requiredClaims,
+}) => {
   useLayoutEffect(() => {
     if (requiredClaims && user) {
       user.getIdTokenResult().then(token => {
@@ -29,6 +34,6 @@ function AuthCheck({ user, fallback, children, requiredClaims }: Props) {
     return <>{fallback}</>;
   }
   return <>{children}</>;
-}
+};
 
 export default AuthCheck;

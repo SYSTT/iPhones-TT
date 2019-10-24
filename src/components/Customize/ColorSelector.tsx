@@ -12,7 +12,12 @@ type Props = {
   disabled?: boolean;
 };
 
-function ColorSelector({ color, setColor, configs, disabled }: Props) {
+const ColorSelector: React.FC<Props> = ({
+  color,
+  setColor,
+  configs,
+  disabled,
+}) => {
   const renderOption = (optionColor: string) => {
     const outOfStock = !configs.find(
       ({ color, stock }) => color === optionColor && stock > 0,
@@ -41,6 +46,6 @@ function ColorSelector({ color, setColor, configs, disabled }: Props) {
       </OptionList>
     </SelectorContainer>
   );
-}
+};
 
 export default ColorSelector;

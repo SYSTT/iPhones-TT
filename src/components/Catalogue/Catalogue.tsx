@@ -15,7 +15,7 @@ type Props = {
   trade?: boolean;
 };
 
-function Catalogue({ trade = false }: Props) {
+const Catalogue: React.FC<Props> = ({ trade = false }) => {
   const { stock } = useStock();
 
   const renderStockItem = (si: Model) => {
@@ -51,6 +51,6 @@ function Catalogue({ trade = false }: Props) {
       </StockList>
     </Container>
   );
-}
+};
 
 export default Catalogue;

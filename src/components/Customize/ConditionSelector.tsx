@@ -13,7 +13,11 @@ type Props = {
   configs: Configuration[];
 };
 
-function ConditionSelector({ condition, setCondition, configs }: Props) {
+const ConditionSelector: React.FC<Props> = ({
+  condition,
+  setCondition,
+  configs,
+}) => {
   const agradeConfigs = configs.filter(config => config.condition === AGRADE);
   const newConfigs = configs.filter(config => config.condition === NEW);
   return (
@@ -59,6 +63,6 @@ function ConditionSelector({ condition, setCondition, configs }: Props) {
       </OptionList>
     </SelectorContainer>
   );
-}
+};
 
 export default ConditionSelector;

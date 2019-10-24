@@ -3,7 +3,7 @@ import { Icon, Divider } from 'antd';
 
 import { HighlightsContainer } from './elements';
 
-function Highlights() {
+const Highlights: React.FC = () => {
   return (
     <HighlightsContainer>
       <div>
@@ -43,6 +43,6 @@ function Highlights() {
       </div>
     </HighlightsContainer>
   );
-}
+};
 
 export default Highlights;
