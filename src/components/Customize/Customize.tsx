@@ -26,10 +26,10 @@ type Props = RouteComponentProps<
   { si?: Model }
 > & {
   allowAddToCart?: boolean;
-  trade?: boolean;
+  tradeAmt?: number;
 };
 
-const Customize: React.FC<Props> = ({ match, trade = false }) => {
+const Customize: React.FC<Props> = ({ match, tradeAmt }) => {
   const [condition, setCondition] = useState<Condition>();
   const [color, setColor] = useState<string>();
   const [memory, setMemory] = useState<number>();
@@ -100,12 +100,13 @@ const Customize: React.FC<Props> = ({ match, trade = false }) => {
       </Carousel>
       <Content>
         <Heading>
-          {trade ? 'Trade for' : 'Buy'} {si.model}.
+          {tradeAmt ? 'Trade for' : 'Buy'} {si.model}.
         </Heading>
         <ConditionSelector
           condition={condition}
           setCondition={handleConditionChange}
           configs={configs}
+          tradeAmt={tradeAmt}
         />
         <ColorSelector
           color={color}
@@ -124,9 +125,10 @@ const Customize: React.FC<Props> = ({ match, trade = false }) => {
               (!color || config.color === color),
           )}
           disabled={!color}
+          tradeAmt={tradeAmt}
         />
         <ButtonList center>
-          {!trade && (
+          {!tradeAmt && (
             <RoundedButton disabled={!memory} onClick={addToCart}>
               Add to Cart
             </RoundedButton>
