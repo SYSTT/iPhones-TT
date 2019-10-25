@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Colors } from '../../utils';
 
 const Reduction = styled.span`
@@ -9,26 +9,17 @@ const Reduction = styled.span`
 
 const BasePrice = styled.span<{ reduced?: boolean }>`
   position: relative;
-
-  ${props =>
-    props.reduced &&
-    css`
-    &:before {
-      position: absolute;
-      content: '';
-      left: 0;
-      top: 45%;
-      right: 0;
-      border-top: 2px solid;
-      border-color: inherit;
-      -webkit-transform: skewY(-10deg);
-      -moz-transform: skewY(-10deg);
-      transform: skewY(-10deg);
-  `}
-  }
+  text-decoration: ${props => (props.reduced ? 'line-through' : 'initial')};
 `;
 
-export function toPriceString(price: number, commas = true, currency = 'TTD') {
+interface ToPriceStringOptions {
+  commas?: boolean;
+  currency?: string;
+}
+export function toPriceString(
+  price: number,
+  { commas = true, currency = 'TTD' }: ToPriceStringOptions = {},
+) {
   return `$${
     commas
       ? price.toFixed(2).replace(/(\d)(?=(\d{3})+\.\d\d$)/g, '$1,')
@@ -53,11 +44,11 @@ export default function Price({
     <span>
       {!!reduction && (
         <Reduction>
-          {toPriceString(amt - reduction, commas, currency)}
+          {toPriceString(amt - reduction, { commas, currency })}
         </Reduction>
       )}
       <BasePrice reduced={!!reduction}>
-        {toPriceString(amt, commas, currency)}
+        {toPriceString(amt, { commas, currency })}
       </BasePrice>
     </span>
   );

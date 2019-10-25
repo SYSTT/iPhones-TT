@@ -1,10 +1,7 @@
 import React from 'react';
 import { withKnobs, number, select, boolean } from '@storybook/addon-knobs';
 import Price from './Price';
-
-const DEFAULT_AMT = 2000;
-const DEFAULT_REDUCTION = 500;
-const CURRENCY_OPTIONS = ['TTD', 'USD'];
+import { DEFAULT_AMT, DEFAULT_REDUCTION, CURRENCY_OPTIONS } from './constants';
 
 export default { title: 'Price' };
 
