@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 
 import { toPriceString } from './Price';
-import { base, withReduction } from './Price.stories';
+import { base, withReduction, withReductionBlock } from './Price.stories';
 import { DEFAULT_AMT, DEFAULT_REDUCTION } from './constants';
 
 describe('toPriceString', () => {
@@ -32,6 +32,16 @@ describe('Price', () => {
       expect(
         getByText(toPriceString(DEFAULT_AMT - DEFAULT_REDUCTION)),
       ).toBeInTheDocument();
+    });
+
+    it('displays price and reduced price vertically (as blocks)', () => {
+      const { getByText } = render(withReductionBlock());
+      expect(getByText(toPriceString(DEFAULT_AMT))).toHaveStyle(
+        'display: block',
+      );
+      expect(
+        getByText(toPriceString(DEFAULT_AMT - DEFAULT_REDUCTION)),
+      ).toHaveStyle('display: block');
     });
 
     it('displays original price crossed off', () => {

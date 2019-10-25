@@ -1,16 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Colors } from '../../utils';
 
-const Reduction = styled.span`
-  color: ${Colors.Green};
-  margin-right: 4px;
-`;
-
-const BasePrice = styled.span<{ reduced?: boolean }>`
-  position: relative;
-  text-decoration: ${props => (props.reduced ? 'line-through' : 'initial')};
-`;
+import { Reduction, BasePrice, Container } from './elements';
 
 interface ToPriceStringOptions {
   commas?: boolean;
@@ -32,6 +22,7 @@ type PriceProps = {
   reduction?: number;
   commas?: boolean;
   currency?: string;
+  block?: boolean;
 };
 
 export default function Price({
@@ -39,9 +30,10 @@ export default function Price({
   reduction,
   commas = true,
   currency = 'TTD',
+  block = false,
 }: PriceProps) {
   return (
-    <span>
+    <Container block={block}>
       {!!reduction && (
         <Reduction>
           {toPriceString(amt - reduction, { commas, currency })}
@@ -50,6 +42,6 @@ export default function Price({
       <BasePrice reduced={!!reduction}>
         {toPriceString(amt, { commas, currency })}
       </BasePrice>
-    </span>
+    </Container>
   );
 }

@@ -11,12 +11,14 @@ type Props = {
   condition?: string;
   setCondition: (condition: Condition) => void;
   configs: Configuration[];
+  tradeAmt?: number;
 };
 
 const ConditionSelector: React.FC<Props> = ({
   condition,
   setCondition,
   configs,
+  tradeAmt,
 }) => {
   const agradeConfigs = configs.filter(config => config.condition === AGRADE);
   const newConfigs = configs.filter(config => config.condition === NEW);
@@ -35,7 +37,7 @@ const ConditionSelector: React.FC<Props> = ({
           </h2>
           {agradeConfigs.length ? (
             <span>
-              From <Price amt={agradeConfigs[0].price} />
+              From <Price amt={agradeConfigs[0].price} reduction={tradeAmt} />
             </span>
           ) : (
             'Out of stock'

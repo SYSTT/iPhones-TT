@@ -11,6 +11,7 @@ type Props = {
   setMemory: (memory: number) => void;
   configs: Configuration[];
   disabled?: boolean;
+  tradeAmt?: number;
 };
 
 const MemorySelector: React.FC<Props> = ({
@@ -18,6 +19,7 @@ const MemorySelector: React.FC<Props> = ({
   setMemory,
   configs,
   disabled,
+  tradeAmt = 0,
 }) => {
   const renderOption = (optionMemory: number, optionPrice: number) => {
     const outOfStock = !configs.find(
@@ -35,7 +37,11 @@ const MemorySelector: React.FC<Props> = ({
           {optionMemory}
           <span style={{ fontSize: 14 }}>GB</span>
         </h2>
-        {outOfStock ? 'Out of stock' : <Price amt={optionPrice} />}
+        {outOfStock ? (
+          'Out of stock'
+        ) : (
+          <Price amt={optionPrice} reduction={tradeAmt} />
+        )}
       </OptionButton>
     );
   };

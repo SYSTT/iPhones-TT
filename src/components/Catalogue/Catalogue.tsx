@@ -12,10 +12,10 @@ import iPhoneIMG from '../HomePage/cover.jpg';
 const { Meta } = Card;
 
 type Props = {
-  trade?: boolean;
+  tradeAmt?: number;
 };
 
-const Catalogue: React.FC<Props> = ({ trade = false }) => {
+const Catalogue: React.FC<Props> = ({ tradeAmt }) => {
   const { stock } = useStock();
 
   const renderStockItem = (si: Model) => {
@@ -32,7 +32,12 @@ const Catalogue: React.FC<Props> = ({ trade = false }) => {
             title={si.model}
             description={
               <div>
-                Starting from <Price amt={si.configurations[0].price} />
+                Starting from
+                <Price
+                  amt={si.configurations[0].price}
+                  reduction={tradeAmt}
+                  block
+                />
               </div>
             }
           />
@@ -43,7 +48,7 @@ const Catalogue: React.FC<Props> = ({ trade = false }) => {
 
   return (
     <Container>
-      <Heading>Choose a model{trade && ' to trade for'}.</Heading>
+      <Heading>Choose a model{!!tradeAmt && ' to trade for'}.</Heading>
       <StockList>
         {stock
           .filter(si => si.configurations.length)

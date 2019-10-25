@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useCallback } from 'react';
 
 import { FirebaseContext } from '../firebase';
 import { toSlug } from '../../utils';
@@ -64,9 +64,12 @@ export function useTradeDevices() {
       .delete();
   }
 
-  function getTradeDeviceBySlug(slug: string) {
-    return tradeDevices.find(td => td.slug === slug);
-  }
+  const getTradeDeviceBySlug = useCallback(
+    (slug: string) => {
+      return tradeDevices.find(td => td.slug === slug);
+    },
+    [tradeDevices],
+  );
 
   return {
     loading,
