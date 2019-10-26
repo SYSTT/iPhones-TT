@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon } from 'antd';
 import { Link } from 'react-router-dom';
 
-import EL from '../ExternalLink/ExternalLink';
+import EL from '../../components/ExternalLink/ExternalLink';
 import { QualityContainer } from './elements';
 
 const Quality: React.FC = () => {

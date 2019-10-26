@@ -7,7 +7,7 @@ import { useStock, Model } from '../../modules/stock';
 import Price from '../Price';
 import { Heading } from '../../utils';
 import { Container, StockList } from './elements';
-import iPhoneIMG from '../HomePage/cover.jpg';
+import iPhoneIMG from '../../pages/HomePage/cover.jpg';
 
 const { Meta } = Card;
 

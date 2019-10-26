@@ -3,11 +3,11 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { useAuth } from './modules/auth';
 
-import HomePage from './components/HomePage/HomePage';
-import AdminPage from './components/AdminPage';
-import BuyPage from './components/BuyPage';
-import CartPage from './components/CartPage';
-import TradePage from './components/TradePage';
+import HomePage from './pages/HomePage/HomePage';
+import AdminPage from './pages/AdminPage';
+import BuyPage from './pages/BuyPage';
+import CartPage from './pages/CartPage';
+import TradePage from './pages/TradePage';
 
 const Routes: React.FC = () => {
   const { user } = useAuth();

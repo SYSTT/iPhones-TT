@@ -12,13 +12,13 @@ import {
 } from '../../modules/stock';
 import { useCart } from '../../modules/cart';
 
-import iPhoneIMG from '../HomePage/cover.jpg';
-
 import { Heading, RoundedButton, ButtonList } from '../../utils';
-import { Container, Content } from './elements';
 import ConditionSelector from './ConditionSelector';
 import ColorSelector from './ColorSelector';
 import MemorySelector from './MemorySelector';
+import { Container, Content } from './elements';
+
+import iPhoneIMG from '../../pages/HomePage/cover.jpg';
 
 type Props = RouteComponentProps<
   { itemSlug: string },

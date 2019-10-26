@@ -5,7 +5,7 @@ import { Spin, Button, Modal, Form, Input } from 'antd';
 import { useStock } from '../../modules/stock';
 
 import { Heading } from '../../utils';
-import AuthCheck from '../AuthCheck/AuthCheck';
+import AuthCheck from '../../components/AuthCheck/AuthCheck';
 import StockTable from './StockTable';
 import { Container } from './element';
 
