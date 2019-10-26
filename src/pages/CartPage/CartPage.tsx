@@ -4,7 +4,7 @@ import { Select, Button, Divider } from 'antd';
 
 import { useCart } from '../../modules/cart';
 
-import Price from '../Price';
+import Price from '../../components/Price';
 import { Heading, RoundedButton } from '../../utils';
 import {
   Container,

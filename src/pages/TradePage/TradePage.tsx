@@ -3,9 +3,9 @@ import { Steps, Icon } from 'antd';
 import { Switch, Route, RouteComponentProps } from 'react-router';
 import { Location } from 'history';
 
-import Catalogue from '../Catalogue';
-import Customize from '../Customize';
-import DeviceForm from '../DeviceForm';
+import Catalogue from '../../components/Catalogue';
+import Customize from '../../components/Customize';
+import DeviceForm from '../../components/DeviceForm';
 import { Container } from './elements';
 import {
   useTradeDevices,
