@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Input, Icon, Tooltip, Divider } from 'antd';
 
 import { Container } from './elements';
-import { EMPTY_PROFILE_INFO } from './constants';
+import { EMPTY_PROFILE_INFO, DEFAULT_SUBMIT_TEXT, EMPTY_PROFILE_INFO_VALUES } from './constants';
 import { ButtonList, RoundedButton, isValidEmail } from '../../utils';
 
 interface FormField<T> {
@@ -15,14 +15,30 @@ interface ProfileInfo {
   firstName: FormField<string>;
   lastName: FormField<string>;
   password: FormField<string>;
+  [key: string]: FormField<string>;
+}
+
+interface ProfileInfoValues {
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  [key: string]: string;
 }
 
 interface Props {
-  onSubmit: (profileInfo: ProfileInfo) => void;
-  submitText: string;
+  onSubmit: (profileInfo: ProfileInfoValues) => void;
+  submitText?: string;
 }
 
-const ProfileInfoForm: React.FC<Props> = ({ onSubmit, submitText }) => {
+function getValues(formInfo: ProfileInfo) {
+  return Object.keys(formInfo).reduce<ProfileInfoValues>((acc, key) => {
+    acc[key] = formInfo[key].value;
+    return acc;
+  }, EMPTY_PROFILE_INFO_VALUES);
+};
+
+const ProfileInfoForm: React.FC<Props> = ({ onSubmit, submitText = DEFAULT_SUBMIT_TEXT }) => {
   const [profileInfo, setProfileInfo] = useState<ProfileInfo>(
     EMPTY_PROFILE_INFO,
   );
@@ -35,7 +51,7 @@ const ProfileInfoForm: React.FC<Props> = ({ onSubmit, submitText }) => {
   };
 
   const handleSubmit = () => {
-    onSubmit(profileInfo);
+    onSubmit(getValues(profileInfo));
   };
 
   const { email, firstName, lastName, password } = profileInfo;
