@@ -1,7 +1,7 @@
 import { render, fireEvent } from '@testing-library/react';
 
 import { base } from './ProfileInfoForm.stories';
-import { typeText } from '../../utils/test/events';
+import { typeText } from '../../../utils/test/events';
 import {
   EXAMPLE_PROFILE_INFO,
   DEFAULT_SUBMIT_TEXT,

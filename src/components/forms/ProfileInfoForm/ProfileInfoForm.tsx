@@ -6,7 +6,7 @@ import {
   RoundedButton,
   isValidEmail,
   isValidPassword,
-} from '../../utils';
+} from '../../../utils';
 import { Container } from './elements';
 import {
   EMPTY_PROFILE_INFO,
@@ -14,7 +14,7 @@ import {
   EMPTY_PROFILE_INFO_VALUES,
 } from './constants';
 import { ProfileInfoValues, ProfileInfo } from './types';
-import ErrorIcon from './ErrorIcon';
+import ErrorIcon from '../ErrorIcon';
 
 interface Props {
   onSubmit: (profileInfo: ProfileInfoValues) => void;
