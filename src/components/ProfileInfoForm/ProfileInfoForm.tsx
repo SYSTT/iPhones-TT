@@ -1,30 +1,20 @@
 import React, { useState } from 'react';
 import { Input, Icon, Tooltip, Divider } from 'antd';
 
+import {
+  ButtonList,
+  RoundedButton,
+  isValidEmail,
+  isValidPassword,
+} from '../../utils';
 import { Container } from './elements';
-import { EMPTY_PROFILE_INFO, DEFAULT_SUBMIT_TEXT, EMPTY_PROFILE_INFO_VALUES } from './constants';
-import { ButtonList, RoundedButton, isValidEmail } from '../../utils';
-
-interface FormField<T> {
-  value: T;
-  error?: string;
-}
-
-interface ProfileInfo {
-  email: FormField<string>;
-  firstName: FormField<string>;
-  lastName: FormField<string>;
-  password: FormField<string>;
-  [key: string]: FormField<string>;
-}
-
-interface ProfileInfoValues {
-  email: string;
-  firstName: string;
-  lastName: string;
-  password: string;
-  [key: string]: string;
-}
+import {
+  EMPTY_PROFILE_INFO,
+  DEFAULT_SUBMIT_TEXT,
+  EMPTY_PROFILE_INFO_VALUES,
+} from './constants';
+import { ProfileInfoValues, ProfileInfo } from './types';
+import ErrorIcon from './ErrorIcon';
 
 interface Props {
   onSubmit: (profileInfo: ProfileInfoValues) => void;
@@ -36,9 +26,12 @@ function getValues(formInfo: ProfileInfo) {
     acc[key] = formInfo[key].value;
     return acc;
   }, EMPTY_PROFILE_INFO_VALUES);
-};
+}
 
-const ProfileInfoForm: React.FC<Props> = ({ onSubmit, submitText = DEFAULT_SUBMIT_TEXT }) => {
+const ProfileInfoForm: React.FC<Props> = ({
+  onSubmit,
+  submitText = DEFAULT_SUBMIT_TEXT,
+}) => {
   const [profileInfo, setProfileInfo] = useState<ProfileInfo>(
     EMPTY_PROFILE_INFO,
   );
@@ -50,7 +43,37 @@ const ProfileInfoForm: React.FC<Props> = ({ onSubmit, submitText = DEFAULT_SUBMI
     setProfileInfo({ ...profileInfo, [field]: { value: e.target.value } });
   };
 
+  const validateProfileInfo = (profileInfo: ProfileInfo) => {
+    const newProfileInfo = { ...profileInfo };
+    let errorFound = false;
+    Object.keys(profileInfo).reduce((acc, key) => {
+      if (!acc[key].value) {
+        acc[key].error = 'This field is required';
+        errorFound = true;
+        return acc;
+      }
+      if (key === 'email' && !isValidEmail(acc[key].value)) {
+        acc[key].error = 'Email address is invalid';
+        errorFound = true;
+        return acc;
+      }
+      if (key === 'password' && !isValidPassword(acc[key].value)) {
+        acc[key].error = 'Password must be at least 8 characters long';
+        errorFound = true;
+        return acc;
+      }
+      return acc;
+    }, newProfileInfo);
+
+    return { errorFound, newProfileInfo };
+  };
+
   const handleSubmit = () => {
+    const { errorFound, newProfileInfo } = validateProfileInfo(profileInfo);
+    if (errorFound) {
+      setProfileInfo(newProfileInfo);
+      return;
+    }
     onSubmit(getValues(profileInfo));
   };
 
@@ -63,9 +86,12 @@ const ProfileInfoForm: React.FC<Props> = ({ onSubmit, submitText = DEFAULT_SUBMI
         placeholder="Enter your email address"
         prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
         suffix={
-          <Tooltip title="We will email you with receipts and order confirmations">
-            <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} />
-          </Tooltip>
+          <>
+            {email.error && <ErrorIcon error={email.error} />}
+            <Tooltip title="We will email you with receipts and order confirmations">
+              <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} />
+            </Tooltip>
+          </>
         }
         value={email.value}
         onChange={handleChange('email')}
@@ -74,6 +100,7 @@ const ProfileInfoForm: React.FC<Props> = ({ onSubmit, submitText = DEFAULT_SUBMI
         type="text"
         placeholder="Enter your first name"
         prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+        suffix={firstName.error && <ErrorIcon error={firstName.error} />}
         value={firstName.value}
         onChange={handleChange('firstName')}
       />
@@ -81,6 +108,7 @@ const ProfileInfoForm: React.FC<Props> = ({ onSubmit, submitText = DEFAULT_SUBMI
         type="text"
         placeholder="Enter your last name"
         prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+        suffix={lastName.error && <ErrorIcon error={lastName.error} />}
         value={lastName.value}
         onChange={handleChange('lastName')}
       />
@@ -100,6 +128,7 @@ const ProfileInfoForm: React.FC<Props> = ({ onSubmit, submitText = DEFAULT_SUBMI
                 />
               </Tooltip>
             )}
+            {password.error && <ErrorIcon error={password.error} />}
             <Tooltip title="The next time you make an order you can skip this form by entering your email address and this password">
               <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} />
             </Tooltip>

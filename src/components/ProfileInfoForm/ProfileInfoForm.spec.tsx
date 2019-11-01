@@ -1,8 +1,12 @@
-import { render, fireEvent, getByText } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
-import { base, baseOnSubmit } from './ProfileInfoForm.stories';
+import { base } from './ProfileInfoForm.stories';
 import { typeText } from '../../utils/test/events';
-import { EXAMPLE_PROFILE_INFO, DEFAULT_SUBMIT_TEXT } from './constants';
+import {
+  EXAMPLE_PROFILE_INFO,
+  DEFAULT_SUBMIT_TEXT,
+  EMPTY_PROFILE_INFO,
+} from './constants';
 
 describe('ProfileInfoForm', () => {
   it('Renders all fields with placeholders', () => {
@@ -15,13 +19,14 @@ describe('ProfileInfoForm', () => {
   });
 
   it('Accepts input from each field and submits', () => {
+    const onSubmit = jest.fn();
     const {
       email: { value: email },
       firstName: { value: firstName },
       lastName: { value: lastName },
       password: { value: password },
     } = EXAMPLE_PROFILE_INFO;
-    const { getByPlaceholderText, getByText } = render(base());
+    const { getByPlaceholderText, getByText } = render(base(onSubmit));
 
     typeText(getByPlaceholderText(/email/), email);
     typeText(getByPlaceholderText(/first name/), firstName);
@@ -30,7 +35,54 @@ describe('ProfileInfoForm', () => {
 
     fireEvent.click(getByText(DEFAULT_SUBMIT_TEXT));
 
-    expect(baseOnSubmit).toHaveBeenCalledTimes(1);
-    expect(baseOnSubmit).toHaveBeenCalledWith({ email, firstName, lastName, password });
+    expect(onSubmit).toHaveBeenCalledTimes(1);
+    expect(onSubmit).toHaveBeenCalledWith({
+      email,
+      firstName,
+      lastName,
+      password,
+    });
+  });
+
+  it('Displays error on submit click for missing field and does not submit', () => {
+    const onSubmit = jest.fn();
+    const { getByText, getAllByTestId } = render(base(onSubmit));
+
+    fireEvent.click(getByText(DEFAULT_SUBMIT_TEXT));
+
+    const errorIcons = getAllByTestId('ErrorIcon');
+    expect(errorIcons).toHaveLength(Object.keys(EMPTY_PROFILE_INFO).length);
+    // errorIcons.forEach(errorIcon => {
+    //   fireEvent.mouseOver(errorIcon, { bubbles: true });
+    //   expect(getByText('This field is required')).toBeInTheDocument();
+    //   fireEvent.mouseLeave(errorIcon);
+    // });
+    expect(onSubmit).toHaveBeenCalledTimes(0);
+  });
+
+  it('Displays error on submit click for invalid email and does not submit', () => {
+    const onSubmit = jest.fn();
+    const {
+      firstName: { value: firstName },
+      lastName: { value: lastName },
+      password: { value: password },
+    } = EXAMPLE_PROFILE_INFO;
+    const { getAllByTestId, getByPlaceholderText, getByText } = render(
+      base(onSubmit),
+    );
+
+    typeText(getByPlaceholderText(/email/), 'thisIsNotAValidEmail');
+    typeText(getByPlaceholderText(/first name/), firstName);
+    typeText(getByPlaceholderText(/last name/), lastName);
+    typeText(getByPlaceholderText(/password/), password);
+
+    fireEvent.click(getByText(DEFAULT_SUBMIT_TEXT));
+
+    const errorIcons = getAllByTestId('ErrorIcon');
+    expect(errorIcons).toHaveLength(1);
+    // fireEvent.mouseOver(errorIcons[0]);
+    // expect(getByText('Email address is invalid')).toBeInTheDocument();
+
+    expect(onSubmit).toHaveBeenCalledTimes(0);
   });
 });
