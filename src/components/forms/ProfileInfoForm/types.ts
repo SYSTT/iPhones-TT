@@ -1,7 +1,4 @@
-export interface FormField<T> {
-  value: T;
-  error?: string;
-}
+import { FormField } from '../types';
 
 export interface ProfileInfo {
   email: FormField<string>;

@@ -6,15 +6,15 @@ import {
   RoundedButton,
   isValidEmail,
   isValidPassword,
-} from '../../utils';
-import { Container } from './elements';
+} from '../../../utils';
+import { FormContainer } from '../elements';
 import {
   EMPTY_PROFILE_INFO,
   DEFAULT_SUBMIT_TEXT,
   EMPTY_PROFILE_INFO_VALUES,
 } from './constants';
 import { ProfileInfoValues, ProfileInfo } from './types';
-import ErrorIcon from './ErrorIcon';
+import ErrorIcon from '../ErrorIcon';
 
 interface Props {
   onSubmit: (profileInfo: ProfileInfoValues) => void;
@@ -80,7 +80,7 @@ const ProfileInfoForm: React.FC<Props> = ({
   const { email, firstName, lastName, password } = profileInfo;
 
   return (
-    <Container>
+    <FormContainer>
       <Input
         type="email"
         placeholder="Enter your email address"
@@ -142,7 +142,7 @@ const ProfileInfoForm: React.FC<Props> = ({
           {submitText}
         </RoundedButton>
       </ButtonList>
-    </Container>
+    </FormContainer>
   );
 };
 

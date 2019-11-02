@@ -1,20 +1,18 @@
 import { render, fireEvent } from '@testing-library/react';
 
-import { base } from './ProfileInfoForm.stories';
-import { typeText } from '../../utils/test/events';
+import { base } from './LoginForm.stories';
+import { typeText } from '../../../utils/test/events';
 import {
-  EXAMPLE_PROFILE_INFO,
+  EXAMPLE_LOGIN_INFO,
   DEFAULT_SUBMIT_TEXT,
-  EMPTY_PROFILE_INFO,
+  EMPTY_LOGIN_INFO,
 } from './constants';
 
-describe('ProfileInfoForm', () => {
+describe('LoginForm', () => {
   it('Renders all fields with placeholders', () => {
     const { getByPlaceholderText } = render(base());
 
     expect(getByPlaceholderText(/email/)).toBeInTheDocument();
-    expect(getByPlaceholderText(/first name/)).toBeInTheDocument();
-    expect(getByPlaceholderText(/last name/)).toBeInTheDocument();
     expect(getByPlaceholderText(/password/)).toBeInTheDocument();
   });
 
@@ -22,15 +20,11 @@ describe('ProfileInfoForm', () => {
     const onSubmit = jest.fn();
     const {
       email: { value: email },
-      firstName: { value: firstName },
-      lastName: { value: lastName },
       password: { value: password },
-    } = EXAMPLE_PROFILE_INFO;
+    } = EXAMPLE_LOGIN_INFO;
     const { getByPlaceholderText, getByText } = render(base(onSubmit));
 
     typeText(getByPlaceholderText(/email/), email);
-    typeText(getByPlaceholderText(/first name/), firstName);
-    typeText(getByPlaceholderText(/last name/), lastName);
     typeText(getByPlaceholderText(/password/), password);
 
     fireEvent.click(getByText(DEFAULT_SUBMIT_TEXT));
@@ -38,8 +32,6 @@ describe('ProfileInfoForm', () => {
     expect(onSubmit).toHaveBeenCalledTimes(1);
     expect(onSubmit).toHaveBeenCalledWith({
       email,
-      firstName,
-      lastName,
       password,
     });
   });
@@ -51,7 +43,7 @@ describe('ProfileInfoForm', () => {
     fireEvent.click(getByText(DEFAULT_SUBMIT_TEXT));
 
     const errorIcons = getAllByTestId('ErrorIcon');
-    expect(errorIcons).toHaveLength(Object.keys(EMPTY_PROFILE_INFO).length);
+    expect(errorIcons).toHaveLength(Object.keys(EMPTY_LOGIN_INFO).length);
     // errorIcons.forEach(errorIcon => {
     //   fireEvent.mouseOver(errorIcon, { bubbles: true });
     //   expect(getByText('This field is required')).toBeInTheDocument();
@@ -63,17 +55,13 @@ describe('ProfileInfoForm', () => {
   it('Displays error on submit click for invalid email and does not submit', () => {
     const onSubmit = jest.fn();
     const {
-      firstName: { value: firstName },
-      lastName: { value: lastName },
       password: { value: password },
-    } = EXAMPLE_PROFILE_INFO;
+    } = EXAMPLE_LOGIN_INFO;
     const { getAllByTestId, getByPlaceholderText, getByText } = render(
       base(onSubmit),
     );
 
     typeText(getByPlaceholderText(/email/), 'thisIsNotAValidEmail');
-    typeText(getByPlaceholderText(/first name/), firstName);
-    typeText(getByPlaceholderText(/last name/), lastName);
     typeText(getByPlaceholderText(/password/), password);
 
     fireEvent.click(getByText(DEFAULT_SUBMIT_TEXT));
