@@ -73,7 +73,7 @@ const Customize: React.FC<Props> = ({ match, tradeAmt }) => {
     }
     addItemToCart({
       model: si.model,
-      id: `${si.model}-${match.condition}-${match.color}-${match.memory}`,
+      id: `${si.slug}-${match.condition}-${match.color}-${match.memory}`,
       slug: si.slug,
       quantity: 1,
       ...match,
