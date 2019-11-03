@@ -6,13 +6,20 @@ import { useAuth } from '../auth';
 
 export type OrderStatus = 'pending' | 'approved' | 'scheduled' | 'completed';
 
-export interface Order extends Configuration {
+interface OrderMetaData {
+  creationTimestamp: Date;
+  modifiedTimestamp: Date;
+}
+
+export interface OrderData extends Configuration {
   id: string;
   status: OrderStatus;
   model: string;
   slug: string;
   quantity: number;
 }
+
+export interface Order extends OrderData, OrderMetaData {}
 
 export const useOrders = () => {
   const { user } = useAuth();
@@ -36,8 +43,14 @@ export const useOrders = () => {
     }
   }, [db, user]);
 
-  async function addOrders(newOrders: Order[]) {
+  async function addOrders(newOrdersData: OrderData[]) {
     if (user) {
+      const newOrders: Order[] = newOrdersData.map(od => ({
+        ...od,
+        creationTimestamp: new Date(),
+        modifiedTimestamp: new Date(),
+      }));
+
       await db
         .collection('users')
         .doc(user.uid)
@@ -51,7 +64,7 @@ export const useOrders = () => {
       const newOrders = [...orders];
       newOrders.forEach((order, index, orders) => {
         if (order.id === orderId) {
-          orders[index] = { ...order, status };
+          orders[index] = { ...order, status, modifiedTimestamp: new Date() };
         }
       });
 
