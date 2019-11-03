@@ -9,7 +9,7 @@ export default { title: 'Login Form' };
 
 export const base = (
   onSubmit: (profileInfo: LoginInfoValues) => void = () => {},
-) => <LoginForm onSubmit={onSubmit} submitText={'Submit'} />;
+) => <LoginForm onSubmit={onSubmit} />;
 
 export const playground = () => {
   const submitText = text('Submit Button Text', DEFAULT_SUBMIT_TEXT);
