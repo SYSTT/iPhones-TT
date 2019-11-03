@@ -13,4 +13,4 @@ export const EXAMPLE_LOGIN_INFO = {
   password: { value: 'password123' },
 };
 
-export const DEFAULT_SUBMIT_TEXT = 'Submit';
+export const DEFAULT_SUBMIT_TEXT = 'Login';
