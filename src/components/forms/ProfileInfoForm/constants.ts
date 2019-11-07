@@ -18,6 +18,7 @@ export const EXAMPLE_PROFILE_INFO = {
   email: { value: 'johndoe@example.com' },
   firstName: { value: 'John' },
   lastName: { value: 'Doe' },
+  phoneNumber: { value: 'password123' },
   password: { value: 'password123' },
 };
 

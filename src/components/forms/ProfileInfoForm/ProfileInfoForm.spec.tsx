@@ -15,6 +15,7 @@ describe('ProfileInfoForm', () => {
     expect(getByPlaceholderText(/email/)).toBeInTheDocument();
     expect(getByPlaceholderText(/first name/)).toBeInTheDocument();
     expect(getByPlaceholderText(/last name/)).toBeInTheDocument();
+    expect(getByPlaceholderText(/phone number/)).toBeInTheDocument();
     expect(getByPlaceholderText(/password/)).toBeInTheDocument();
   });
 
@@ -24,6 +25,7 @@ describe('ProfileInfoForm', () => {
       email: { value: email },
       firstName: { value: firstName },
       lastName: { value: lastName },
+      phoneNumber: { value: phoneNumber },
       password: { value: password },
     } = EXAMPLE_PROFILE_INFO;
     const { getByPlaceholderText, getByText } = render(base(onSubmit));
@@ -31,6 +33,7 @@ describe('ProfileInfoForm', () => {
     typeText(getByPlaceholderText(/email/), email);
     typeText(getByPlaceholderText(/first name/), firstName);
     typeText(getByPlaceholderText(/last name/), lastName);
+    typeText(getByPlaceholderText(/phone number/), phoneNumber);
     typeText(getByPlaceholderText(/password/), password);
 
     fireEvent.click(getByText(DEFAULT_SUBMIT_TEXT));
@@ -40,6 +43,7 @@ describe('ProfileInfoForm', () => {
       email,
       firstName,
       lastName,
+      phoneNumber,
       password,
     });
   });
@@ -51,7 +55,7 @@ describe('ProfileInfoForm', () => {
     fireEvent.click(getByText(DEFAULT_SUBMIT_TEXT));
 
     const errorIcons = getAllByTestId('ErrorIcon');
-    expect(errorIcons).toHaveLength(Object.keys(EMPTY_PROFILE_INFO).length);
+    expect(errorIcons).toHaveLength(Object.keys(EMPTY_PROFILE_INFO).length - 1);
     // errorIcons.forEach(errorIcon => {
     //   fireEvent.mouseOver(errorIcon, { bubbles: true });
     //   expect(getByText('This field is required')).toBeInTheDocument();
@@ -65,6 +69,7 @@ describe('ProfileInfoForm', () => {
     const {
       firstName: { value: firstName },
       lastName: { value: lastName },
+      phoneNumber: { value: phoneNumber },
       password: { value: password },
     } = EXAMPLE_PROFILE_INFO;
     const { getAllByTestId, getByPlaceholderText, getByText } = render(
@@ -74,6 +79,7 @@ describe('ProfileInfoForm', () => {
     typeText(getByPlaceholderText(/email/), 'thisIsNotAValidEmail');
     typeText(getByPlaceholderText(/first name/), firstName);
     typeText(getByPlaceholderText(/last name/), lastName);
+    typeText(getByPlaceholderText(/phone number/), phoneNumber);
     typeText(getByPlaceholderText(/password/), password);
 
     fireEvent.click(getByText(DEFAULT_SUBMIT_TEXT));
