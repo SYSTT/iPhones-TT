@@ -2,6 +2,7 @@ export const EMPTY_PROFILE_INFO = {
   email: { value: '' },
   firstName: { value: '' },
   lastName: { value: '' },
+  phoneNumber: { value: '' },
   password: { value: '' },
 };
 
@@ -9,6 +10,7 @@ export const EMPTY_PROFILE_INFO_VALUES = {
   email: '',
   firstName: '',
   lastName: '',
+  phoneNumber: '',
   password: '',
 };
 
