@@ -12,6 +12,7 @@ export interface ProfileInfoValues {
   email: string;
   firstName: string;
   lastName: string;
+  phoneNumber: string;
   password: string;
   [key: string]: string;
 }

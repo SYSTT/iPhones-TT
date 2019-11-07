@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { RouteComponentProps, StaticContext } from 'react-router';
+import { RouteComponentProps, StaticContext, useHistory } from 'react-router';
 import { Redirect } from 'react-router-dom';
 import { Carousel } from 'antd';
 
@@ -38,6 +38,7 @@ const Customize: React.FC<Props> = ({ match, tradeAmt }) => {
   const [loading, setLoading] = useState(true);
   const { getModelBySlug, loading: stockLoading } = useStock();
   const { addItemToCart, added } = useCart();
+  const history = useHistory();
 
   useEffect(() => {
     if (!stockLoading) {
@@ -61,7 +62,7 @@ const Customize: React.FC<Props> = ({ match, tradeAmt }) => {
     return <Redirect to="/cart" />;
   }
 
-  const addToCart = () => {
+  const addToCart = (goToCheckout = false) => {
     const match = si.configurations.find(
       config =>
         config.condition === condition &&
@@ -73,11 +74,14 @@ const Customize: React.FC<Props> = ({ match, tradeAmt }) => {
     }
     addItemToCart({
       model: si.model,
-      id: `${si.model}-${match.condition}-${match.color}-${match.memory}`,
+      id: `${si.slug}-${match.condition}-${match.color}-${match.memory}`,
       slug: si.slug,
       quantity: 1,
       ...match,
     });
+    if (goToCheckout) {
+      history.push('/checkout');
+    }
   };
 
   const handleConditionChange = (condition: Condition) => {
@@ -129,11 +133,15 @@ const Customize: React.FC<Props> = ({ match, tradeAmt }) => {
         />
         <ButtonList center>
           {!tradeAmt && (
-            <RoundedButton disabled={!memory} onClick={addToCart}>
+            <RoundedButton disabled={!memory} onClick={() => addToCart()}>
               Add to Cart
             </RoundedButton>
           )}
-          <RoundedButton type="primary" disabled={!memory}>
+          <RoundedButton
+            type="primary"
+            disabled={!memory}
+            onClick={() => addToCart(true)}
+          >
             Checkout
           </RoundedButton>
         </ButtonList>

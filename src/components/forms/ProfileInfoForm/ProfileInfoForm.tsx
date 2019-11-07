@@ -47,7 +47,7 @@ const ProfileInfoForm: React.FC<Props> = ({
     const newProfileInfo = { ...profileInfo };
     let errorFound = false;
     Object.keys(profileInfo).reduce((acc, key) => {
-      if (!acc[key].value) {
+      if (!acc[key].value && key !== 'password') {
         acc[key].error = 'This field is required';
         errorFound = true;
         return acc;
@@ -57,7 +57,11 @@ const ProfileInfoForm: React.FC<Props> = ({
         errorFound = true;
         return acc;
       }
-      if (key === 'password' && !isValidPassword(acc[key].value)) {
+      if (
+        key === 'password' &&
+        acc[key].value &&
+        !isValidPassword(acc[key].value)
+      ) {
         acc[key].error = 'Password must be at least 8 characters long';
         errorFound = true;
         return acc;
@@ -77,7 +81,7 @@ const ProfileInfoForm: React.FC<Props> = ({
     onSubmit(getValues(profileInfo));
   };
 
-  const { email, firstName, lastName, password } = profileInfo;
+  const { email, firstName, lastName, password, phoneNumber } = profileInfo;
 
   return (
     <FormContainer>
@@ -111,6 +115,21 @@ const ProfileInfoForm: React.FC<Props> = ({
         suffix={lastName.error && <ErrorIcon error={lastName.error} />}
         value={lastName.value}
         onChange={handleChange('lastName')}
+      />
+      <Input
+        type="tel"
+        placeholder="Enter your phone number"
+        prefix={<Icon type="phone" style={{ color: 'rgba(0,0,0,.25)' }} />}
+        suffix={
+          <>
+            {phoneNumber.error && <ErrorIcon error={phoneNumber.error} />}
+            <Tooltip title="Dashes, spaces and brackets aren't required">
+              <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.25)' }} />
+            </Tooltip>
+          </>
+        }
+        value={phoneNumber.value}
+        onChange={handleChange('phoneNumber')}
       />
       <Divider />
       <Input

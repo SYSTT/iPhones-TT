@@ -74,7 +74,9 @@ const CartPage: React.FC = () => {
             <Price amt={total} />
           </h2>
         </div>
-        <RoundedButton type="primary">Checkout</RoundedButton>
+        <Link to="/checkout">
+          <RoundedButton type="primary">Checkout</RoundedButton>
+        </Link>
       </CartDetails>
     </Container>
   );

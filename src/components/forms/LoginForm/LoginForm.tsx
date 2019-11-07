@@ -3,7 +3,11 @@ import { Icon, Input, Tooltip } from 'antd';
 
 import { FormContainer } from '../elements';
 import { LoginInfoValues, LoginInfo } from './types';
-import { EMPTY_LOGIN_INFO, EMPTY_LOGIN_INFO_VALUES } from './constants';
+import {
+  EMPTY_LOGIN_INFO,
+  EMPTY_LOGIN_INFO_VALUES,
+  DEFAULT_SUBMIT_TEXT,
+} from './constants';
 import ErrorIcon from '../ErrorIcon';
 import {
   ButtonList,
@@ -14,7 +18,7 @@ import {
 
 interface Props {
   onSubmit: (loginInfo: LoginInfoValues) => void;
-  submitText: string;
+  submitText?: string;
 }
 
 function getValues(loginInfo: LoginInfo) {
@@ -24,7 +28,7 @@ function getValues(loginInfo: LoginInfo) {
   }, EMPTY_LOGIN_INFO_VALUES);
 }
 
-const LoginForm = ({ onSubmit, submitText }: Props) => {
+const LoginForm = ({ onSubmit, submitText = DEFAULT_SUBMIT_TEXT }: Props) => {
   const [loginInfo, setLoginInfo] = useState<LoginInfo>(EMPTY_LOGIN_INFO);
   const [showPassword, setShowPassword] = useState(false);
 
