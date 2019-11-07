@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import { FirebaseContext } from '../firebase';
 import { Configuration } from '../stock';
 import { useAuth } from '../auth';
+import { Profile } from '../../components/forms/ProfileInfoForm';
 
 export type OrderStatus = 'pending' | 'approved' | 'scheduled' | 'completed';
 
@@ -11,15 +12,19 @@ interface OrderMetaData {
   modifiedTimestamp: Date;
 }
 
-export interface OrderData extends Configuration {
-  id: string;
+export interface OrderData {
   status: OrderStatus;
-  model: string;
-  slug: string;
-  quantity: number;
+  orderItem: Configuration & {
+    model: string;
+    slug: string;
+    quantity: number;
+  };
+  profileInfo: Omit<Profile, 'password'>;
 }
 
-export interface Order extends OrderData, OrderMetaData {}
+export interface Order extends OrderData, OrderMetaData {
+  id: string;
+}
 
 export const useOrders = () => {
   const { user } = useAuth();
@@ -45,7 +50,7 @@ export const useOrders = () => {
 
   async function addOrders(newOrdersData: OrderData[]) {
     if (user) {
-      const newOrders: Order[] = newOrdersData.map(od => ({
+      const newOrders: OrderData[] = newOrdersData.map(od => ({
         ...od,
         creationTimestamp: new Date(),
         modifiedTimestamp: new Date(),

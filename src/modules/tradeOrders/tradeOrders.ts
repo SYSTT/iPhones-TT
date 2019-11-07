@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import { FirebaseContext } from '../firebase';
 import { Configuration } from '../stock';
 import { useAuth } from '../auth';
+import { Profile } from '../../components/forms/ProfileInfoForm';
 
 export type OrderStatus = 'pending' | 'approved' | 'scheduled' | 'completed';
 
@@ -12,7 +13,6 @@ interface TradeOrderMetaData {
 }
 
 export interface TradeOrderData extends Configuration {
-  id: string;
   status: OrderStatus;
   orderItem: Configuration & {
     model: string;
@@ -29,9 +29,12 @@ export interface TradeOrderData extends Configuration {
     rating: number;
     pictureUrls: string[];
   };
+  profileInfo: Omit<Profile, 'password'>;
 }
 
-export interface TradeOrder extends TradeOrderData, TradeOrderMetaData {}
+export interface TradeOrder extends TradeOrderData, TradeOrderMetaData {
+  id: string;
+}
 
 export const useTradeOrders = () => {
   const { user } = useAuth();
@@ -57,7 +60,7 @@ export const useTradeOrders = () => {
 
   async function addTradeOrders(newOrdersData: TradeOrderData[]) {
     if (user) {
-      const newOrders: TradeOrder[] = newOrdersData.map(od => ({
+      const newOrders: TradeOrderData[] = newOrdersData.map(od => ({
         ...od,
         creationTimestamp: new Date(),
         modifiedTimestamp: new Date(),
