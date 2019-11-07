@@ -47,7 +47,7 @@ const ProfileInfoForm: React.FC<Props> = ({
     const newProfileInfo = { ...profileInfo };
     let errorFound = false;
     Object.keys(profileInfo).reduce((acc, key) => {
-      if (!acc[key].value) {
+      if (!acc[key].value && key !== 'password') {
         acc[key].error = 'This field is required';
         errorFound = true;
         return acc;
