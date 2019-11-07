@@ -7,7 +7,6 @@ import { Divider, Alert, message } from 'antd';
 import ProfileInfoForm from '../../components/forms/ProfileInfoForm';
 
 import { TRADE_DESCRIPTION, BUY_DESCRIPTION } from './constants';
-import { useTradeOrders } from '../../modules/tradeOrders';
 import { useOrders } from '../../modules/orders';
 import { ProfileInfoValues } from '../../components/forms/ProfileInfoForm/types';
 import { useCart } from '../../modules/cart';
@@ -19,7 +18,6 @@ interface Props {
 const CheckoutPage = ({ trade = false }: Props) => {
   const { cart } = useCart();
   const { addOrders } = useOrders();
-  const { addTradeOrders } = useTradeOrders();
 
   const handleGuestSubmit = (profileInfo: ProfileInfoValues) => {
     if (!trade) {
