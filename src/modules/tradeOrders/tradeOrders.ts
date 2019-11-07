@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from 'react';
 
 import { FirebaseContext } from '../firebase';
 import { Configuration } from '../stock';
-import { useAuth } from '../auth';
 import { Profile } from '../../components/forms/ProfileInfoForm';
 
 export type OrderStatus = 'pending' | 'approved' | 'scheduled' | 'completed';
@@ -37,57 +36,50 @@ export interface TradeOrder extends TradeOrderData, TradeOrderMetaData {
 }
 
 export const useTradeOrders = () => {
-  const { user } = useAuth();
   const { db } = useContext(FirebaseContext);
+  const batch = db.batch();
 
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState<TradeOrder[]>([]);
   const [added, setAdded] = useState(false);
 
   useEffect(() => {
-    if (user) {
-      setLoading(true);
-      const unsubscribe = db
-        .collection('users')
-        .doc(user.uid)
-        .onSnapshot(querySnapshot => {
-          setOrders(querySnapshot.get('trade-orders') || []);
-          setLoading(false);
+    setLoading(true);
+    const unsubscribe = db
+      .collection('trade-orders')
+      .onSnapshot(querySnapshot => {
+        const tradeOrders: TradeOrder[] = [];
+        querySnapshot.forEach(doc => {
+          const tradeOrder = doc.data() as TradeOrder;
+          tradeOrders.push({
+            ...tradeOrder,
+            id: doc.id,
+          });
         });
-      return () => unsubscribe();
-    }
-  }, [db, user]);
+        setOrders(tradeOrders);
+        setLoading(false);
+      });
+    return () => unsubscribe();
+  }, [db]);
 
   async function addTradeOrders(newOrdersData: TradeOrderData[]) {
-    if (user) {
-      const newOrders: TradeOrderData[] = newOrdersData.map(od => ({
-        ...od,
+    newOrdersData.forEach((newOrderData: TradeOrderData) => {
+      const docRef = db.collection('trade-orders').doc(); //automatically generate unique id
+      batch.set(docRef, {
+        ...newOrderData,
         creationTimestamp: new Date(),
         modifiedTimestamp: new Date(),
-      }));
-
-      await db
-        .collection('users')
-        .doc(user.uid)
-        .set({ orders: [...orders, ...newOrders] }, { merge: true });
-      setAdded(true);
-    }
+      });
+    });
+    await batch.commit();
+    setAdded(true);
   }
 
   async function updateTradeOrderStatus(orderId: string, status: OrderStatus) {
-    if (user) {
-      const newOrders = [...orders];
-      newOrders.forEach((order, index, orders) => {
-        if (order.id === orderId) {
-          orders[index] = { ...order, status, modifiedTimestamp: new Date() };
-        }
-      });
-
-      await db
-        .collection('users')
-        .doc(user.uid)
-        .set({ orders: newOrders }, { merge: true });
-    }
+    await db
+      .collection('users')
+      .doc(orderId)
+      .update({ status, lastModified: new Date() });
   }
 
   return {
