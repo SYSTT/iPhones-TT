@@ -11,6 +11,7 @@ import TradePage from './pages/TradePage';
 import CheckoutPage from './pages/CheckoutPage';
 import LoginPage from './pages/LoginPage';
 import { useUserData } from './modules/userData';
+import PostCheckoutPage from './pages/PostCheckoutPage';
 
 const Routes: React.FC = () => {
   const { user } = useAuth();
@@ -44,6 +45,7 @@ const Routes: React.FC = () => {
             return null;
           }}
         />
+        <Route path="/post-checkout" render={PostCheckoutPage} />
         <Route path="/" component={HomePage} />
       </Switch>
     </>

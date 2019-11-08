@@ -23,7 +23,7 @@ const CheckoutPage = () => {
     tradeItem: TradeItem;
     orderItem: OrderItem;
   }>();
-  const { cart } = useCart();
+  const { cart, clearCart } = useCart();
   const { addOrders } = useOrders();
   const { addTradeOrders } = useTradeOrders();
   const { userProfileInfo, createNewUser } = useUserData();
@@ -52,6 +52,7 @@ const CheckoutPage = () => {
         },
       ]);
     }
+    await clearCart();
     history.push('/post-checkout');
   };
 
