@@ -19,6 +19,7 @@ import MemorySelector from './MemorySelector';
 import { Container, Content } from './elements';
 
 import iPhoneIMG from '../../pages/HomePage/cover.jpg';
+import { TradeItem, OrderItem } from '../../modules/tradeOrders';
 
 type Props = RouteComponentProps<
   { itemSlug: string },
@@ -26,10 +27,11 @@ type Props = RouteComponentProps<
   { si?: Model }
 > & {
   allowAddToCart?: boolean;
+  tradeItem?: TradeItem;
   tradeAmt?: number;
 };
 
-const Customize: React.FC<Props> = ({ match, tradeAmt }) => {
+const Customize: React.FC<Props> = ({ match, tradeAmt, tradeItem }) => {
   const [condition, setCondition] = useState<Condition>();
   const [color, setColor] = useState<string>();
   const [memory, setMemory] = useState<number>();
@@ -38,7 +40,10 @@ const Customize: React.FC<Props> = ({ match, tradeAmt }) => {
   const [loading, setLoading] = useState(true);
   const { getModelBySlug, loading: stockLoading } = useStock();
   const { addItemToCart, added } = useCart();
-  const history = useHistory();
+  const history = useHistory<{
+    tradeItem?: TradeItem;
+    orderItem: OrderItem;
+  }>();
 
   useEffect(() => {
     if (!stockLoading) {
@@ -63,24 +68,38 @@ const Customize: React.FC<Props> = ({ match, tradeAmt }) => {
   }
 
   const addToCart = (goToCheckout = false) => {
-    const match = si.configurations.find(
+    const siMatch = si.configurations.find(
       config =>
         config.condition === condition &&
         config.color === color &&
         config.memory === memory,
     );
-    if (!match) {
+    if (!siMatch) {
       return;
     }
-    addItemToCart({
-      model: si.model,
-      id: `${si.slug}-${match.condition}-${match.color}-${match.memory}`,
-      slug: si.slug,
-      quantity: 1,
-      ...match,
-    });
+    if (tradeItem === undefined) {
+      addItemToCart({
+        model: si.model,
+        id: `${si.slug}-${siMatch.condition}-${siMatch.color}-${siMatch.memory}`,
+        slug: si.slug,
+        quantity: 1,
+        ...siMatch,
+      });
+    }
     if (goToCheckout) {
-      history.push('/checkout');
+      history.push({
+        pathname: '/checkout/',
+        state: {
+          tradeItem,
+          orderItem: {
+            model: si.model,
+            slug: si.slug,
+            quantity: 1,
+            stock: 0,
+            ...siMatch,
+          },
+        },
+      });
     }
   };
 

@@ -7,11 +7,8 @@ import Catalogue from '../../components/Catalogue';
 import Customize from '../../components/Customize';
 import DeviceForm from '../../components/DeviceForm';
 import { Container } from './elements';
-import {
-  useTradeDevices,
-  Device,
-  DeviceOption,
-} from '../../modules/trade-devices';
+import { useTradeDevices, DeviceOption } from '../../modules/trade-devices';
+import { TradeItem } from '../../modules/tradeOrders';
 const { Step } = Steps;
 
 const locationToStep = (location: Location) => {
@@ -24,9 +21,13 @@ const locationToTradeSlug = (location: Location) => {
   return pathParts[1];
 };
 
-const TradePage: React.FC<RouteComponentProps> = ({ location, match }) => {
+const TradePage: React.FC<
+  RouteComponentProps<{}, {}, { tradeItem?: TradeItem & { price: number } }>
+> = ({ location, match, history }) => {
   const currentStep = locationToStep(location);
-  const [, setTradeDevice] = useState<Device>();
+  const [tradeItem, setTradeItem] = useState<
+    TradeItem & { price: number } | undefined
+  >(location.state ? location.state.tradeItem : undefined);
   const [tradeDeviceOption, setTradeDeviceOption] = useState<DeviceOption>();
   const { getTradeDeviceBySlug } = useTradeDevices();
   const tradeSlug = locationToTradeSlug(location);
@@ -40,11 +41,10 @@ const TradePage: React.FC<RouteComponentProps> = ({ location, match }) => {
       }
       const memory = parseInt(memoryHumanReadable);
       const device = getTradeDeviceBySlug(tradeDeviceSlug);
-      console.log(memory, device);
+
       if (!device) {
         return;
       }
-      setTradeDevice(device);
       const matchingOptions = device.options.filter(
         opt => opt.memory === memory,
       );
@@ -55,6 +55,15 @@ const TradePage: React.FC<RouteComponentProps> = ({ location, match }) => {
     }
   }, [tradeSlug, getTradeDeviceBySlug]);
 
+  useEffect(() => {
+    if (tradeItem !== undefined) {
+      history.push({
+        pathname: `${tradeItem.slug}-${tradeItem.memory}gb/`,
+        state: { tradeItem },
+      });
+    }
+  }, [tradeItem, history]);
+
   return (
     <Container>
       <Switch>
@@ -64,6 +73,7 @@ const TradePage: React.FC<RouteComponentProps> = ({ location, match }) => {
             <Customize
               allowAddToCart={false}
               tradeAmt={tradeDeviceOption ? tradeDeviceOption.price : 0}
+              tradeItem={tradeItem}
               {...routeComponentProps}
             />
           )}
@@ -76,7 +86,10 @@ const TradePage: React.FC<RouteComponentProps> = ({ location, match }) => {
             />
           )}
         />
-        <Route path={`${match.path}`} component={DeviceForm} />
+        <Route
+          path={`${match.path}`}
+          render={() => <DeviceForm setTradeItem={setTradeItem} />}
+        />
       </Switch>
       <Steps type="navigation" size="small" current={currentStep}>
         <Step title="Details" icon={<Icon type="build" />} />

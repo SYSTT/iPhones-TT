@@ -2,6 +2,7 @@ import { useState, useEffect, useContext, useCallback } from 'react';
 
 import { FirebaseContext } from '../firebase';
 import { toSlug } from '../../utils';
+import { Color } from '../stock';
 
 export type DeviceOption = {
   memory: number;
@@ -11,6 +12,7 @@ export type DeviceOption = {
 export type DeviceData = {
   model: string;
   options: DeviceOption[];
+  colors: Color[];
 };
 
 export type DeviceMetaData = {

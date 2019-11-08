@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { Container } from './elements';
 import { Heading } from '../../utils';
 import LoginForm from '../../components/forms/LoginForm/LoginForm';
@@ -10,21 +11,29 @@ import { TRADE_DESCRIPTION, BUY_DESCRIPTION } from './constants';
 import { useOrders } from '../../modules/orders';
 import { ProfileInfoValues } from '../../components/forms/ProfileInfoForm/types';
 import { useCart } from '../../modules/cart';
+import {
+  useTradeOrders,
+  TradeItem,
+  OrderItem,
+} from '../../modules/tradeOrders';
 
-interface Props {
-  trade?: boolean;
-}
-
-const CheckoutPage = ({ trade = false }: Props) => {
+const CheckoutPage = () => {
+  const location = useLocation<{
+    tradeItem: TradeItem;
+    orderItem: OrderItem;
+  }>();
   const { cart } = useCart();
   const { addOrders } = useOrders();
+  const { addTradeOrders } = useTradeOrders();
+
+  const { tradeItem, orderItem } = location.state || {};
 
   const handleGuestSubmit = (profileInfo: ProfileInfoValues) => {
-    if (!trade) {
-      if (cart.length === 0) {
-        return message.error("Can't submit order because your cart is empty!");
-      }
-      delete profileInfo.password;
+    delete profileInfo.password;
+    if (cart.length === 0) {
+      return message.error("Can't submit order because your cart is empty!");
+    }
+    if (!tradeItem) {
       addOrders(
         cart.map(cartItem => {
           return {
@@ -34,6 +43,15 @@ const CheckoutPage = ({ trade = false }: Props) => {
           };
         }),
       );
+    } else {
+      addTradeOrders([
+        {
+          status: 'pending',
+          tradeItem,
+          orderItem,
+          profileInfo,
+        },
+      ]);
     }
   };
 
@@ -44,7 +62,7 @@ const CheckoutPage = ({ trade = false }: Props) => {
         type="info"
         showIcon
         message="Login below or enter your contact information to continue"
-        description={trade ? TRADE_DESCRIPTION : BUY_DESCRIPTION}
+        description={tradeItem ? TRADE_DESCRIPTION : BUY_DESCRIPTION}
       />
       <Divider />
       <h3>Login</h3>
