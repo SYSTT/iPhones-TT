@@ -47,7 +47,8 @@ export function useUserData() {
   };
 
   const loginUser = async (email: string, password: string) => {
-    auth.signInWithEmailAndPassword(email, password);
+    const { user } = await auth.signInWithEmailAndPassword(email, password);
+    return user;
   };
 
   const logoutUser = () => {
