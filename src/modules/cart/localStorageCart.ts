@@ -37,11 +37,16 @@ export function useLocalStorageCart() {
     setLocalStorageCart(newCart);
   }
 
+  async function clearCart() {
+    setLocalStorageCart([]);
+  }
+
   return {
     cart: localStorageCart,
     addItemToCart,
     added,
     removeItemFromCart,
     updateItemQuantity,
+    clearCart,
   };
 }

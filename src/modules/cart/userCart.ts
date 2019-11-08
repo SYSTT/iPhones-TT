@@ -71,6 +71,15 @@ export function useUserCart() {
     }
   }
 
+  async function clearCart() {
+    if (user) {
+      await db
+        .collection('users')
+        .doc(user.uid)
+        .set({ cart: [] }, { merge: true });
+    }
+  }
+
   return {
     cart: userCart,
     addItemToCart,
@@ -78,5 +87,6 @@ export function useUserCart() {
     userCartLoading,
     removeItemFromCart,
     updateItemQuantity,
+    clearCart,
   };
 }
