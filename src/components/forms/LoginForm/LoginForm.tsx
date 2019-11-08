@@ -14,6 +14,7 @@ import {
   RoundedButton,
   isValidEmail,
   isValidPassword,
+  Colors,
 } from '../../../utils';
 import { useUserData } from '../../../modules/userData';
 
@@ -32,11 +33,18 @@ function getValues(loginInfo: LoginInfo) {
 const LoginForm = ({ onSubmit, submitText = DEFAULT_SUBMIT_TEXT }: Props) => {
   const [loginInfo, setLoginInfo] = useState<LoginInfo>(EMPTY_LOGIN_INFO);
   const [showPassword, setShowPassword] = useState(false);
+  const [failed, setFailed] = useState(false);
   const { loginUser } = useUserData();
 
   const login = async (values: LoginInfoValues) => {
-    await loginUser(values.email, values.password);
-    onSubmit(values);
+    try {
+      const user = await loginUser(values.email, values.password);
+      if (user) {
+        onSubmit(values);
+      }
+    } catch (err) {
+      setFailed(true);
+    }
   };
 
   const handleChange = (field: keyof LoginInfo) => (
@@ -82,6 +90,11 @@ const LoginForm = ({ onSubmit, submitText = DEFAULT_SUBMIT_TEXT }: Props) => {
   const { email, password } = loginInfo;
   return (
     <FormContainer>
+      {failed && (
+        <p style={{ color: Colors.Red }}>
+          Your email address or password is not valid please try again.
+        </p>
+      )}
       <Input
         type="email"
         placeholder="Enter your email address"
