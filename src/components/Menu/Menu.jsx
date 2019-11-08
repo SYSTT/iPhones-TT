@@ -15,7 +15,7 @@ const MenuOptions = [
   },
   {
     text: 'Trade',
-    link: '/estimate/',
+    link: '/trade/',
     color: Colors.Primary,
   },
   {
