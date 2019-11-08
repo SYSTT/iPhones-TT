@@ -73,6 +73,7 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
+    accept: 'image/*,video/*',
   });
 
   function onChangeDevice(deviceSlug: string) {
@@ -205,7 +206,8 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
             onChange={e => setRating(+e.target.value)}
           />
           <h3 style={{ marginBottom: 12, marginTop: 24 }}>
-            Upload some images of your iPhone below including any imperfections.
+            Upload some images or a video of your iPhone including any
+            imperfections.
           </h3>
           {pictureUrls.length !== 0 && (
             <p>{pictureUrls.length} file successfully uploaded</p>
