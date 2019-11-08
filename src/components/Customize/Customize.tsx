@@ -67,7 +67,7 @@ const Customize: React.FC<Props> = ({ match, tradeAmt, tradeItem }) => {
     return <Redirect to="/cart" />;
   }
 
-  const addToCart = (goToCheckout = false) => {
+  const addToCart = async (goToCheckout = false) => {
     const siMatch = si.configurations.find(
       config =>
         config.condition === condition &&
@@ -78,7 +78,7 @@ const Customize: React.FC<Props> = ({ match, tradeAmt, tradeItem }) => {
       return;
     }
     if (tradeItem === undefined) {
-      addItemToCart({
+      await addItemToCart({
         model: si.model,
         id: `${si.slug}-${siMatch.condition}-${siMatch.color}-${siMatch.memory}`,
         slug: si.slug,

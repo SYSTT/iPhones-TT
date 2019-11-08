@@ -1,7 +1,7 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { Container } from './elements';
-import { Heading } from '../../utils';
+import { Heading, RoundedButton, ButtonList } from '../../utils';
 import LoginForm from '../../components/forms/LoginForm/LoginForm';
 import { Divider, Alert, message } from 'antd';
 
@@ -16,6 +16,7 @@ import {
   TradeItem,
   OrderItem,
 } from '../../modules/tradeOrders';
+import { useUserData } from '../../modules/userData';
 
 const CheckoutPage = () => {
   const location = useLocation<{
@@ -25,16 +26,14 @@ const CheckoutPage = () => {
   const { cart } = useCart();
   const { addOrders } = useOrders();
   const { addTradeOrders } = useTradeOrders();
+  const { userProfileInfo, createNewUser } = useUserData();
+  const history = useHistory();
 
   const { tradeItem, orderItem } = location.state || {};
 
-  const handleGuestSubmit = (profileInfo: ProfileInfoValues) => {
-    delete profileInfo.password;
-    if (cart.length === 0) {
-      return message.error("Can't submit order because your cart is empty!");
-    }
+  const submitOrder = async (profileInfo: ProfileInfoValues) => {
     if (!tradeItem) {
-      addOrders(
+      await addOrders(
         cart.map(cartItem => {
           return {
             status: 'pending',
@@ -44,7 +43,7 @@ const CheckoutPage = () => {
         }),
       );
     } else {
-      addTradeOrders([
+      await addTradeOrders([
         {
           status: 'pending',
           tradeItem,
@@ -52,6 +51,25 @@ const CheckoutPage = () => {
           profileInfo,
         },
       ]);
+    }
+    history.push('/post-checkout');
+  };
+
+  const handleGuestSubmit = async (profileInfo: ProfileInfoValues) => {
+    if (cart.length === 0) {
+      return message.error("Can't submit order because your cart is empty!");
+    }
+    const { password } = profileInfo;
+    delete profileInfo.password;
+    await submitOrder(profileInfo);
+    if (password) {
+      await createNewUser({ ...profileInfo, password });
+    }
+  };
+
+  const onLoginSubmit = () => {
+    if (userProfileInfo !== undefined) {
+      submitOrder(userProfileInfo);
     }
   };
 
@@ -65,15 +83,27 @@ const CheckoutPage = () => {
         description={tradeItem ? TRADE_DESCRIPTION : BUY_DESCRIPTION}
       />
       <Divider />
-      <h3>Login</h3>
-      <LoginForm
-        onSubmit={d => {
-          console.log(d);
-        }}
-      />
+      {userProfileInfo ? (
+        <>
+          <h3>You&#39;re already logged in</h3>
+          <ButtonList center>
+            <RoundedButton
+              type="primary"
+              onClick={() => submitOrder(userProfileInfo)}
+            >
+              Submit Order
+            </RoundedButton>
+          </ButtonList>
+        </>
+      ) : (
+        <>
+          <h3>Login</h3>
+          <LoginForm onSubmit={onLoginSubmit} submitText="Login & submit" />
+        </>
+      )}
       <Divider />
       <h3>Continue as guest</h3>
-      <ProfileInfoForm submitText="Continue" onSubmit={handleGuestSubmit} />
+      <ProfileInfoForm submitText="Submit Order" onSubmit={handleGuestSubmit} />
     </Container>
   );
 };
