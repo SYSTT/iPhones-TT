@@ -28,6 +28,11 @@ const MenuOptions = [
     link: '/login/',
     color: Colors['Grey/VeryDark'],
   },
+  {
+    text: 'Logout',
+    link: '/logout/',
+    color: Colors['Grey/VeryDark'],
+  },
 ];
 
 const Menu = () => {
@@ -35,7 +40,9 @@ const Menu = () => {
   const { loggedIn } = useAuth();
 
   const MenuLinks = MenuOptions.filter(
-    option => option.text !== 'Login' || !loggedIn,
+    option =>
+      (option.text !== 'Login' || !loggedIn) &&
+      (option.text !== 'Logout' || loggedIn),
   ).map(option => (
     <Link to={option.link} key={option.text} onClick={() => setMenuOpen(false)}>
       <h3 className="Menu-item" style={{ color: option.color }}>
