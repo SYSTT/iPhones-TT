@@ -47,6 +47,7 @@ const HomePage: React.FC = () => {
             'Meet, complete transaction and take home your new iPhone.',
           ]}
           buttonText="Purchase Now"
+          buttonLink="/buy/"
         />
         <Process
           title="Trade iPhones"
@@ -58,6 +59,7 @@ const HomePage: React.FC = () => {
             'Meet, complete transaction and trade iPhone.',
           ]}
           buttonText="Trade Now"
+          buttonLink="/trade/"
         />
       </ProcessSection>
       <Quality />
