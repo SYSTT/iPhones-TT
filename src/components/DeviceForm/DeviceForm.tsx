@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useContext } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Alert, Icon, Select, Button, Divider, Input } from 'antd';
+import { Alert, Icon, Select, Button, Divider, Input, Spin } from 'antd';
 import uuid from 'uuid/v4';
 
 import { useTradeDevices, Device } from '../../modules/trade-devices';
@@ -48,6 +48,7 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
   const [batteryHealth, setBatteryHealth] = useState<number>();
   const [rating, setRating] = useState<number>();
   const [pictureUrls, setPictureUrls] = useState<string[]>([]);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
   const firebase = useContext(FirebaseContext);
 
   const onDrop = useCallback(
@@ -56,11 +57,13 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
         const reader = new FileReader();
 
         reader.onload = async () => {
+          setIsUploadingImage(true);
           const binaryStr = reader.result as ArrayBuffer;
           const ref = firebase.storage.ref(`trade-order-images`).child(uuid());
           const { ref: resultRef } = await ref.put(binaryStr);
           const downloadUrl = await resultRef.getDownloadURL();
           setPictureUrls([...pictureUrls, downloadUrl]);
+          setIsUploadingImage(false);
         };
         reader.readAsArrayBuffer(file);
       });
@@ -204,6 +207,9 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
           <h3 style={{ marginBottom: 12, marginTop: 24 }}>
             Upload some images of your iPhone below including any imperfections.
           </h3>
+          {pictureUrls.length !== 0 && (
+            <p>{pictureUrls.length} file successfully uploaded</p>
+          )}
           <div
             {...getRootProps({
               style: {
@@ -217,7 +223,9 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
             })}
           >
             <input {...getInputProps()} />
-            <div style={{ textAlign: 'center' }}>Click or drop to upload.</div>
+            <div style={{ textAlign: 'center' }}>
+              {!isUploadingImage ? 'Click or drop to upload.' : <Spin />}
+            </div>
           </div>
         </>
       )}
