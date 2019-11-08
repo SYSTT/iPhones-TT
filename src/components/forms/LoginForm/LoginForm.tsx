@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Icon, Input, Tooltip } from 'antd';
 
 import { FormContainer } from '../elements';
@@ -15,7 +15,7 @@ import {
   isValidEmail,
   isValidPassword,
 } from '../../../utils';
-import { FirebaseContext } from '../../../modules/firebase';
+import { useUserData } from '../../../modules/userData';
 
 interface Props {
   onSubmit: (loginInfo: LoginInfoValues) => Promise<void> | void;
@@ -32,10 +32,10 @@ function getValues(loginInfo: LoginInfo) {
 const LoginForm = ({ onSubmit, submitText = DEFAULT_SUBMIT_TEXT }: Props) => {
   const [loginInfo, setLoginInfo] = useState<LoginInfo>(EMPTY_LOGIN_INFO);
   const [showPassword, setShowPassword] = useState(false);
-  const firebase = useContext(FirebaseContext);
+  const { loginUser } = useUserData();
 
   const login = async (values: LoginInfoValues) => {
-    await firebase.doSignInWithEmailAndPassword(values.email, values.password);
+    await loginUser(values.email, values.password);
     onSubmit(values);
   };
 
