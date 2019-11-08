@@ -10,9 +10,11 @@ import CartPage from './pages/CartPage';
 import TradePage from './pages/TradePage';
 import CheckoutPage from './pages/CheckoutPage';
 import LoginPage from './pages/LoginPage';
+import { useUserData } from './modules/userData';
 
 const Routes: React.FC = () => {
   const { user } = useAuth();
+  const { logoutUser } = useUserData();
 
   return (
     <>
@@ -29,6 +31,19 @@ const Routes: React.FC = () => {
         <Route path="/cart" component={CartPage} />
         <Route path="/checkout" component={CheckoutPage} />
         <Route path="/login" component={LoginPage} />
+        <Route
+          path="/logout"
+          render={({ history }) => {
+            const logout = async () => {
+              if (user) {
+                await logoutUser();
+                history.push('/');
+              }
+            };
+            logout();
+            return null;
+          }}
+        />
         <Route path="/" component={HomePage} />
       </Switch>
     </>
