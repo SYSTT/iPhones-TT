@@ -11,23 +11,27 @@ interface TradeOrderMetaData {
   modifiedTimestamp: Date;
 }
 
-export interface TradeOrderData extends Configuration {
+export interface TradeItem {
+  model: string;
+  slug: string;
+  memory: number;
+  color: string;
+  issues: string;
+  batteryHealth: number;
+  rating: number;
+  pictureUrls: string[];
+}
+
+export interface OrderItem extends Configuration {
+  model: string;
+  slug: string;
+  quantity: number;
+}
+
+export interface TradeOrderData {
   status: OrderStatus;
-  orderItem: Configuration & {
-    model: string;
-    slug: string;
-    quantity: number;
-  };
-  tradeItem: {
-    model: string;
-    slug: string;
-    memory: string;
-    colour: string;
-    issues: string;
-    batteryHealth: number;
-    rating: number;
-    pictureUrls: string[];
-  };
+  orderItem: OrderItem;
+  tradeItem: TradeItem;
   profileInfo: Omit<Profile, 'password'>;
 }
 
@@ -37,8 +41,6 @@ export interface TradeOrder extends TradeOrderData, TradeOrderMetaData {
 
 export const useTradeOrders = () => {
   const { db } = useContext(FirebaseContext);
-  const batch = db.batch();
-
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState<TradeOrder[]>([]);
   const [added, setAdded] = useState(false);
@@ -63,8 +65,10 @@ export const useTradeOrders = () => {
   }, [db]);
 
   async function addTradeOrders(newOrdersData: TradeOrderData[]) {
+    const batch = db.batch();
     newOrdersData.forEach((newOrderData: TradeOrderData) => {
       const docRef = db.collection('trade-orders').doc(); //automatically generate unique id
+      console.log(newOrderData);
       batch.set(docRef, {
         ...newOrderData,
         creationTimestamp: new Date(),

@@ -23,7 +23,7 @@ const Catalogue: React.FC<Props> = ({ tradeAmt }) => {
       <Link
         key={si.slug}
         to={{
-          pathname: `${si.slug}`,
+          pathname: `${si.slug}/`,
           state: { si },
         }}
       >
