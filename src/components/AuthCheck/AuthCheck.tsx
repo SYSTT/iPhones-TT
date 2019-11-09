@@ -17,7 +17,6 @@ const AuthCheck: React.FC<Props> = ({
   useLayoutEffect(() => {
     if (requiredClaims && user) {
       user.getIdTokenResult().then(token => {
-        console.log(requiredClaims, token.claims);
         const failedClaims = Object.entries(requiredClaims).filter(
           ([claim, value]) => token.claims[claim] !== value,
         );
