@@ -12,6 +12,7 @@ import CheckoutPage from './pages/CheckoutPage';
 import LoginPage from './pages/LoginPage';
 import { useUserData } from './modules/userData';
 import PostCheckoutPage from './pages/PostCheckoutPage';
+import AdminOrdersPage from './pages/admin/AdminOrdersPage';
 
 const Routes: React.FC = () => {
   const { user } = useAuth();
@@ -30,6 +31,7 @@ const Routes: React.FC = () => {
           path="/admin/stock"
           render={() => <AdminStockPage user={user} />}
         />
+        <Route path="/admin" component={AdminOrdersPage} />
         <Route path="/trade" component={TradePage} />
         <Route path="/buy" component={BuyPage} />
         <Route path="/cart" component={CartPage} />
