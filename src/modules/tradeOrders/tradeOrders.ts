@@ -42,7 +42,7 @@ export interface TradeOrder extends TradeOrderData, TradeOrderMetaData {
 export const useTradeOrders = () => {
   const { db } = useContext(FirebaseContext);
   const [loading, setLoading] = useState(true);
-  const [orders, setOrders] = useState<TradeOrder[]>([]);
+  const [tradeOrders, setTradeOrders] = useState<TradeOrder[]>([]);
   const [added, setAdded] = useState(false);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export const useTradeOrders = () => {
             id: doc.id,
           });
         });
-        setOrders(tradeOrders);
+        setTradeOrders(tradeOrders);
         setLoading(false);
       });
     return () => unsubscribe();
@@ -87,7 +87,7 @@ export const useTradeOrders = () => {
   }
 
   return {
-    orders,
+    tradeOrders,
     loading,
     added,
     addTradeOrders,
