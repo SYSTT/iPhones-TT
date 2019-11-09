@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { User } from 'firebase';
 import { Spin, Button, Modal, Form, Input } from 'antd';
 
-import { useStock } from '../../modules/stock';
+import { useStock } from '../../../modules/stock';
 
-import { Heading } from '../../utils';
-import AuthCheck from '../../components/AuthCheck/AuthCheck';
+import { Heading } from '../../../utils';
+import AuthCheck from '../../../components/AuthCheck/AuthCheck';
 import StockTable from './StockTable';
 import { Container } from './element';
 
@@ -13,7 +13,7 @@ type Props = {
   user: User | null;
 };
 
-const AdminPage: React.FC<Props> = ({ user }) => {
+const AdminStockPage: React.FC<Props> = ({ user }) => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [newModelName, setNewModelName] = useState('');
   const { stock, addModel } = useStock();
@@ -77,4 +77,4 @@ const AdminPage: React.FC<Props> = ({ user }) => {
   );
 };
 
-export default AdminPage;
+export default AdminStockPage;

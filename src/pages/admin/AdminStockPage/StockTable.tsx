@@ -19,7 +19,7 @@ import {
   NEW,
   Condition,
   useStock,
-} from '../../modules/stock';
+} from '../../../modules/stock';
 
 const EditableContext = React.createContext<WrappedFormUtils | null>(null);
 

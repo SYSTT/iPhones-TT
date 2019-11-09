@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { useAuth } from './modules/auth';
 
 import HomePage from './pages/HomePage/HomePage';
-import AdminPage from './pages/AdminPage';
+import AdminStockPage from './pages/admin/AdminStockPage';
 import BuyPage from './pages/BuyPage';
 import CartPage from './pages/CartPage';
 import TradePage from './pages/TradePage';
@@ -26,7 +26,10 @@ const Routes: React.FC = () => {
           path="/:url*"
           render={props => <Redirect to={`${props.location.pathname}/`} />}
         />
-        <Route path="/admin" render={() => <AdminPage user={user} />} />
+        <Route
+          path="/admin/stock"
+          render={() => <AdminStockPage user={user} />}
+        />
         <Route path="/trade" component={TradePage} />
         <Route path="/buy" component={BuyPage} />
         <Route path="/cart" component={CartPage} />
