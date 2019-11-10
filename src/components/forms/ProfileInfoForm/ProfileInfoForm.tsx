@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Icon, Tooltip, Divider } from 'antd';
+import { Input, Icon, Tooltip, Divider, Spin } from 'antd';
 
 import {
   ButtonList,
@@ -19,6 +19,7 @@ import ErrorIcon from '../ErrorIcon';
 interface Props {
   onSubmit: (profileInfo: ProfileInfoValues) => void;
   submitText?: string;
+  submitting?: boolean;
 }
 
 function getValues(formInfo: ProfileInfo) {
@@ -31,6 +32,7 @@ function getValues(formInfo: ProfileInfo) {
 const ProfileInfoForm: React.FC<Props> = ({
   onSubmit,
   submitText = DEFAULT_SUBMIT_TEXT,
+  submitting = false,
 }) => {
   const [profileInfo, setProfileInfo] = useState<ProfileInfo>(
     EMPTY_PROFILE_INFO,
@@ -157,9 +159,11 @@ const ProfileInfoForm: React.FC<Props> = ({
         onChange={handleChange('password')}
       />
       <ButtonList center>
-        <RoundedButton type="primary" onClick={handleSubmit}>
-          {submitText}
-        </RoundedButton>
+        <Spin spinning={submitting}>
+          <RoundedButton type="primary" onClick={handleSubmit}>
+            {submitText}
+          </RoundedButton>
+        </Spin>
       </ButtonList>
     </FormContainer>
   );

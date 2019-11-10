@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Container } from './elements';
 import { Heading, RoundedButton, ButtonList } from '../../utils';
 import LoginForm from '../../components/forms/LoginForm/LoginForm';
-import { Divider, Alert, message } from 'antd';
+import { Divider, Alert, message, Spin } from 'antd';
 
 import ProfileInfoForm from '../../components/forms/ProfileInfoForm';
 
@@ -27,6 +27,7 @@ const CheckoutPage = () => {
   const { addOrders } = useOrders();
   const { addTradeOrders } = useTradeOrders();
   const { userProfileInfo, createNewUser } = useUserData();
+  const [submitting, setSubmitting] = useState(false);
   const history = useHistory();
 
   const { tradeItem, orderItem } = location.state || {};
@@ -57,21 +58,25 @@ const CheckoutPage = () => {
   };
 
   const handleGuestSubmit = async (profileInfo: ProfileInfoValues) => {
-    if (cart.length === 0) {
+    if (cart.length === 0 && (!tradeItem || !orderItem)) {
       return message.error("Can't submit order because your cart is empty!");
     }
+    setSubmitting(true);
     const { password } = profileInfo;
     delete profileInfo.password;
     await submitOrder(profileInfo);
     if (password) {
       await createNewUser({ ...profileInfo, password });
     }
+    setSubmitting(false);
   };
 
-  const onLoginSubmit = () => {
+  const onLoginSubmit = async () => {
+    setSubmitting(true);
     if (userProfileInfo !== undefined) {
-      submitOrder(userProfileInfo);
+      await submitOrder(userProfileInfo);
     }
+    setSubmitting(false);
   };
 
   return (
@@ -88,12 +93,11 @@ const CheckoutPage = () => {
         <>
           <h3>You&#39;re already logged in</h3>
           <ButtonList center>
-            <RoundedButton
-              type="primary"
-              onClick={() => submitOrder(userProfileInfo)}
-            >
-              Submit Order
-            </RoundedButton>
+            <Spin spinning={submitting}>
+              <RoundedButton type="primary" onClick={onLoginSubmit}>
+                Submit Order
+              </RoundedButton>
+            </Spin>
           </ButtonList>
         </>
       ) : (
@@ -104,7 +108,11 @@ const CheckoutPage = () => {
       )}
       <Divider />
       <h3>Continue as guest</h3>
-      <ProfileInfoForm submitText="Submit Order" onSubmit={handleGuestSubmit} />
+      <ProfileInfoForm
+        submitText="Submit Order"
+        submitting={submitting}
+        onSubmit={handleGuestSubmit}
+      />
     </Container>
   );
 };
