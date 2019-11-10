@@ -80,7 +80,7 @@ export const useTradeOrders = () => {
 
   async function updateTradeOrderStatus(orderId: string, status: OrderStatus) {
     await db
-      .collection('users')
+      .collection('trade-orders')
       .doc(orderId)
       .update({ status, lastModified: new Date() });
   }

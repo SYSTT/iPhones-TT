@@ -64,7 +64,7 @@ export const useOrders = () => {
 
   async function updateOrderStatus(orderId: string, status: OrderStatus) {
     await db
-      .collection('users')
+      .collection('orders')
       .doc(orderId)
       .update({ status, lastModified: new Date() });
   }
