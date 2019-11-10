@@ -73,7 +73,7 @@ const TradeItemView = (tradeItem: TradeItem) => {
       {tradeItem.pictureUrls.map(pictureUrl => (
         <img
           key={pictureUrl}
-          style={{ width: '100%' }}
+          style={{ maxWidth: '100%', maxHeight: '400px' }}
           src={pictureUrl}
           alt="User trade item"
         />
