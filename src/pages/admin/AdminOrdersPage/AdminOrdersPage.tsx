@@ -32,7 +32,7 @@ const ProfileInfoView = ({
     <>
       <h3>User info</h3>
       <p>
-        First Name: {firstName}, Last Name: {lastName}
+        First name: {firstName}, Last name: {lastName}
       </p>
       <p>Email: {email}</p>
       <p>Phone number: {phoneNumber}</p>
