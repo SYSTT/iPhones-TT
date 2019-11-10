@@ -203,7 +203,9 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
             suffix="/ 10"
             placeholder="1 - 10"
             value={rating}
-            onChange={e => setRating(+e.target.value)}
+            onChange={e =>
+              setRating(e.target.value ? +e.target.value : undefined)
+            }
           />
           <h3 style={{ marginBottom: 12, marginTop: 24 }}>
             Upload some images or a video of your iPhone including any
@@ -231,18 +233,22 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
           </div>
         </>
       )}
-      {price && issues && batteryHealth && rating && pictureUrls.length !== 0 && (
-        <>
-          <Divider />
-          <h3 style={{ marginBottom: 12 }}>Your devices value.</h3>
-          <Price amt={price} />
-          <ButtonList style={{ marginTop: 24 }} center>
-            <RoundedButton type="primary" onClick={onSubmit}>
-              Continue
-            </RoundedButton>
-          </ButtonList>
-        </>
-      )}
+      {price &&
+        issues &&
+        batteryHealth !== undefined &&
+        rating !== undefined &&
+        pictureUrls.length !== 0 && (
+          <>
+            <Divider />
+            <h3 style={{ marginBottom: 12 }}>Your devices value.</h3>
+            <Price amt={price} />
+            <ButtonList style={{ marginTop: 24 }} center>
+              <RoundedButton type="primary" onClick={onSubmit}>
+                Continue
+              </RoundedButton>
+            </ButtonList>
+          </>
+        )}
     </Container>
   );
 };
