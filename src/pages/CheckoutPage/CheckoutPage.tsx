@@ -57,7 +57,7 @@ const CheckoutPage = () => {
   };
 
   const handleGuestSubmit = async (profileInfo: ProfileInfoValues) => {
-    if (cart.length === 0) {
+    if (cart.length === 0 && (!tradeItem || !orderItem)) {
       return message.error("Can't submit order because your cart is empty!");
     }
     const { password } = profileInfo;
