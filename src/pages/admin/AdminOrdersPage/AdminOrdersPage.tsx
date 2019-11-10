@@ -71,7 +71,12 @@ const TradeItemView = (tradeItem: TradeItem) => {
       <p>Battery Health: {tradeItem.batteryHealth}</p>
       <p>Rating: {tradeItem.rating}</p>
       {tradeItem.pictureUrls.map(pictureUrl => (
-        <img key={pictureUrl} style={{ width: '100%' }} src={pictureUrl} />
+        <img
+          key={pictureUrl}
+          style={{ width: '100%' }}
+          src={pictureUrl}
+          alt="User trade item"
+        />
       ))}
     </OrderViewContainer>
   );
@@ -116,7 +121,6 @@ const AdminOrdersPage: React.FC<Props> = () => {
           )
           .map(order => (
             <>
-              <TradeItemView {...order.tradeItem} />
               <OrderView
                 key={order.id}
                 order={order}
@@ -124,6 +128,44 @@ const AdminOrdersPage: React.FC<Props> = () => {
                   updateTradeOrderStatus(order.id, newStatus)
                 }
               />
+              <TradeItemView {...order.tradeItem} />
+              <Divider />
+            </>
+          ))}
+        <h1>Inactive Orders</h1>
+        {orders
+          .filter(
+            order =>
+              order.status === 'cancelled' || order.status === 'completed',
+          )
+          .map(order => (
+            <>
+              <OrderView
+                key={order.id}
+                order={order}
+                updateStatus={(newStatus: OrderStatus) =>
+                  updateTradeOrderStatus(order.id, newStatus)
+                }
+              />
+              <Divider />
+            </>
+          ))}
+        <h1>Inactive Trade Orders</h1>
+        {tradeOrders
+          .filter(
+            order =>
+              order.status === 'cancelled' || order.status === 'completed',
+          )
+          .map(order => (
+            <>
+              <OrderView
+                key={order.id}
+                order={order}
+                updateStatus={(newStatus: OrderStatus) =>
+                  updateTradeOrderStatus(order.id, newStatus)
+                }
+              />
+              <TradeItemView {...order.tradeItem} />
               <Divider />
             </>
           ))}
