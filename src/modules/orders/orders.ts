@@ -33,20 +33,18 @@ export const useOrders = () => {
 
   useEffect(() => {
     setLoading(true);
-    const unsubscribe = db
-      .collection('trade-orders')
-      .onSnapshot(querySnapshot => {
-        const orders: Order[] = [];
-        querySnapshot.forEach(doc => {
-          const order = doc.data() as Order;
-          orders.push({
-            ...order,
-            id: doc.id,
-          });
+    const unsubscribe = db.collection('orders').onSnapshot(querySnapshot => {
+      const orders: Order[] = [];
+      querySnapshot.forEach(doc => {
+        const order = doc.data() as Order;
+        orders.push({
+          ...order,
+          id: doc.id,
         });
-        setOrders(orders);
-        setLoading(false);
       });
+      setOrders(orders);
+      setLoading(false);
+    });
     return () => unsubscribe();
   }, [db]);
 
