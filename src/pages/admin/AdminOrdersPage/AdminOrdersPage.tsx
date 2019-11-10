@@ -1,6 +1,6 @@
 import React from 'react';
 import { User } from 'firebase';
-import { Spin, Select } from 'antd';
+import { Spin, Select, Divider } from 'antd';
 
 import { Heading } from '../../../utils';
 import AuthCheck from '../../../components/AuthCheck/AuthCheck';
@@ -8,15 +8,17 @@ import { Container, OrderViewContainer } from './element';
 import { useAuth } from '../../../modules/auth';
 import {
   useOrders,
-  Order,
   useTradeOrders,
   OrderStatus,
   ORDER_STATUSES,
+  TradeItem,
+  Order,
+  TradeOrder,
 } from '../../../modules/orders';
 import { Profile } from '../../../components/forms/ProfileInfoForm';
 
 type OrderViewProps = {
-  order: Order;
+  order: Order | TradeOrder;
   updateStatus: (newStatus: OrderStatus) => void;
 };
 
@@ -58,6 +60,23 @@ const OrderView = ({ order, updateStatus }: OrderViewProps) => {
   );
 };
 
+const TradeItemView = (tradeItem: TradeItem) => {
+  return (
+    <OrderViewContainer>
+      <h3>Trade Item</h3>
+      <p>Model: {tradeItem.model}</p>
+      <p>Memory: {tradeItem.memory}</p>
+      <p>Color: {tradeItem.color}</p>
+      <p>Issues: {tradeItem.issues}</p>
+      <p>Battery Health: {tradeItem.batteryHealth}</p>
+      <p>Rating: {tradeItem.rating}</p>
+      {tradeItem.pictureUrls.map(pictureUrl => (
+        <img key={pictureUrl} style={{ width: '100%' }} src={pictureUrl} />
+      ))}
+    </OrderViewContainer>
+  );
+};
+
 type Props = {
   user: User | null;
 };
@@ -65,28 +84,49 @@ type Props = {
 const AdminOrdersPage: React.FC<Props> = () => {
   const { user } = useAuth();
   const { orders, updateOrderStatus } = useOrders();
-  const { tradeOrders } = useTradeOrders();
+  const { tradeOrders, updateTradeOrderStatus } = useTradeOrders();
 
   return (
     <AuthCheck user={user} fallback={<Spin />} requiredClaims={{ admin: true }}>
       <Container>
         <Heading>Orders</Heading>
-        <p>Buy Orders</p>
+        <h1>Buy Orders</h1>
         {orders
           .filter(
             order =>
               order.status !== 'cancelled' && order.status !== 'completed',
           )
           .map(order => (
-            <OrderView
-              key={order.id}
-              order={order}
-              updateStatus={(newStatus: OrderStatus) =>
-                updateOrderStatus(order.id, newStatus)
-              }
-            />
+            <>
+              <OrderView
+                key={order.id}
+                order={order}
+                updateStatus={(newStatus: OrderStatus) =>
+                  updateOrderStatus(order.id, newStatus)
+                }
+              />
+              <Divider />
+            </>
           ))}
-        <p>Trade Orders</p>
+        <h1>Trade Orders</h1>
+        {tradeOrders
+          .filter(
+            order =>
+              order.status !== 'cancelled' && order.status !== 'completed',
+          )
+          .map(order => (
+            <>
+              <TradeItemView {...order.tradeItem} />
+              <OrderView
+                key={order.id}
+                order={order}
+                updateStatus={(newStatus: OrderStatus) =>
+                  updateTradeOrderStatus(order.id, newStatus)
+                }
+              />
+              <Divider />
+            </>
+          ))}
       </Container>
     </AuthCheck>
   );
