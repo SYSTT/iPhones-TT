@@ -34,8 +34,9 @@ const TradePage: React.FC<
 
   useEffect(() => {
     if (tradeSlug) {
-      const tradeDeviceSlug = tradeSlug.substring(0, tradeSlug.length - 5);
-      const memoryHumanReadable = tradeSlug.substring(tradeSlug.length - 4);
+      const slugParts = tradeSlug.split('--');
+      const tradeDeviceSlug = slugParts[0];
+      const memoryHumanReadable = slugParts[1];
       if (!tradeDeviceSlug || !memoryHumanReadable) {
         return;
       }
@@ -58,7 +59,7 @@ const TradePage: React.FC<
   useEffect(() => {
     if (tradeItem !== undefined) {
       history.push({
-        pathname: `${tradeItem.slug}-${tradeItem.memory}gb/`,
+        pathname: `${tradeItem.slug}--${tradeItem.memory}gb/`,
         state: { tradeItem },
       });
     }
