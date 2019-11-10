@@ -3,8 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import { FirebaseContext } from '../firebase';
 import { Configuration } from '../stock';
 import { Profile } from '../../components/forms/ProfileInfoForm';
-
-export type OrderStatus = 'pending' | 'approved' | 'scheduled' | 'completed';
+import { OrderStatus } from './types';
 
 interface TradeOrderMetaData {
   creationTimestamp: Date;
@@ -42,7 +41,7 @@ export interface TradeOrder extends TradeOrderData, TradeOrderMetaData {
 export const useTradeOrders = () => {
   const { db } = useContext(FirebaseContext);
   const [loading, setLoading] = useState(true);
-  const [orders, setOrders] = useState<TradeOrder[]>([]);
+  const [tradeOrders, setTradeOrders] = useState<TradeOrder[]>([]);
   const [added, setAdded] = useState(false);
 
   useEffect(() => {
@@ -58,7 +57,7 @@ export const useTradeOrders = () => {
             id: doc.id,
           });
         });
-        setOrders(tradeOrders);
+        setTradeOrders(tradeOrders);
         setLoading(false);
       });
     return () => unsubscribe();
@@ -81,13 +80,13 @@ export const useTradeOrders = () => {
 
   async function updateTradeOrderStatus(orderId: string, status: OrderStatus) {
     await db
-      .collection('users')
+      .collection('trade-orders')
       .doc(orderId)
       .update({ status, lastModified: new Date() });
   }
 
   return {
-    orders,
+    tradeOrders,
     loading,
     added,
     addTradeOrders,

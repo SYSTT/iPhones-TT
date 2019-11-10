@@ -8,7 +8,7 @@ import Customize from '../../components/Customize';
 import DeviceForm from '../../components/DeviceForm';
 import { Container } from './elements';
 import { useTradeDevices, DeviceOption } from '../../modules/trade-devices';
-import { TradeItem } from '../../modules/tradeOrders';
+import { TradeItem } from '../../modules/orders';
 const { Step } = Steps;
 
 const locationToStep = (location: Location) => {

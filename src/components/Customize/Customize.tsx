@@ -19,7 +19,7 @@ import MemorySelector from './MemorySelector';
 import { Container, Content } from './elements';
 
 import iPhoneIMG from '../../pages/HomePage/cover.jpg';
-import { TradeItem, OrderItem } from '../../modules/tradeOrders';
+import { TradeItem, OrderItem } from '../../modules/orders';
 
 type Props = RouteComponentProps<
   { itemSlug: string },

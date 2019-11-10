@@ -15,7 +15,7 @@ import {
   Colors,
 } from '../../utils';
 import { Container } from './elements';
-import { TradeItem } from '../../modules/tradeOrders';
+import { TradeItem } from '../../modules/orders';
 import { Color } from '../../modules/stock';
 import { FirebaseContext } from '../../modules/firebase';
 

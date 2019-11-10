@@ -3,8 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import { FirebaseContext } from '../firebase';
 import { Configuration } from '../stock';
 import { Profile } from '../../components/forms/ProfileInfoForm';
-
-export type OrderStatus = 'pending' | 'approved' | 'scheduled' | 'completed';
+import { OrderStatus } from './types';
 
 interface OrderMetaData {
   creationTimestamp: Date;
@@ -34,20 +33,18 @@ export const useOrders = () => {
 
   useEffect(() => {
     setLoading(true);
-    const unsubscribe = db
-      .collection('trade-orders')
-      .onSnapshot(querySnapshot => {
-        const order: Order[] = [];
-        querySnapshot.forEach(doc => {
-          const tradeOrder = doc.data() as Order;
-          order.push({
-            ...tradeOrder,
-            id: doc.id,
-          });
+    const unsubscribe = db.collection('orders').onSnapshot(querySnapshot => {
+      const orders: Order[] = [];
+      querySnapshot.forEach(doc => {
+        const order = doc.data() as Order;
+        orders.push({
+          ...order,
+          id: doc.id,
         });
-        setOrders(order);
-        setLoading(false);
       });
+      setOrders(orders);
+      setLoading(false);
+    });
     return () => unsubscribe();
   }, [db]);
 
@@ -67,7 +64,7 @@ export const useOrders = () => {
 
   async function updateOrderStatus(orderId: string, status: OrderStatus) {
     await db
-      .collection('users')
+      .collection('orders')
       .doc(orderId)
       .update({ status, lastModified: new Date() });
   }
