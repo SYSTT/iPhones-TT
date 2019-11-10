@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { User } from 'firebase';
 import { Spin, Select } from 'antd';
 
@@ -6,12 +6,13 @@ import { Heading } from '../../../utils';
 import AuthCheck from '../../../components/AuthCheck/AuthCheck';
 import { Container, OrderViewContainer } from './element';
 import { useAuth } from '../../../modules/auth';
-import { useOrders, Order } from '../../../modules/orders';
 import {
+  useOrders,
+  Order,
   useTradeOrders,
   OrderStatus,
   ORDER_STATUSES,
-} from '../../../modules/tradeOrders';
+} from '../../../modules/orders';
 import { Profile } from '../../../components/forms/ProfileInfoForm';
 
 type OrderViewProps = {
@@ -71,15 +72,20 @@ const AdminOrdersPage: React.FC<Props> = () => {
       <Container>
         <Heading>Orders</Heading>
         <p>Buy Orders</p>
-        {orders.map(order => (
-          <OrderView
-            key={order.id}
-            order={order}
-            updateStatus={(newStatus: OrderStatus) =>
-              updateOrderStatus(order.id, newStatus)
-            }
-          />
-        ))}
+        {orders
+          .filter(
+            order =>
+              order.status !== 'cancelled' && order.status !== 'completed',
+          )
+          .map(order => (
+            <OrderView
+              key={order.id}
+              order={order}
+              updateStatus={(newStatus: OrderStatus) =>
+                updateOrderStatus(order.id, newStatus)
+              }
+            />
+          ))}
         <p>Trade Orders</p>
       </Container>
     </AuthCheck>
