@@ -48,27 +48,27 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
   const [batteryHealth, setBatteryHealth] = useState<number>();
   const [rating, setRating] = useState<number>();
   const [pictureUrls, setPictureUrls] = useState<string[]>([]);
-  const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(0);
   const firebase = useContext(FirebaseContext);
 
   const onDrop = useCallback(
-    acceptedFiles => {
+    (acceptedFiles: File[]) => {
       acceptedFiles.forEach((file: File) => {
         const reader = new FileReader();
 
         reader.onload = async () => {
-          setIsUploadingImage(true);
+          setIsUploadingImage(count => count + 1);
           const binaryStr = reader.result as ArrayBuffer;
           const ref = firebase.storage.ref(`trade-order-images`).child(uuid());
           const { ref: resultRef } = await ref.put(binaryStr);
           const downloadUrl = await resultRef.getDownloadURL();
-          setPictureUrls([...pictureUrls, downloadUrl]);
-          setIsUploadingImage(false);
+          setPictureUrls(pictureUrls => [...pictureUrls, downloadUrl]);
+          setIsUploadingImage(count => count - 1);
         };
         reader.readAsArrayBuffer(file);
       });
     },
-    [firebase.storage, pictureUrls],
+    [firebase.storage],
   );
 
   const { getRootProps, getInputProps } = useDropzone({
