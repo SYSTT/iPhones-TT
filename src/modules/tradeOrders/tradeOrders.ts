@@ -4,6 +4,7 @@ import { FirebaseContext } from '../firebase';
 import { Configuration } from '../stock';
 import { Profile } from '../../components/forms/ProfileInfoForm';
 
+export const ORDER_STATUSES = ['pending', 'approved', 'scheduled', 'completed'];
 export type OrderStatus = 'pending' | 'approved' | 'scheduled' | 'completed';
 
 interface TradeOrderMetaData {
