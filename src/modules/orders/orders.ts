@@ -3,8 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import { FirebaseContext } from '../firebase';
 import { Configuration } from '../stock';
 import { Profile } from '../../components/forms/ProfileInfoForm';
-
-export type OrderStatus = 'pending' | 'approved' | 'scheduled' | 'completed';
+import { OrderStatus } from './types';
 
 interface OrderMetaData {
   creationTimestamp: Date;
@@ -37,15 +36,15 @@ export const useOrders = () => {
     const unsubscribe = db
       .collection('trade-orders')
       .onSnapshot(querySnapshot => {
-        const order: Order[] = [];
+        const orders: Order[] = [];
         querySnapshot.forEach(doc => {
-          const tradeOrder = doc.data() as Order;
-          order.push({
-            ...tradeOrder,
+          const order = doc.data() as Order;
+          orders.push({
+            ...order,
             id: doc.id,
           });
         });
-        setOrders(order);
+        setOrders(orders);
         setLoading(false);
       });
     return () => unsubscribe();
