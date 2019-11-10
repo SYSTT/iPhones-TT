@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Icon, Input, Tooltip } from 'antd';
+import { Icon, Input, Tooltip, Spin } from 'antd';
 
 import { FormContainer } from '../elements';
 import { LoginInfoValues, LoginInfo } from './types';
@@ -34,6 +34,7 @@ const LoginForm = ({ onSubmit, submitText = DEFAULT_SUBMIT_TEXT }: Props) => {
   const [loginInfo, setLoginInfo] = useState<LoginInfo>(EMPTY_LOGIN_INFO);
   const [showPassword, setShowPassword] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const { loginUser } = useUserData();
 
   const login = async (values: LoginInfoValues) => {
@@ -78,13 +79,15 @@ const LoginForm = ({ onSubmit, submitText = DEFAULT_SUBMIT_TEXT }: Props) => {
     return { errorFound, newLogLoginInfo };
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const { errorFound, newLogLoginInfo } = validateLogLoginInfo(loginInfo);
     if (errorFound) {
       setLoginInfo(newLogLoginInfo);
       return;
     }
-    login(getValues(loginInfo));
+    setSubmitting(true);
+    await login(getValues(loginInfo));
+    setSubmitting(false);
   };
 
   const { email, password } = loginInfo;
@@ -135,9 +138,11 @@ const LoginForm = ({ onSubmit, submitText = DEFAULT_SUBMIT_TEXT }: Props) => {
         onChange={handleChange('password')}
       />
       <ButtonList center>
-        <RoundedButton type="primary" onClick={handleSubmit}>
-          {submitText}
-        </RoundedButton>
+        <Spin spinning={submitting}>
+          <RoundedButton type="primary" onClick={handleSubmit}>
+            {submitText}
+          </RoundedButton>
+        </Spin>
       </ButtonList>
     </FormContainer>
   );
