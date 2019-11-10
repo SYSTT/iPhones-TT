@@ -8,14 +8,14 @@ import { Divider, Alert, message } from 'antd';
 import ProfileInfoForm from '../../components/forms/ProfileInfoForm';
 
 import { TRADE_DESCRIPTION, BUY_DESCRIPTION } from './constants';
-import { useOrders } from '../../modules/orders';
-import { ProfileInfoValues } from '../../components/forms/ProfileInfoForm/types';
-import { useCart } from '../../modules/cart';
 import {
+  useOrders,
   useTradeOrders,
   TradeItem,
   OrderItem,
-} from '../../modules/tradeOrders';
+} from '../../modules/orders';
+import { ProfileInfoValues } from '../../components/forms/ProfileInfoForm/types';
+import { useCart } from '../../modules/cart';
 import { useUserData } from '../../modules/userData';
 
 const CheckoutPage = () => {
