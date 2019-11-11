@@ -59,6 +59,7 @@ const AdminStockPage: React.FC<Props> = ({ user }) => {
                 ...config,
                 key: `${config.condition}-${config.color}-${config.memory}`,
               }))}
+              imageUrls={modelStock.imageUrls}
             />
           ))}
         </div>
