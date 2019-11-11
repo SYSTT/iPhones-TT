@@ -1,7 +1,5 @@
-import React, { useState, useCallback, useContext } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { Alert, Icon, Select, Button, Divider, Input, Spin } from 'antd';
-import uuid from 'uuid/v4';
+import React, { useState } from 'react';
+import { Alert, Icon, Select, Button, Divider, Input } from 'antd';
 
 import { useTradeDevices, Device } from '../../modules/trade-devices';
 
@@ -12,12 +10,11 @@ import {
   OptionButton,
   ButtonList,
   RoundedButton,
-  Colors,
 } from '../../utils';
 import { Container } from './elements';
 import { TradeItem } from '../../modules/orders';
 import { Color } from '../../modules/stock';
-import { FirebaseContext } from '../../modules/firebase';
+import Uploader from '../Uploader';
 
 const AlertDescription = (
   <div>
@@ -48,33 +45,6 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
   const [batteryHealth, setBatteryHealth] = useState<number>();
   const [rating, setRating] = useState<number>();
   const [pictureUrls, setPictureUrls] = useState<string[]>([]);
-  const [isUploadingImage, setIsUploadingImage] = useState(0);
-  const firebase = useContext(FirebaseContext);
-
-  const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
-      acceptedFiles.forEach((file: File) => {
-        const reader = new FileReader();
-
-        reader.onload = async () => {
-          setIsUploadingImage(count => count + 1);
-          const binaryStr = reader.result as ArrayBuffer;
-          const ref = firebase.storage.ref(`trade-order-images`).child(uuid());
-          const { ref: resultRef } = await ref.put(binaryStr);
-          const downloadUrl = await resultRef.getDownloadURL();
-          setPictureUrls(pictureUrls => [...pictureUrls, downloadUrl]);
-          setIsUploadingImage(count => count - 1);
-        };
-        reader.readAsArrayBuffer(file);
-      });
-    },
-    [firebase.storage],
-  );
-
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
-    accept: 'image/*,video/*',
-  });
 
   function onChangeDevice(deviceSlug: string) {
     if (deviceSlug !== 'unseleced') {
@@ -211,26 +181,11 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
             Upload some images or a video of your iPhone including any
             imperfections.
           </h3>
-          {pictureUrls.length !== 0 && (
-            <p>{pictureUrls.length} file successfully uploaded</p>
-          )}
-          <div
-            {...getRootProps({
-              style: {
-                height: 100,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                border: `1px solid ${Colors['Grey/Light']}`,
-                borderRadius: 4,
-              },
-            })}
-          >
-            <input {...getInputProps()} />
-            <div style={{ textAlign: 'center' }}>
-              {!isUploadingImage ? 'Click or drop to upload.' : <Spin />}
-            </div>
-          </div>
+          <Uploader
+            storagePath="trade-order-images"
+            accept="image/*,video/*"
+            onUploadComplete={urls => setPictureUrls(urls)}
+          />
         </>
       )}
       {price &&
