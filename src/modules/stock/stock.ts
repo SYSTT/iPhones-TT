@@ -20,6 +20,7 @@ export type Configuration = {
 
 type ModelData = {
   model: string;
+  imageUrls: string[];
   configurations: Configuration[];
 };
 
@@ -48,15 +49,15 @@ export function useStock() {
     return () => unsubscribe();
   }, [db]);
 
-  async function updateModel(id: string, model: ModelData) {
+  async function updateModel(id: string, model: Partial<ModelData>) {
     await db
       .collection('stock')
       .doc(id)
       .update(model);
   }
 
-  async function addModel({ model, configurations }: ModelData) {
-    await db.collection('stock').add({ model, configurations });
+  async function addModel(modelData: ModelData) {
+    await db.collection('stock').add(modelData);
   }
 
   async function deleteModel(id: string) {
