@@ -20,6 +20,8 @@ import {
   Condition,
   useStock,
 } from '../../../modules/stock';
+import Uploader from '../../../components/Uploader';
+import { ButtonList, RoundedButton } from '../../../utils';
 
 const EditableContext = React.createContext<WrappedFormUtils | null>(null);
 
@@ -224,16 +226,33 @@ type Props = {
   model: string;
   id: string;
   datasource: KeyedConfiguration[];
+  imageUrls: string[];
 };
 
 const StockTable: React.FC<Props> = ({
   datasource: initialDataSource,
   model,
   id,
+  imageUrls,
 }) => {
   const [dataSource, setDataSource] = useState(initialDataSource);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showAddImagesModal, setShowAddImagesModal] = useState(false);
+  const [newStockImageUrls, setNewStockImageUrls] = useState<string[]>([]);
   const { updateModel, deleteModel } = useStock();
+
+  const addImages = (
+    e:
+      | React.MouseEvent<HTMLElement, MouseEvent>
+      | React.FormEvent<HTMLFormElement>,
+  ) => {
+    e.preventDefault();
+    updateModel(id, {
+      imageUrls: [...imageUrls, ...newStockImageUrls],
+    });
+    setNewStockImageUrls([]);
+    setShowAddImagesModal(false);
+  };
 
   const handleDelete = async (key: string) => {
     const newData = dataSource.filter(item => item.key !== key);
@@ -358,9 +377,17 @@ const StockTable: React.FC<Props> = ({
           </div>
         )}
         footer={() => (
-          <Button onClick={() => setShowAddModal(true)} type="primary">
-            Add new configuration
-          </Button>
+          <ButtonList>
+            <RoundedButton onClick={() => setShowAddModal(true)} type="primary">
+              Add new configuration
+            </RoundedButton>
+            <RoundedButton
+              onClick={() => setShowAddImagesModal(true)}
+              type="default"
+            >
+              Add new images
+            </RoundedButton>
+          </ButtonList>
         )}
         components={components}
         rowClassName={() => 'editable-row'}
@@ -373,6 +400,29 @@ const StockTable: React.FC<Props> = ({
         handleAdd={handleAdd}
         visible={showAddModal}
       />
+      <Modal
+        visible={showAddImagesModal}
+        title="Add images"
+        okText="Add"
+        onCancel={() => setShowAddImagesModal(false)}
+        onOk={addImages}
+      >
+        <div>
+          {imageUrls.map(imageUrl => (
+            <img
+              key={imageUrl}
+              style={{ width: '100%' }}
+              src={imageUrl}
+              alt={`${model} stock images`}
+            />
+          ))}
+        </div>
+        <Uploader
+          storagePath={`stock-images/${model}`}
+          accept="image/*"
+          onUploadComplete={urls => setNewStockImageUrls(urls)}
+        />
+      </Modal>
     </div>
   );
 };

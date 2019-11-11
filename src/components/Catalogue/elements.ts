@@ -20,4 +20,15 @@ export const StockList = styled.div`
       margin-left: 24px;
     }
   }
+
+  .ant-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    max-height: 375px;
+  }
+
+  .ant-card-cover {
+    flex: 1;
+  }
 `;

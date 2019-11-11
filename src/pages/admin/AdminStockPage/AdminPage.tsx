@@ -8,6 +8,7 @@ import { Heading } from '../../../utils';
 import AuthCheck from '../../../components/AuthCheck/AuthCheck';
 import StockTable from './StockTable';
 import { Container } from './element';
+import Uploader from '../../../components/Uploader';
 
 type Props = {
   user: User | null;
@@ -16,6 +17,7 @@ type Props = {
 const AdminStockPage: React.FC<Props> = ({ user }) => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [newModelName, setNewModelName] = useState('');
+  const [stockImageUrls, setStockImageUrls] = useState<string[]>([]);
   const { stock, addModel } = useStock();
 
   const onSubmit = (
@@ -24,7 +26,11 @@ const AdminStockPage: React.FC<Props> = ({ user }) => {
       | React.FormEvent<HTMLFormElement>,
   ) => {
     e.preventDefault();
-    addModel({ model: newModelName, configurations: [] });
+    addModel({
+      model: newModelName,
+      configurations: [],
+      imageUrls: stockImageUrls,
+    });
   };
 
   return (
@@ -53,6 +59,7 @@ const AdminStockPage: React.FC<Props> = ({ user }) => {
                 ...config,
                 key: `${config.condition}-${config.color}-${config.memory}`,
               }))}
+              imageUrls={modelStock.imageUrls}
             />
           ))}
         </div>
@@ -70,6 +77,16 @@ const AdminStockPage: React.FC<Props> = ({ user }) => {
                 onChange={e => setNewModelName(e.target.value)}
               />
             </Form.Item>
+            {newModelName && (
+              <Form.Item label="Images">
+                <Uploader
+                  storagePath={`stock-images/${newModelName}`}
+                  accept="image/*"
+                  disabled={!newModelName}
+                  onUploadComplete={urls => setStockImageUrls(urls)}
+                />
+              </Form.Item>
+            )}
           </Form>
         </Modal>
       </Container>

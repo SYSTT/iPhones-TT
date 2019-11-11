@@ -27,7 +27,16 @@ const Catalogue: React.FC<Props> = ({ tradeAmt }) => {
           state: { si },
         }}
       >
-        <Card hoverable cover={<img src={iPhoneIMG} alt={si.model} />}>
+        <Card
+          hoverable
+          cover={
+            <img
+              style={{ height: '100%', objectFit: 'cover' }}
+              src={si.imageUrls[0] || iPhoneIMG}
+              alt={si.model}
+            />
+          }
+        >
           <Meta
             title={si.model}
             description={
