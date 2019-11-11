@@ -22,17 +22,20 @@ const HomePage: React.FC = () => {
       <Cover>
         <SpotlightImage src={CoverImage} alt="iPhones" />
         <Banner>
-          <h1>Quality Devices. Best Prices. Great Service.</h1>
+          <h1>
+            T&T’s #1 iPhone Authority. Quality iPhones. Best Prices. Great
+            Service.
+          </h1>
           <h3>
             The best place to <strong>buy</strong> and <strong>trade</strong>{' '}
             iPhones in Trinidad and Tobago.
           </h3>
           <CoverLinks>
             <Button type="default">
-              <Link to="/trade">Trade Now</Link>
+              <Link to="/buy">Buy Now</Link>
             </Button>
             <Button type="primary">
-              <Link to="/buy">Shop Now</Link>
+              <Link to="/trade">Trade Now</Link>
             </Button>
           </CoverLinks>
         </Banner>
@@ -40,26 +43,30 @@ const HomePage: React.FC = () => {
       <Highlights />
       <ProcessSection>
         <Process
-          title="Purchase iPhones"
+          title="Trade your iPhones"
           steps={[
-            'Choose your model, memory and color online.',
-            'Schedule a time to meet at a police station.',
-            'Meet, complete transaction and take home your new iPhone.',
-          ]}
-          buttonText="Purchase Now"
-          buttonLink="/buy/"
-        />
-        <Process
-          title="Trade iPhones"
-          steps={[
-            'Enter some information on your device online.',
-            'Choose your model, memory and color.',
-            'View cash difference required/offered.',
-            'Schedule a time to meet at a police station.',
-            'Meet, complete transaction and trade iPhone.',
+            'Tell us about your iPhone.',
+            'Select the iPhone you want.',
+            'Get your estimated Cash Difference NOW!',
+            'We review details on your iPhone.',
+            'Get a call to schedule your trade.',
+            'We meet, trade & upgrade your iPhone!',
           ]}
           buttonText="Trade Now"
           buttonLink="/trade/"
+        />
+        <Process
+          title="Buy iPhones"
+          steps={[
+            'Select the iPhone(s) you’d like to buy.',
+            'Add iPhone(s) to Cart.',
+            'Checkout!',
+            'Get a call to schedule your purchase',
+            'Choose between Pickup or Delivery',
+            'We meet & you get your iPhone!',
+          ]}
+          buttonText="Buy Now"
+          buttonLink="/buy/"
         />
       </ProcessSection>
       <Quality />
