@@ -117,9 +117,21 @@ const Customize: React.FC<Props> = ({ match, tradeAmt, tradeItem }) => {
   return (
     <Container>
       <Carousel>
-        <img className="carousel-item" src={iPhoneIMG} alt={si.model} />
-        <img className="carousel-item" src={iPhoneIMG} alt={si.model} />
-        <img className="carousel-item" src={iPhoneIMG} alt={si.model} />
+        {si.imageUrls.map(imageUrl => (
+          <img
+            key={imageUrl}
+            className="carousel-item"
+            src={imageUrl}
+            alt={`${si.model} 1`}
+          />
+        ))}
+        {si.imageUrls.length === 0 && (
+          <img
+            className="carousel-item"
+            src={iPhoneIMG}
+            alt={`${si.model} placeholder`}
+          />
+        )}
       </Carousel>
       <Content>
         <Heading>
