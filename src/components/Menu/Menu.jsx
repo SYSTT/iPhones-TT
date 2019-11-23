@@ -24,6 +24,11 @@ const MenuOptions = [
     color: Colors['Grey/VeryDark'],
   },
   {
+    text: 'About Us',
+    link: '/about/',
+    color: Colors['Grey/VeryDark'],
+  },
+  {
     text: 'Login',
     link: '/login/',
     color: Colors['Grey/VeryDark'],

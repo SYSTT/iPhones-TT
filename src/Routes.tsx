@@ -13,6 +13,7 @@ import LoginPage from './pages/LoginPage';
 import { useUserData } from './modules/userData';
 import PostCheckoutPage from './pages/PostCheckoutPage';
 import AdminOrdersPage from './pages/admin/AdminOrdersPage';
+import AboutPage from './pages/AboutPage';
 
 const Routes: React.FC = () => {
   const { user } = useAuth();
@@ -51,6 +52,7 @@ const Routes: React.FC = () => {
           }}
         />
         <Route path="/post-checkout" render={PostCheckoutPage} />
+        <Route path="/about" render={AboutPage} />
         <Route path="/" component={HomePage} />
       </Switch>
     </>
