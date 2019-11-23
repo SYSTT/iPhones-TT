@@ -31,8 +31,7 @@ const Quality: React.FC = () => {
         <h2>Warranty Information</h2>
         <p>
           All A-Grade iPhones from us include a 14-Day Warranty. All New iPhones
-          include Apple’s 1 Year Warranty. Get full details on our warranty{' '}
-          <Link to="/about/warranty">here</Link>.
+          include Apple’s 1 Year Warranty.
         </p>
         <Link to="/about">About us and more information</Link>
       </div>
