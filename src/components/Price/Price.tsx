@@ -23,6 +23,7 @@ type PriceProps = {
   commas?: boolean;
   currency?: string;
   block?: boolean;
+  abs?: boolean;
 };
 
 export default function Price({
@@ -31,16 +32,20 @@ export default function Price({
   commas = true,
   currency = 'TTD',
   block = false,
+  abs = false,
 }: PriceProps) {
   return (
     <Container block={block}>
       {!!reduction && (
         <Reduction>
-          {toPriceString(amt - reduction, { commas, currency })}
+          {toPriceString(abs ? Math.abs(amt - reduction) : amt - reduction, {
+            commas,
+            currency,
+          })}
         </Reduction>
       )}
       <BasePrice reduced={!!reduction}>
-        {toPriceString(amt, { commas, currency })}
+        {toPriceString(abs ? Math.abs(amt) : amt, { commas, currency })}
       </BasePrice>
     </Container>
   );

@@ -95,7 +95,7 @@ const TradePage: React.FC<
       <Steps type="navigation" size="small" current={currentStep}>
         <Step title="Details" icon={<Icon type="build" />} />
         <Step title="Choose" icon={<Icon type="mobile" />} />
-        <Step title="Customize" icon={<Icon type="sliders" />} />
+        <Step title="Trade" icon={<Icon type="sliders" />} />
       </Steps>
     </Container>
   );
