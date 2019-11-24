@@ -25,7 +25,6 @@ export const StockList = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
-    max-height: 375px;
   }
 
   .ant-card-cover {
