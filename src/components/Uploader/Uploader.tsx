@@ -26,21 +26,25 @@ const Uploader = ({
     async (acceptedFiles: File[]) => {
       const uploadedImages = [...imageUrls];
       await Promise.all(
-        acceptedFiles.map(async (file: File) => {
-          const reader = new FileReader();
+        acceptedFiles.map(
+          (file: File) =>
+            new Promise(done => {
+              const reader = new FileReader();
 
-          reader.onload = async () => {
-            setUploadingCount(count => count + 1);
-            const binaryStr = reader.result as ArrayBuffer;
-            const ref = firebase.storage.ref(storagePath).child(uuid());
-            const { ref: resultRef } = await ref.put(binaryStr);
-            const downloadUrl = await resultRef.getDownloadURL();
-            uploadedImages.push(downloadUrl);
-            setUploadingCount(count => count - 1);
-          };
+              reader.onload = async () => {
+                setUploadingCount(count => count + 1);
+                const binaryStr = reader.result as ArrayBuffer;
+                const ref = firebase.storage.ref(storagePath).child(uuid());
+                const { ref: resultRef } = await ref.put(binaryStr);
+                const downloadUrl = await resultRef.getDownloadURL();
+                uploadedImages.push(downloadUrl);
+                setUploadingCount(count => count - 1);
+                done();
+              };
 
-          reader.readAsArrayBuffer(file);
-        }),
+              reader.readAsArrayBuffer(file);
+            }),
+        ),
       );
 
       onUploadComplete(uploadedImages);
