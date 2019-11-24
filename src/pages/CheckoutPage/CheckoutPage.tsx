@@ -13,6 +13,8 @@ import {
   useTradeOrders,
   TradeItem,
   OrderItem,
+  OrderData,
+  TradeOrderData,
 } from '../../modules/orders';
 import { ProfileInfoValues } from '../../components/forms/ProfileInfoForm/types';
 import { useCart } from '../../modules/cart';
@@ -32,27 +34,44 @@ const CheckoutPage = () => {
 
   const { tradeItem, orderItem } = location.state || {};
 
+  const sendOrderEmail = async (orders: (TradeOrderData | OrderData)[]) => {
+    const response = await fetch(
+      `https://us-central1-iphones-tt-176b7.cloudfunctions.net/sendMail`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ orders }),
+      },
+    );
+    return response.text();
+  };
+
   const submitOrder = async (profileInfo: ProfileInfoValues) => {
     if (!tradeItem) {
-      await addOrders(
-        cart.map(cartItem => {
-          return {
-            status: 'pending',
-            orderItem: cartItem,
-            profileInfo,
-          };
-        }),
-      );
+      const orders: OrderData[] = cart.map(cartItem => {
+        return {
+          status: 'pending',
+          orderItem: cartItem,
+          profileInfo,
+        };
+      });
+      await sendOrderEmail(orders);
+      await addOrders(orders);
     } else {
-      await addTradeOrders([
+      const tradeOrders: TradeOrderData[] = [
         {
           status: 'pending',
           tradeItem,
           orderItem,
           profileInfo,
         },
-      ]);
+      ];
+      await sendOrderEmail(tradeOrders);
+      await addTradeOrders(tradeOrders);
     }
+
     await clearCart();
     history.push('/post-checkout');
   };
