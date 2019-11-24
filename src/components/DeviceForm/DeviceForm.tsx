@@ -91,7 +91,7 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
         showIcon
       />
       <h3 style={{ marginBottom: 12, marginTop: 24 }}>
-        Which iPhone Do You Have?
+        Which iPhone do you have?
       </h3>
       <Select defaultValue="unselected" onChange={onChangeDevice}>
         <Select.Option value="unselected">Select your model</Select.Option>
@@ -109,7 +109,7 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
       {device && (
         <>
           <h3 style={{ marginBottom: 12, marginTop: 24 }}>
-            How Many GBs is Your iPhone?
+            How many GBs is your iPhone?
           </h3>
           <OptionList cols={2}>
             {device.options.map(opt => (
@@ -131,7 +131,7 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
       {memory && device && (
         <>
           <h3 style={{ marginBottom: 12, marginTop: 24 }}>
-            What Colour is Your iPhone?
+            What Colour is your iPhone?
           </h3>
           <OptionList cols={2}>
             {device.colors.map(colorOption => (
@@ -199,7 +199,7 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
         pictureUrls.length !== 0 && (
           <>
             <Divider />
-            <h3 style={{ marginBottom: 12 }}>Your Estimated iPhone Value.</h3>
+            <h3 style={{ marginBottom: 12 }}>Your estimated iPhone value.</h3>
             <h1>
               <Price amt={price} />
             </h1>
