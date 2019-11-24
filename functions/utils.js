@@ -1,29 +1,24 @@
-module.exports.price = (amount) => `$${amount.toFixed(2)}`;
+module.exports.price = amount => `$${amount.toFixed(2)} TTD`;
 module.exports.dedent = (callSite, ...args) => {
+  function format(str) {
+    let size = -1;
 
-    function format(str) {
+    return str.replace(/\n(\s+)/g, (m, m1) => {
+      if (size < 0) size = m1.replace(/\t/g, '    ').length;
 
-        let size = -1;
+      return '\n' + m1.slice(Math.min(m1.length, size));
+    });
+  }
 
-        return str.replace(/\n(\s+)/g, (m, m1) => {
+  if (typeof callSite === 'string') return format(callSite);
 
-            if (size < 0)
-                size = m1.replace(/\t/g, "    ").length;
+  if (typeof callSite === 'function')
+    return (...args) => format(callSite(...args));
 
-            return "\n" + m1.slice(Math.min(m1.length, size));
-        });
-    }
+  let output = callSite
+    .slice(0, args.length + 1)
+    .map((text, i) => (i === 0 ? '' : args[i - 1]) + text)
+    .join('');
 
-    if (typeof callSite === "string")
-        return format(callSite);
-
-    if (typeof callSite === "function")
-        return (...args) => format(callSite(...args));
-
-    let output = callSite
-        .slice(0, args.length + 1)
-        .map((text, i) => (i === 0 ? "" : args[i - 1]) + text)
-        .join("");
-
-    return format(output);
-}
+  return format(output);
+};
