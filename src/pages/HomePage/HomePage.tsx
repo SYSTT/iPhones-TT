@@ -31,11 +31,11 @@ const HomePage: React.FC = () => {
             iPhones in Trinidad and Tobago.
           </h3>
           <CoverLinks>
-            <Button type="default">
-              <Link to="/buy">Buy Now</Link>
-            </Button>
             <Button type="primary">
               <Link to="/trade">Trade Now</Link>
+            </Button>
+            <Button type="default">
+              <Link to="/buy">Buy Now</Link>
             </Button>
           </CoverLinks>
         </Banner>
@@ -43,14 +43,14 @@ const HomePage: React.FC = () => {
       <Highlights />
       <ProcessSection>
         <Process
-          title="Trade your iPhones"
+          title="Trade your iPhone"
           steps={[
             'Tell us about your iPhone.',
             'Select the iPhone you want.',
             'Get your estimated Cash Difference NOW!',
             'We review details on your iPhone.',
             'Get a call to schedule your trade.',
-            'We meet, trade & upgrade your iPhone!',
+            'Meet, Trade & Upgrade your iPhone.',
           ]}
           buttonText="Trade Now"
           buttonLink="/trade/"
@@ -61,9 +61,8 @@ const HomePage: React.FC = () => {
             'Select the iPhone(s) you’d like to buy.',
             'Add iPhone(s) to Cart.',
             'Checkout!',
-            'Get a call to schedule your purchase',
-            'Choose between Pickup or Delivery',
-            'We meet & you get your iPhone!',
+            'Get a call to confirm your purchase.',
+            'Get your iPhone!',
           ]}
           buttonText="Buy Now"
           buttonLink="/buy/"

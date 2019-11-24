@@ -13,9 +13,8 @@ const Highlights: React.FC = () => {
         <h2>Safety</h2>
         <Divider />
         <p>
-          Your safety is our #1 priority. We meet customers at Police Stations &
-          Secured Public Areas within Port of Spain. We’ve traded & sold over
-          100 iPhones this year alone! Trust us for a SAFE experience.
+          Your safety is our #1 priority. With over 100 successful transactions
+          in 2019, you can trust us for a safe experience.
         </p>
         {/* <p>See what other people are saying here.</p> */}
       </div>
@@ -26,9 +25,9 @@ const Highlights: React.FC = () => {
         <h2>Speed</h2>
         <Divider />
         <p>
-          Get the Cash Difference on your iPhone within minutes. Order Online &
-          meet us in Port of Spain today or have your iPhone delivered to you
-          nationwide within 2 days!
+          Get your iPhone’s value & cash difference for trades within seconds!
+          Order online & get your iPhone today in Port of Spain & within 48
+          hours nationwide!
         </p>
       </div>
       <div>
@@ -38,9 +37,8 @@ const Highlights: React.FC = () => {
         <h2>Ease</h2>
         <Divider />
         <p>
-          Everything you need is right here on our website! View the Cash
-          Difference for your iPhone Trade or Order the iPhone you want. No
-          stress. No hassle. 100% Online.
+          Do it all on our website. Whether your trading, buying or browsing,
+          it’s all here! No stress. No hassle. 100%&nbsp;Online.
         </p>
         {/* <p>Order an iPhone now.</p> */}
       </div>

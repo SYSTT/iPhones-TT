@@ -7,9 +7,10 @@ const PostCheckoutPage = () => {
   return (
     <Container>
       <Heading>Thank you!</Heading>
+      <p>Your order has been submitted.</p>
       <p>
-        Your order has been submitted. We&#39;ll call you within 24 hours to
-        confirm your order.
+        We will review your order and give you a call once your order has been
+        approved, to schedule a date and time for the transaction
       </p>
       <ButtonList center>
         <Link to="/">

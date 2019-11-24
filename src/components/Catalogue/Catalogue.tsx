@@ -41,12 +41,27 @@ const Catalogue: React.FC<Props> = ({ tradeAmt }) => {
             title={si.model}
             description={
               <div>
-                Starting from
-                <Price
-                  amt={si.configurations[0].price}
-                  reduction={tradeAmt}
-                  block
-                />
+                Starting from:
+                {si.configurations[0].price - (tradeAmt || 0) > 0 ? (
+                  <div>
+                    You <strong>pay</strong>
+                    <Price
+                      amt={si.configurations[0].price}
+                      reduction={tradeAmt}
+                      block
+                    />
+                  </div>
+                ) : (
+                  <div>
+                    You <strong>get</strong>
+                    <Price
+                      amt={si.configurations[0].price}
+                      reduction={tradeAmt}
+                      abs
+                      block
+                    />
+                  </div>
+                )}
               </div>
             }
           />
@@ -57,9 +72,12 @@ const Catalogue: React.FC<Props> = ({ tradeAmt }) => {
 
   return (
     <Container>
-      <Heading>Choose a model{!!tradeAmt && ' to trade for'}.</Heading>
+      <Heading>
+        {!tradeAmt ? 'Select Model' : 'Which iPhone do you want?'}
+      </Heading>
       <StockList>
         {stock
+          .sort((a, b) => a.configurations[0].price - b.configurations[0].price)
           .filter(si => si.configurations.length)
           .map(si => renderStockItem(si))}
       </StockList>

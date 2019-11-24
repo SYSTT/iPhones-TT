@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, Icon, Select, Button, Divider, Input } from 'antd';
+import { Alert, Icon, Select, Divider, Input } from 'antd';
 
 import { useTradeDevices, Device } from '../../modules/trade-devices';
 
@@ -15,17 +15,19 @@ import { Container } from './elements';
 import { TradeItem } from '../../modules/orders';
 import { Color } from '../../modules/stock';
 import Uploader from '../Uploader';
+import { Link } from 'react-router-dom';
 
 const AlertDescription = (
   <div>
     <p>Currently we can only accept iPhones with A-Grade quality. This means</p>
     <ul>
-      <li>100% perfect working condition.</li>
-      <li>Near perfect to brand new physical condition.</li>
+      <li>Perfect working condition.</li>
+      <li>Near perfect physical condition.</li>
       <li>
-        Above 80% battery health (Find it in Settings &gt; Battery &gt; Battery
-        Health).
+        Battery Health 80% & up (Find on your iPhone - Settings &gt; Battery
+        &gt; Battery Health).
       </li>
+      <li>We DO NOT accept stolen or iCloud locked iPhones.</li>
     </ul>
     <p>Additionally, we do not accept iPhones with locked iCloud.</p>
   </div>
@@ -80,7 +82,7 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
 
   return (
     <Container>
-      <Heading>What device do you want to trade?</Heading>
+      <Heading>Trade Your iPhone</Heading>
       <Alert
         type="warning"
         icon={<Icon type="safety-certificate" />}
@@ -89,23 +91,25 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
         showIcon
       />
       <h3 style={{ marginBottom: 12, marginTop: 24 }}>
-        Choose your device&#39;s model.
+        Which iPhone Do You Have?
       </h3>
       <Select defaultValue="unselected" onChange={onChangeDevice}>
         <Select.Option value="unselected">Select your model</Select.Option>
-        {tradeDevices.map(td => (
-          <Select.Option key={td.id} value={td.slug}>
-            {td.model}
-          </Select.Option>
-        ))}
+        {tradeDevices
+          .sort((a, b) => a.options[0].price - b.options[0].price)
+          .map(td => (
+            <Select.Option key={td.id} value={td.slug}>
+              {td.model}
+            </Select.Option>
+          ))}
       </Select>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Button type="link">Don&#39;t see your device?</Button>
+        <Link to="/about">Don&#39;t see your device?</Link>
       </div>
       {device && (
         <>
           <h3 style={{ marginBottom: 12, marginTop: 24 }}>
-            Choose your device&#39;s memory.
+            How Many GBs is Your iPhone?
           </h3>
           <OptionList cols={2}>
             {device.options.map(opt => (
@@ -127,7 +131,7 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
       {memory && device && (
         <>
           <h3 style={{ marginBottom: 12, marginTop: 24 }}>
-            Choose your device&#39;s colour.
+            What Colour is Your iPhone?
           </h3>
           <OptionList cols={2}>
             {device.colors.map(colorOption => (
@@ -155,7 +159,7 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
             onChange={e => setIssues(e.target.value)}
           />
           <h3 style={{ marginBottom: 12, marginTop: 24 }}>
-            What is the battery health of your iPhone?
+            What’s the Battery Health on your iPhone?
           </h3>
           <Input
             type="number"
@@ -166,7 +170,7 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
             }
           />
           <h3 style={{ marginBottom: 12, marginTop: 24 }}>
-            What would you rate your iPhone out of 10?
+            How would you rate your iPhone out of 10?
           </h3>
           <Input
             type="number"
@@ -178,13 +182,13 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
             }
           />
           <h3 style={{ marginBottom: 12, marginTop: 24 }}>
-            Upload some images or a video of your iPhone including any
-            imperfections.
+            Upload pictures of your iPhone clearly showing off the screen & all
+            sides, showing all & any imperfections.
           </h3>
           <Uploader
             storagePath="trade-order-images"
             accept="image/*,video/*"
-            onUploadComplete={urls => setPictureUrls(urls)}
+            onUploadComplete={setPictureUrls}
           />
         </>
       )}
@@ -195,8 +199,10 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
         pictureUrls.length !== 0 && (
           <>
             <Divider />
-            <h3 style={{ marginBottom: 12 }}>Your devices value.</h3>
-            <Price amt={price} />
+            <h3 style={{ marginBottom: 12 }}>Your Estimated iPhone Value.</h3>
+            <h1>
+              <Price amt={price} />
+            </h1>
             <ButtonList style={{ marginTop: 24 }} center>
               <RoundedButton type="primary" onClick={onSubmit}>
                 Continue

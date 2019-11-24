@@ -60,6 +60,7 @@ export const CoverLinks = styled.div`
 `;
 
 export const HighlightsContainer = styled.div`
+  text-align: center;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
