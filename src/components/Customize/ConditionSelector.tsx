@@ -87,7 +87,7 @@ const ConditionSelector: React.FC<Props> = ({
           <span>
             {newConfigs.length ? (
               <span>
-                From{' '}
+                Starting from:{' '}
                 {tradeAmt ? (
                   renderTradePrice(
                     newConfigs[0].price,
