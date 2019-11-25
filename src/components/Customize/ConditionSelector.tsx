@@ -6,6 +6,7 @@ import { AGRADE, NEW, Condition, Configuration } from '../../modules/stock';
 import Price from '../Price';
 import { OptionList, OptionButton } from '../../utils';
 import { SelectorContainer } from './elements';
+import getCashDifference from '../../utils/getCashDifference';
 
 type Props = {
   condition?: string;
@@ -22,6 +23,28 @@ const ConditionSelector: React.FC<Props> = ({
 }) => {
   const agradeConfigs = configs.filter(config => config.condition === AGRADE);
   const newConfigs = configs.filter(config => config.condition === NEW);
+
+  const renderTradePrice = (
+    orderItemPrice: number,
+    orderItemCost: number,
+    tradeItemPrice: number,
+  ) => {
+    const cashDifference = getCashDifference(orderItemCost, tradeItemPrice);
+    return (
+      <div style={{ display: 'inline-flex' }}>
+        <div style={{ marginRight: '0.5em' }}>
+          You <strong>{cashDifference > 0 ? 'pay' : 'get'}</strong>
+        </div>
+        <Price
+          amt={orderItemPrice}
+          reduction={orderItemPrice - cashDifference}
+          block
+          abs
+        />
+      </div>
+    );
+  };
+
   return (
     <SelectorContainer>
       <h4>Condition</h4>
@@ -37,7 +60,16 @@ const ConditionSelector: React.FC<Props> = ({
           </h2>
           {agradeConfigs.length ? (
             <span>
-              From <Price amt={agradeConfigs[0].price} reduction={tradeAmt} />
+              Starting from:{' '}
+              {tradeAmt ? (
+                renderTradePrice(
+                  agradeConfigs[0].price,
+                  agradeConfigs[0].cost,
+                  tradeAmt,
+                )
+              ) : (
+                <Price amt={agradeConfigs[0].price} />
+              )}
             </span>
           ) : (
             'Out of stock'
@@ -55,7 +87,16 @@ const ConditionSelector: React.FC<Props> = ({
           <span>
             {newConfigs.length ? (
               <span>
-                From <Price amt={newConfigs[0].price} />
+                From{' '}
+                {tradeAmt ? (
+                  renderTradePrice(
+                    newConfigs[0].price,
+                    newConfigs[0].cost,
+                    tradeAmt,
+                  )
+                ) : (
+                  <Price amt={newConfigs[0].price} />
+                )}
               </span>
             ) : (
               'Out of stock'

@@ -59,7 +59,7 @@ export const OptionButton = styled(Button)<OptionButtonProps>`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   border-color: ${props =>
     props.selected ? Colors.Primary : Colors['Grey/VeryLight']};
   border-width: ${props => (props.selected ? '2px' : '1px')};
