@@ -20,7 +20,7 @@ const MemorySelector: React.FC<Props> = ({
   setMemory,
   configs,
   disabled,
-  tradeAmt = 0,
+  tradeAmt,
 }) => {
   const renderTradePrice = (
     orderItemPrice: number,
@@ -63,9 +63,13 @@ const MemorySelector: React.FC<Props> = ({
           {optionMemory}
           <span style={{ fontSize: 14 }}>GB</span>
         </h2>
-        {outOfStock
-          ? 'Out of stock'
-          : renderTradePrice(optionPrice, optionCost, tradeAmt)}
+        {outOfStock ? (
+          'Out of stock'
+        ) : tradeAmt !== undefined ? (
+          renderTradePrice(optionPrice, optionCost, tradeAmt)
+        ) : (
+          <Price amt={optionPrice} block />
+        )}
       </OptionButton>
     );
   };

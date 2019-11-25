@@ -61,7 +61,7 @@ const ConditionSelector: React.FC<Props> = ({
           {agradeConfigs.length ? (
             <span>
               Starting from:{' '}
-              {tradeAmt ? (
+              {tradeAmt !== undefined ? (
                 renderTradePrice(
                   agradeConfigs[0].price,
                   agradeConfigs[0].cost,
@@ -88,7 +88,7 @@ const ConditionSelector: React.FC<Props> = ({
             {newConfigs.length ? (
               <span>
                 Starting from:{' '}
-                {tradeAmt ? (
+                {tradeAmt !== undefined ? (
                   renderTradePrice(
                     newConfigs[0].price,
                     newConfigs[0].cost,
