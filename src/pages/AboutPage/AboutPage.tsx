@@ -17,6 +17,7 @@ const AboutPage = () => {
         years, you can TRUST us for the best experience when trading or buying
         iPhones locally in Trinidad & Tobago.
       </p>
+      <h2>Our Philosphy</h2>
       <p>
         We believe that businesses should create solutions that customers
         demand. We should make products & services that you want. Thank you
