@@ -2,12 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'antd';
 
-import { useStock, Model } from '../../modules/stock';
+import { useStock, Model, NEW } from '../../modules/stock';
 
 import Price from '../Price';
 import { Heading } from '../../utils';
 import { Container, StockList } from './elements';
 import iPhoneIMG from '../../pages/HomePage/cover.jpg';
+import getCashDifference from '../../utils/getCashDifference';
 
 const { Meta } = Card;
 
@@ -17,6 +18,25 @@ type Props = {
 
 const Catalogue: React.FC<Props> = ({ tradeAmt }) => {
   const { stock } = useStock();
+
+  const renderTradePrice = (
+    orderItemPrice: number,
+    orderItemCost: number,
+    tradeItemPrice: number,
+  ) => {
+    const cashDifference = getCashDifference(orderItemCost, tradeItemPrice);
+    return (
+      <div>
+        You <strong>{cashDifference > 0 ? 'pay' : 'get'}</strong>
+        <Price
+          amt={orderItemPrice}
+          reduction={orderItemPrice - cashDifference}
+          block
+          abs
+        />
+      </div>
+    );
+  };
 
   const renderStockItem = (si: Model) => {
     return (
@@ -42,25 +62,14 @@ const Catalogue: React.FC<Props> = ({ tradeAmt }) => {
             description={
               <div>
                 Starting from:
-                {si.configurations[0].price - (tradeAmt || 0) > 0 ? (
-                  <div>
-                    You <strong>pay</strong>
-                    <Price
-                      amt={si.configurations[0].price}
-                      reduction={tradeAmt}
-                      block
-                    />
-                  </div>
+                {tradeAmt !== undefined ? (
+                  renderTradePrice(
+                    si.configurations[0].price,
+                    si.configurations[0].cost,
+                    tradeAmt,
+                  )
                 ) : (
-                  <div>
-                    You <strong>get</strong>
-                    <Price
-                      amt={si.configurations[0].price}
-                      reduction={tradeAmt}
-                      abs
-                      block
-                    />
-                  </div>
+                  <Price amt={si.configurations[0].price} block />
                 )}
               </div>
             }
@@ -78,7 +87,13 @@ const Catalogue: React.FC<Props> = ({ tradeAmt }) => {
       <StockList>
         {stock
           .sort((a, b) => a.configurations[0].price - b.configurations[0].price)
-          .filter(si => si.configurations.length)
+          .filter(
+            si =>
+              si.configurations.length &&
+              si.configurations.find(
+                config => config.condition === NEW || config.stock > 0,
+              ),
+          )
           .map(si => renderStockItem(si))}
       </StockList>
     </Container>
