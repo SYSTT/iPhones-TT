@@ -78,7 +78,8 @@ class EditableCell extends React.Component<EditableTableProps> {
       handleSave({
         ...record,
         price: values.price ? +values.price : record.price,
-        stock: values.stock ? +values.stock : values.stock,
+        cost: values.cost ? +values.cost : record.cost,
+        stock: values.stock ? +values.stock : record.stock,
       });
     });
   };
@@ -147,6 +148,7 @@ const AddFormModal: React.FC<AddFormModalProps> = ({
   const [color, setColor] = useState('');
   const [memory, setMemory] = useState('64');
   const [price, setPrice] = useState('');
+  const [cost, setCost] = useState('');
   const [stock, setStock] = useState('');
 
   const onSubmit = (
@@ -160,6 +162,7 @@ const AddFormModal: React.FC<AddFormModalProps> = ({
       color: color,
       memory: +memory,
       price: +price,
+      cost: +cost,
       stock: +stock,
     });
     handleClose();
@@ -203,6 +206,14 @@ const AddFormModal: React.FC<AddFormModalProps> = ({
             type="number"
             value={price}
             onChange={e => setPrice(e.target.value)}
+            addonBefore="$ "
+          />
+        </Form.Item>
+        <Form.Item label="Cost">
+          <Input
+            type="number"
+            value={cost}
+            onChange={e => setCost(e.target.value)}
             addonBefore="$ "
           />
         </Form.Item>
@@ -317,6 +328,12 @@ const StockTable: React.FC<Props> = ({
       title: 'Price',
       dataIndex: 'price',
       key: 'price',
+      editable: true,
+    },
+    {
+      title: 'Cost',
+      dataIndex: 'cost',
+      key: 'cost',
       editable: true,
     },
     {

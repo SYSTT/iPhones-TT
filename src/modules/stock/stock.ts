@@ -13,6 +13,7 @@ export type Color = string;
 export type Configuration = {
   memory: number;
   price: number;
+  cost: number;
   condition: Condition;
   color: Color;
   stock: number;

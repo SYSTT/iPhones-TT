@@ -3,7 +3,6 @@ import { Alert, Icon, Select, Divider, Input } from 'antd';
 
 import { useTradeDevices, Device } from '../../modules/trade-devices';
 
-import Price from '../Price';
 import {
   Heading,
   OptionList,
@@ -199,10 +198,10 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
         pictureUrls.length !== 0 && (
           <>
             <Divider />
-            <h3 style={{ marginBottom: 12 }}>Your estimated iPhone value.</h3>
+            {/* <h3 style={{ marginBottom: 12 }}>Your estimated iPhone value.</h3>
             <h1>
               <Price amt={price} />
-            </h1>
+            </h1> */}
             <ButtonList style={{ marginTop: 24 }} center>
               <RoundedButton type="primary" onClick={onSubmit}>
                 Continue

@@ -7,8 +7,9 @@ import Catalogue from '../../components/Catalogue';
 import Customize from '../../components/Customize';
 import DeviceForm from '../../components/DeviceForm';
 import { Container } from './elements';
-import { useTradeDevices, DeviceOption } from '../../modules/trade-devices';
+import { DeviceOption } from '../../modules/trade-devices';
 import { TradeItem } from '../../modules/orders';
+import { useStock } from '../../modules/stock';
 const { Step } = Steps;
 
 const locationToStep = (location: Location) => {
@@ -29,7 +30,7 @@ const TradePage: React.FC<
     TradeItem & { price: number } | undefined
   >(location.state ? location.state.tradeItem : undefined);
   const [tradeDeviceOption, setTradeDeviceOption] = useState<DeviceOption>();
-  const { getTradeDeviceBySlug } = useTradeDevices();
+  const { getModelBySlug } = useStock();
   const tradeSlug = locationToTradeSlug(location);
 
   useEffect(() => {
@@ -41,12 +42,12 @@ const TradePage: React.FC<
         return;
       }
       const memory = parseInt(memoryHumanReadable);
-      const device = getTradeDeviceBySlug(tradeDeviceSlug);
+      const device = getModelBySlug(tradeDeviceSlug);
 
       if (!device) {
         return;
       }
-      const matchingOptions = device.options.filter(
+      const matchingOptions = device.configurations.filter(
         opt => opt.memory === memory,
       );
       if (!matchingOptions.length) {
@@ -54,7 +55,7 @@ const TradePage: React.FC<
       }
       setTradeDeviceOption(matchingOptions[0]);
     }
-  }, [tradeSlug, getTradeDeviceBySlug]);
+  }, [tradeSlug, getModelBySlug]);
 
   useEffect(() => {
     if (tradeItem !== undefined) {
@@ -73,7 +74,7 @@ const TradePage: React.FC<
           render={routeComponentProps => (
             <Customize
               allowAddToCart={false}
-              tradeAmt={tradeDeviceOption ? tradeDeviceOption.price : 0}
+              tradeAmt={tradeDeviceOption ? tradeDeviceOption.price : undefined}
               tradeItem={tradeItem}
               {...routeComponentProps}
             />
@@ -83,7 +84,7 @@ const TradePage: React.FC<
           path={`${match.path}/:tradeSlug`}
           render={() => (
             <Catalogue
-              tradeAmt={tradeDeviceOption ? tradeDeviceOption.price : 0}
+              tradeAmt={tradeDeviceOption ? tradeDeviceOption.price : undefined}
             />
           )}
         />

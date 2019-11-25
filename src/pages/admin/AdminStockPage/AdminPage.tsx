@@ -31,6 +31,7 @@ const AdminStockPage: React.FC<Props> = ({ user }) => {
       configurations: [],
       imageUrls: stockImageUrls,
     });
+    setShowAddModal(false);
   };
 
   return (
@@ -55,10 +56,13 @@ const AdminStockPage: React.FC<Props> = ({ user }) => {
               key={modelStock.id}
               id={modelStock.id}
               model={modelStock.model}
-              datasource={modelStock.configurations.map(config => ({
-                ...config,
-                key: `${config.condition}-${config.color}-${config.memory}`,
-              }))}
+              datasource={modelStock.configurations
+                .sort((a, b) => a.price - b.price)
+                .map(config => ({
+                  ...config,
+                  key: `${config.condition}-${config.color}-${config.memory}`,
+                  cost: 0,
+                }))}
               imageUrls={modelStock.imageUrls}
             />
           ))}
