@@ -11,13 +11,23 @@ export const Container = styled.div`
 export const StockList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  
+
   > a {
     width: 50%;
     max-width: 250px;
-    
+
     @media (min-width: 768px) {
       margin-left: 24px;
     }
+  }
+
+  .ant-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ant-card-cover {
+    flex: 1;
   }
 `;

@@ -11,4 +11,4 @@ export function useCart() {
     return userCartStuff;
   }
   return localStorageCartStuff;
-};
+}

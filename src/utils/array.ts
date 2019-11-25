@@ -1,6 +1,9 @@
-export const dedup = (items: Array<any>, accessor = (item: any) => item) =>
+export const dedup = <T>(
+  items: Array<T>,
+  accessor: (item: T) => unknown = (item: T) => item,
+) =>
   items.filter(
-    (item, index) => items.findIndex(
-      current => accessor(item) === accessor(current)
-    ) === index
+    (item, index) =>
+      items.findIndex(current => accessor(item) === accessor(current)) ===
+      index,
   );

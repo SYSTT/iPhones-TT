@@ -13,6 +13,7 @@ export type Color = string;
 export type Configuration = {
   memory: number;
   price: number;
+  cost: number;
   condition: Condition;
   color: Color;
   stock: number;
@@ -20,6 +21,7 @@ export type Configuration = {
 
 type ModelData = {
   model: string;
+  imageUrls: string[];
   configurations: Configuration[];
 };
 
@@ -48,17 +50,23 @@ export function useStock() {
     return () => unsubscribe();
   }, [db]);
 
-  async function updateModel(id: string, model: ModelData) {
-    await db.collection('stock').doc(id).update(model);
-  };
+  async function updateModel(id: string, model: Partial<ModelData>) {
+    await db
+      .collection('stock')
+      .doc(id)
+      .update(model);
+  }
 
-  async function addModel({ model, configurations }: ModelData) {
-    await db.collection('stock').add({ model, configurations });
-  };
+  async function addModel(modelData: ModelData) {
+    await db.collection('stock').add(modelData);
+  }
 
   async function deleteModel(id: string) {
-    await db.collection('stock').doc(id).delete();
-  };
+    await db
+      .collection('stock')
+      .doc(id)
+      .delete();
+  }
 
   function getModelBySlug(slug: string) {
     return stock.find(si => si.slug === slug);
@@ -72,5 +80,4 @@ export function useStock() {
     deleteModel,
     getModelBySlug,
   };
-};
-
+}

@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 
 export function useStateWithLocalStorage<T>(
   localStorageKey: string,
-  defaultVal: T | null = null
+  defaultVal: T | null = null,
 ): [T, React.Dispatch<React.SetStateAction<T>>] {
   const [value, setValue] = useState<T>(
-    JSON.parse(localStorage.getItem(localStorageKey) || JSON.stringify(defaultVal))
+    JSON.parse(
+      localStorage.getItem(localStorageKey) || JSON.stringify(defaultVal),
+    ),
   );
 
   useEffect(() => {
@@ -13,4 +15,4 @@ export function useStateWithLocalStorage<T>(
   }, [value, localStorageKey]);
 
   return [value, setValue];
-};
+}

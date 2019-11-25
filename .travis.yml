@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+- 12
+cache:
+  yarn: true
+  directories:
+  - node_modules
+script:
+- yarn lint
+- yarn test
+- yarn run build
+deploy:
+  provider: firebase
+  token:
+    secure: Xhqmv8uq+J08Q5ufuHVS24O1ZbKPnng3+uU3Au20Vt2lgo6rJTbikHj9js/tWjCBb6IHj6sLZze0pvpbp2xzAsl1m37GjSMmcOHH4ZSjMdzwICA8Hh3UDxXgGL5eLtuKj8RNr/x5Cph/UwEn6druScFuNPndz2f9Sh26wWoemVtQGgtKcafQsfwbrYpZtSfA/02/MxNSsxUYTJFlggMwF3q6UTFis8gnUCaU8MQL175+FGDXHFdC4G37ywBq+ywkW/tkPhHIN9Cf7xDXgpAy+PVwjKC+YtoOEWV9RpXl+y3p7se9RkZt5EO55o1IW3arhRKuceAQWz1hUvf3ZraNAuUq2yTzKlQLnT5l2BZZAlYuBpjcAKcSbjLP3KqDXBnQKL+7EbdjjRinDnnqAB2CQKE3Q8pQWag9KY/yighpwZA9625JhQ4FokGrWUF2SbAvTKFki6XnMrDat/sLAdjUVp0duukZ5B5cz7sUL4dS6VrEtPZRVKQYh7lwJ5jR+5Me8rJU0aSdDVoQB6CduwPEq8ncFKxgwsp+bRq8njEH0p63p4oex/0cfxaQpZDSsckcyDyfP57P3JhCENbG3lnbdcJ2qD2+PcdfyNY7Q7CfxBiK3Z/G5ZICgK0PX4KM+IxZXgv/xrFGlynoR7jc2qE8clyegTREHQicJlGA9g1w0Tk=
+  edge: true
+  only: hosting:dev
+  on:
+    branch: develop

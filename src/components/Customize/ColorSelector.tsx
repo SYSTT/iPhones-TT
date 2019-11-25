@@ -1,26 +1,26 @@
 import React from 'react';
 
 import { Configuration } from '../../modules/stock';
-import { Colors, dedup } from '../../utils';
 
-import { OptionList, OptionButton } from './elements';
+import { Colors, dedup, OptionList, OptionButton } from '../../utils';
+import { SelectorContainer } from './elements';
 
 type Props = {
   color?: string;
   setColor: (color: string) => void;
-  configs: Configuration[],
-  disabled?: boolean,
+  configs: Configuration[];
+  disabled?: boolean;
 };
 
-function ColorSelector({
+const ColorSelector: React.FC<Props> = ({
   color,
   setColor,
   configs,
   disabled,
-}: Props) {
+}) => {
   const renderOption = (optionColor: string) => {
     const outOfStock = !configs.find(
-      ({ color, stock }) => color === optionColor && stock > 0
+      ({ color, stock }) => color === optionColor && stock > 0,
     );
     return (
       <OptionButton
@@ -30,24 +30,22 @@ function ColorSelector({
         onClick={() => setColor(optionColor)}
         disabled={outOfStock || disabled}
       >
-        <h2>
-          {optionColor}
-        </h2>
+        <h2>{optionColor}</h2>
         {outOfStock && 'Out of stock'}
       </OptionButton>
     );
-  }
+  };
 
   return (
-    <>
-      <h4 style={{ color: disabled ? Colors.Grey : 'initial'}}>Color</h4>
+    <SelectorContainer>
+      <h4 style={{ color: disabled ? Colors.Grey : 'initial' }}>Color</h4>
       <OptionList>
-        {dedup(configs.map(config => config.color)).map(
-          color => renderOption(color)
+        {dedup(configs.map(config => config.color)).map(color =>
+          renderOption(color),
         )}
       </OptionList>
-    </>
+    </SelectorContainer>
   );
-}
+};
 
 export default ColorSelector;

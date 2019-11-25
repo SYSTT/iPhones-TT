@@ -2,6 +2,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/database';
+import 'firebase/storage';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -16,13 +17,15 @@ export class Firebase {
   auth: firebase.auth.Auth;
   db: firebase.firestore.Firestore;
   database: firebase.database.Database;
+  storage: firebase.storage.Storage;
 
   constructor() {
     firebase.initializeApp(config);
-    
+
     this.auth = firebase.auth();
     this.db = firebase.firestore();
     this.database = firebase.database();
+    this.storage = firebase.storage();
   }
 
   doCreateUserWithEmailAndPassword = (email: string, password: string) =>
@@ -34,12 +37,12 @@ export class Firebase {
   doSignOut = () => this.auth.signOut();
 
   doPasswordReset = (email: string) => this.auth.sendPasswordResetEmail(email);
-  
+
   doPasswordUpdate = (password: string) => {
     if (this.auth.currentUser) {
       this.auth.currentUser.updatePassword(password);
     }
-  }
+  };
 }
 
 export default new Firebase();
