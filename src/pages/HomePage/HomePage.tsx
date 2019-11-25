@@ -22,10 +22,8 @@ const HomePage: React.FC = () => {
       <Cover>
         <SpotlightImage src={CoverImage} alt="iPhones" />
         <Banner>
-          <h1>
-            T&T’s #1 iPhone Authority. Quality iPhones. Best Prices. Great
-            Service.
-          </h1>
+          <h1>T&T’s #1 iPhone Authority.</h1>
+          <h1>Quality iPhones. Better Prices. Great Service.</h1>
           <h3>
             The best place to <strong>buy</strong> and <strong>trade</strong>{' '}
             iPhones in Trinidad and Tobago.
