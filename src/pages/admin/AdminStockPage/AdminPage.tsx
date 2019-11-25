@@ -20,13 +20,13 @@ const AdminStockPage: React.FC<Props> = ({ user }) => {
   const [stockImageUrls, setStockImageUrls] = useState<string[]>([]);
   const { stock, addModel } = useStock();
 
-  const onSubmit = (
+  const onSubmit = async (
     e:
       | React.MouseEvent<HTMLElement, MouseEvent>
       | React.FormEvent<HTMLFormElement>,
   ) => {
     e.preventDefault();
-    addModel({
+    await addModel({
       model: newModelName,
       configurations: [],
       imageUrls: stockImageUrls,
@@ -59,9 +59,9 @@ const AdminStockPage: React.FC<Props> = ({ user }) => {
               datasource={modelStock.configurations
                 .sort((a, b) => a.price - b.price)
                 .map(config => ({
+                  cost: 0,
                   ...config,
                   key: `${config.condition}-${config.color}-${config.memory}`,
-                  cost: 0,
                 }))}
               imageUrls={modelStock.imageUrls}
             />
