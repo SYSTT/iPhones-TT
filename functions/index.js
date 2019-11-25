@@ -6,6 +6,8 @@ const cors = require('cors')({ origin: true });
 const { price } = require('./utils');
 admin.initializeApp();
 
+const TRADE_MARGIN = 1000;
+
 let transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -40,7 +42,7 @@ T&T Mobile Delivery
 
 function generateTradeOrderText(profileInfo, tradeOrder) {
   const { tradeItem, orderItem } = tradeOrder;
-  const cashDifference = orderItem.price - tradeItem.price;
+  const cashDifference = orderItem.cost + TRADE_MARGIN - tradeItem.price;
   return `
 Hi ${profileInfo.firstName},
 
@@ -81,6 +83,7 @@ Their device: ${tradeItem.model} ${tradeItem.memory}GB ${
 Device they want: ${orderItem.model} ${orderItem.memory}GB ${
       orderItem.color
     } - ${price(orderItem.price)}
+Cash difference: ${price(orderItem.cost + TRADE_MARGIN - tradeItem.price)}
 
 https://tntmobiledelivery.com/admin/orders
     `.trim();
