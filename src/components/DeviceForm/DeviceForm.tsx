@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Alert, Icon, Select, Divider, Input, Tooltip } from 'antd';
 
-import { useTradeDevices, Device } from '../../modules/trade-devices';
+import { useTradeDevices } from '../../modules/trade-devices';
 import { useStock, Model } from '../../modules/stock';
 
 import {
