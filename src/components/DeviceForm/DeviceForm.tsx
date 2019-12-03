@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, Icon, Select, Divider, Input } from 'antd';
+import { Alert, Icon, Select, Divider, Input, Tooltip } from 'antd';
 
 import { useTradeDevices, Device } from '../../modules/trade-devices';
 
@@ -78,6 +78,13 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
       pictureUrls,
     });
   }
+
+  const isComplete =
+    price !== undefined &&
+    issues !== '' &&
+    batteryHealth !== undefined &&
+    rating !== undefined &&
+    pictureUrls.length !== 0;
 
   return (
     <Container>
@@ -165,7 +172,7 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
             placeholder="Settings &gt; Battery &gt; Battery Health"
             value={batteryHealth}
             onChange={e =>
-              setBatteryHealth(e.target.value ? +e.target.value : undefined)
+              setBatteryHealth(e.target.value ? +e.target.value : batteryHealth)
             }
           />
           <h3 style={{ marginBottom: 12, marginTop: 24 }}>
@@ -176,9 +183,7 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
             suffix="/ 10"
             placeholder="1 - 10"
             value={rating}
-            onChange={e =>
-              setRating(e.target.value ? +e.target.value : undefined)
-            }
+            onChange={e => setRating(e.target.value ? +e.target.value : rating)}
           />
           <h3 style={{ marginBottom: 12, marginTop: 24 }}>
             Upload pictures of your iPhone clearly showing off the screen & all
@@ -191,24 +196,28 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
           />
         </>
       )}
-      {price &&
-        issues &&
-        batteryHealth !== undefined &&
-        rating !== undefined &&
-        pictureUrls.length !== 0 && (
-          <>
-            <Divider />
-            {/* <h3 style={{ marginBottom: 12 }}>Your estimated iPhone value.</h3>
-            <h1>
-              <Price amt={price} />
-            </h1> */}
-            <ButtonList style={{ marginTop: 24 }} center>
-              <RoundedButton type="primary" onClick={onSubmit}>
-                Continue
-              </RoundedButton>
-            </ButtonList>
-          </>
-        )}
+      <Divider />
+      {/* <h3 style={{ marginBottom: 12 }}>Your estimated iPhone value.</h3>
+          <h1>
+            <Price amt={price} />
+          </h1> */}
+      <ButtonList style={{ marginTop: 24 }} center>
+        <Tooltip
+          title={
+            isComplete
+              ? 'Pick device you want to trade for'
+              : 'Please fill out all fields'
+          }
+        >
+          <RoundedButton
+            type="primary"
+            onClick={onSubmit}
+            disabled={!isComplete}
+          >
+            Continue
+          </RoundedButton>
+        </Tooltip>
+      </ButtonList>
     </Container>
   );
 };
