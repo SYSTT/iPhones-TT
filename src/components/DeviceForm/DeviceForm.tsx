@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Alert, Icon, Select, Divider, Input, Tooltip } from 'antd';
 
-import { useTradeDevices, Device } from '../../modules/trade-devices';
+import { useTradeDevices } from '../../modules/trade-devices';
+import { useStock, Model } from '../../modules/stock';
 
 import {
   Heading,
@@ -9,6 +10,7 @@ import {
   OptionButton,
   ButtonList,
   RoundedButton,
+  dedup,
 } from '../../utils';
 import { Container } from './elements';
 import { TradeItem } from '../../modules/orders';
@@ -37,8 +39,9 @@ interface Props {
 }
 
 const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
-  const { tradeDevices, getTradeDeviceBySlug } = useTradeDevices();
-  const [device, setDevice] = useState<Device>();
+  const { tradeDevices } = useTradeDevices();
+  const { getModelBySlug } = useStock();
+  const [device, setDevice] = useState<Model>();
   const [memory, setMemory] = useState<number>();
   const [color, setColor] = useState<Color>();
   const [price, setPrice] = useState<number>();
@@ -49,7 +52,7 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
 
   function onChangeDevice(deviceSlug: string) {
     if (deviceSlug !== 'unseleced') {
-      setDevice(getTradeDeviceBySlug(deviceSlug));
+      setDevice(getModelBySlug(deviceSlug));
     }
   }
 
@@ -118,7 +121,7 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
             How many GBs is your iPhone?
           </h3>
           <OptionList cols={2}>
-            {device.options.map(opt => (
+            {dedup(device.configurations, config => config.memory).map(opt => (
               <OptionButton
                 key={opt.memory}
                 selected={memory !== undefined && memory === opt.memory}
@@ -140,14 +143,14 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
             What Colour is your iPhone?
           </h3>
           <OptionList cols={2}>
-            {device.colors.map(colorOption => (
+            {dedup(device.configurations, config => config.color).map(opt => (
               <OptionButton
-                key={colorOption}
-                selected={color !== undefined && color === colorOption}
+                key={opt.color}
+                selected={color !== undefined && color === opt.color}
                 type="ghost"
-                onClick={() => setColor(colorOption)}
+                onClick={() => setColor(opt.color)}
               >
-                {colorOption}
+                {opt.color}
               </OptionButton>
             ))}
           </OptionList>
