@@ -128,7 +128,7 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
                 type="ghost"
                 onClick={() => {
                   setMemory(opt.memory);
-                  setPrice(opt.price);
+                  setPrice(device.configurations[0].price);
                 }}
               >
                 {opt.memory}GB
