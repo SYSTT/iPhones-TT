@@ -1,4 +1,4 @@
-import { ProfileInfoValues as Profile } from './types';
+import { ProfileInfoValues } from './types';
 
 export { default } from './ProfileInfoForm';
-export type Profile = Profile;
+export type Profile = ProfileInfoValues;
