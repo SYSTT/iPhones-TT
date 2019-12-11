@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { Alert, Icon, Select, Divider, Input, Tooltip } from 'antd';
+import {
+  Alert,
+  Icon,
+  Select,
+  Divider,
+  Input,
+  Tooltip,
+  InputNumber,
+} from 'antd';
 
 import { useTradeDevices } from '../../modules/trade-devices';
 import { useStock, Model } from '../../modules/stock';
@@ -46,8 +54,8 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
   const [color, setColor] = useState<Color>();
   const [price, setPrice] = useState<number>();
   const [issues, setIssues] = useState<string>();
-  const [batteryHealth, setBatteryHealth] = useState<string>();
-  const [rating, setRating] = useState<string>();
+  const [batteryHealth, setBatteryHealth] = useState<number>();
+  const [rating, setRating] = useState<number>();
   const [pictureUrls, setPictureUrls] = useState<string[]>([]);
 
   function onChangeDevice(deviceSlug: string) {
@@ -76,8 +84,8 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
       color,
       price,
       issues,
-      batteryHealth: +batteryHealth,
-      rating: +rating,
+      batteryHealth: batteryHealth,
+      rating: rating,
       pictureUrls,
     });
   }
@@ -170,27 +178,24 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
           <h3 style={{ marginBottom: 12, marginTop: 24 }}>
             What’s the Battery Health on your iPhone?
           </h3>
-          <Input
-            type="number"
+          <InputNumber
             placeholder="Settings &gt; Battery &gt; Battery Health"
-            value={batteryHealth}
-            onChange={e =>
-              setBatteryHealth(
-                +e.target.value <= 100 ? e.target.value : batteryHealth,
-              )
-            }
+            min={0}
+            max={100}
+            defaultValue={batteryHealth}
+            onChange={newBatteryHealth => {
+              setBatteryHealth(newBatteryHealth);
+            }}
           />
           <h3 style={{ marginBottom: 12, marginTop: 24 }}>
             How would you rate your iPhone out of 10?
           </h3>
-          <Input
-            type="number"
-            suffix="/ 10"
+          <InputNumber
             placeholder="1 - 10"
-            value={rating}
-            onChange={e =>
-              setRating(+e.target.value <= 10 ? e.target.value : rating)
-            }
+            min={1}
+            max={10}
+            defaultValue={rating}
+            onChange={newRating => setRating(newRating)}
           />
           <h3 style={{ marginBottom: 12, marginTop: 24 }}>
             Upload pictures of your iPhone clearly showing off the screen & all
