@@ -46,8 +46,8 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
   const [color, setColor] = useState<Color>();
   const [price, setPrice] = useState<number>();
   const [issues, setIssues] = useState<string>();
-  const [batteryHealth, setBatteryHealth] = useState<number>();
-  const [rating, setRating] = useState<number>();
+  const [batteryHealth, setBatteryHealth] = useState<string>();
+  const [rating, setRating] = useState<string>();
   const [pictureUrls, setPictureUrls] = useState<string[]>([]);
 
   function onChangeDevice(deviceSlug: string) {
@@ -76,8 +76,8 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
       color,
       price,
       issues,
-      batteryHealth,
-      rating,
+      batteryHealth: +batteryHealth,
+      rating: +rating,
       pictureUrls,
     });
   }
@@ -176,7 +176,7 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
             value={batteryHealth}
             onChange={e =>
               setBatteryHealth(
-                +e.target.value <= 100 ? +e.target.value : batteryHealth,
+                +e.target.value <= 100 ? e.target.value : batteryHealth,
               )
             }
           />
@@ -189,7 +189,7 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
             placeholder="1 - 10"
             value={rating}
             onChange={e =>
-              setRating(+e.target.value <= 10 ? +e.target.value : rating)
+              setRating(+e.target.value <= 10 ? e.target.value : rating)
             }
           />
           <h3 style={{ marginBottom: 12, marginTop: 24 }}>
