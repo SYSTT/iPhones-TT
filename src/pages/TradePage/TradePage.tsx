@@ -22,12 +22,14 @@ const locationToTradeSlug = (location: Location) => {
   return pathParts[1];
 };
 
-const TradePage: React.FC<
-  RouteComponentProps<{}, {}, { tradeItem?: TradeItem & { price: number } }>
-> = ({ location, match, history }) => {
+const TradePage: React.FC<RouteComponentProps<
+  {},
+  {},
+  { tradeItem?: TradeItem & { price: number } }
+>> = ({ location, match, history }) => {
   const currentStep = locationToStep(location);
   const [tradeItem, setTradeItem] = useState<
-    TradeItem & { price: number } | undefined
+    (TradeItem & { price: number }) | undefined
   >(location.state ? location.state.tradeItem : undefined);
   const [tradeDeviceOption, setTradeDeviceOption] = useState<DeviceOption>();
   const { getModelBySlug } = useStock();
@@ -74,7 +76,7 @@ const TradePage: React.FC<
           render={routeComponentProps => (
             <Customize
               allowAddToCart={false}
-              tradeAmt={tradeDeviceOption ? tradeDeviceOption.price : undefined}
+              tradeAmt={tradeDeviceOption?.price}
               tradeItem={tradeItem}
               {...routeComponentProps}
             />
@@ -82,11 +84,7 @@ const TradePage: React.FC<
         />
         <Route
           path={`${match.path}/:tradeSlug`}
-          render={() => (
-            <Catalogue
-              tradeAmt={tradeDeviceOption ? tradeDeviceOption.price : undefined}
-            />
-          )}
+          render={() => <Catalogue tradeAmt={tradeDeviceOption?.price} />}
         />
         <Route
           path={`${match.path}`}
