@@ -175,7 +175,9 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
             placeholder="Settings &gt; Battery &gt; Battery Health"
             value={batteryHealth}
             onChange={e =>
-              setBatteryHealth(e.target.value ? +e.target.value : batteryHealth)
+              setBatteryHealth(
+                +e.target.value <= 100 ? +e.target.value : batteryHealth,
+              )
             }
           />
           <h3 style={{ marginBottom: 12, marginTop: 24 }}>
@@ -186,7 +188,9 @@ const DeviceForm: React.FC<Props> = ({ setTradeItem }) => {
             suffix="/ 10"
             placeholder="1 - 10"
             value={rating}
-            onChange={e => setRating(e.target.value ? +e.target.value : rating)}
+            onChange={e =>
+              setRating(+e.target.value <= 10 ? +e.target.value : rating)
+            }
           />
           <h3 style={{ marginBottom: 12, marginTop: 24 }}>
             Upload pictures of your iPhone clearly showing off the screen & all
