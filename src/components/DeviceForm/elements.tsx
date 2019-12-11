@@ -6,4 +6,9 @@ export const Container = styled.div`
   .ant-select {
     display: block;
   }
+
+  .ant-input-number {
+    display: block;
+    width: 100%;
+  }
 `;
